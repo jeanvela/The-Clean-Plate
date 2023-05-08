@@ -1,0 +1,161 @@
+{
+  "products": [
+    {
+      "id":1,
+      "name":"almendra",
+      "cantidad":"1kg",
+      "category":"frutos secos",
+      "image":"/logo.jpg",
+      "price":"300$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":1
+
+    },
+    {
+      "id":2,
+      "name":"avellanas",
+      "cantidad":"1kg",
+      "category":"frutos secos",
+      "image":"/logo.jpg",
+      "price":"200$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":1
+
+    },
+    {
+      "id":3,
+      "name":"aceite oliva",
+      "cantidad":"1kg",
+      "category":"aceites",
+      "image":"/logo.jpg",
+      "price":"100$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":11
+
+    },
+    {
+      "id":4,
+      "name":"mantequa de mani",
+      "cantidad":"500kg",
+      "category":"untables",
+      "image":"/logo.jpg",
+      "price":"300$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":14
+
+    },
+    {
+      "id":5,
+      "name":"copos de maiz",
+      "cantidad":"1kg",
+      "category":"desayuno",
+      "image":"/logo.jpg",
+      "price":"300$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":9
+
+
+    },
+    {
+      "id":6,
+      "name":"nuez",
+      "cantidad":"1kg",
+      "category":"frutos secos",
+      "image":"/logo.jpg",
+      "price":"300$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":1
+
+    },
+    {
+      "id":7,
+      "name":"mermelada",
+      "cantidad":"1kg",
+      "category":"untables",
+      "image":"/logo.jpg",
+      "price":"50$",
+      "description":" Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi animi, libero dolorem fuga ducimus aut possimus corporis? Incidunt, consequuntur facere, nemo laborum culpa iste nesciunt itaque modi sequi facilis dicta. ",
+      "stock": true,
+      "categoryId":14
+
+    }
+
+  ],
+  "categories":[
+    {
+     "name": "Frutos secos",
+     "id":1,
+     "image":"/logo.jpg"
+    },
+    {
+      "name":"Leches",
+      "id":2,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"especias",
+      "id":3,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"infusiones",
+      "id":4,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"semillas",
+      "id":5,
+      "image":"/logo.jpg"
+    },{
+      "name":"snacks",
+      "id":6,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"harinas",
+      "id":7,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"dulces",
+      "id":8,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"cereales",
+      "id":9,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"harinas",
+      "id":10,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"aceites",
+      "id":11,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"legumbres",
+      "id":12,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"Bebidas",
+      "id":13,
+      "image":"/logo.jpg"
+    },
+    {
+      "name":"untables",
+      "id":14,
+      "image":"/logo.jpg"
+    }
+  ]
+}
