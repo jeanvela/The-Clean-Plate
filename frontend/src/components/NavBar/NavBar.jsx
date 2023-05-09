@@ -1,9 +1,10 @@
-function NavBar(){
-    return (
-        <>  
-        <h1>hola</h1>
-        </>
-    )
+
+function NavBar() {
+  return <div>NavBar</div>;
 }
 
 export default NavBar;
+
+
+
+
