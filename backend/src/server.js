@@ -1,5 +1,13 @@
-const express = require('express')
+const express = require('express');
+const router = require('./routes/index');
+const server = express();
+const cors = require('cors')
 
-const server = express()
+server.use(express.json());
+server.use(express.urlencoded({extended:true}))
+server.use(cors())
 
-module.exports= server
+
+server.use('/', router)
+
+module.exports = server;
