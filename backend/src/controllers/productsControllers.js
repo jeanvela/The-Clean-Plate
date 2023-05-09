@@ -1,4 +1,4 @@
-
+const Product = require('../models/Products')
 
 const createProduct =  async (id, name, amount, category, image, price, description, stock, categoryId) => {
     
