@@ -4,11 +4,11 @@ const {createProduct, getProductById, getAllProducts, getProductByName} = requir
 const createProductsHandler = async(req, res) => {
 
 
-    const {id, name, amount, category, image, price, description, stock} = req.body;
+    const {name, price, category, description, stock} = req.body;
 
     try{
 
-        const newProduct = await createProduct(id, name, amount, category, image, price, description, stock, categoryId)
+        const newProduct = await createProduct(name, price, category, description, stock)
 
         res.status(201).json(newProduct)
 
