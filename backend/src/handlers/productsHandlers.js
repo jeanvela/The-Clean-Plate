@@ -1,5 +1,5 @@
 const {createProduct, getProductById, getAllProducts, getProductByName} = require('../controllers/productsControllers')
-
+const Category = require('../models/Category')
 
 const createProductsHandler = async(req, res) => {
 
@@ -9,6 +9,17 @@ const createProductsHandler = async(req, res) => {
     try{
 
         const newProduct = await createProduct(name, price, category, description, stock)
+
+        for (const categoryName of category) {
+            let categories = await Category.findOne({ name: categoryName });
+            
+            if (categories) {
+              newProduct.category.push(categories.id);
+            }
+          }
+      
+          await newProduct.save();
+
 
         res.status(201).json(newProduct)
 
