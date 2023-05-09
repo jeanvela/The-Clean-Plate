@@ -6,17 +6,18 @@ const Home = () => {
     <div>
       {/* <NavBar/> */}
 
-      <div className="border-t-4 border-gray-200 my-5"></div>
-      <div className="max-w-6xl mx-auto">
-        <img
-          className="mx-auto max-w-full max-h-200 "
-          src="https://via.placeholder.com/1280x400.png"
-          alt="Sample Image"
-        />
+      <div className="h-screen">
+      {/* <div className="border-t-4 border-gray-200 my-5"></div> */}
+        <div className="max-w-6xl mx-auto">
+          <img
+            className="max-w-full rounded-md"
+            src="https://www.dieteticastomy.com.ar/content/img/productos/cover/general.jpg"
+            alt="Sample Image"
+          />
+        </div>
+        <div className="border-t-4 border-gray-200 my-5"></div>
       </div>
-
-
-
+      
       <Footer />
     </div>
   );

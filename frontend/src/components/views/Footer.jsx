@@ -2,7 +2,7 @@ import styles from "../../styles/footer.module.css";
 
 const Footer = () => {
   return (
-    <footer id={styles.footer} className="fixed bottom-0 w-full">
+    <footer id={styles.footer} className="w-full">
       <div className="container mx-auto px-4">
         <div id={styles.textColor} className="py-4">
           <ul className="flex justify-center space-x-12">
