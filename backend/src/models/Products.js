@@ -20,6 +20,10 @@ const productSchema = new Schema({
         type: Boolean,
         default: true
     },
+    image: {
+        type: String,
+        require: true
+    }
 })
 
 module.exports = model('product', productSchema)
