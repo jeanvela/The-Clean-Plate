@@ -8,13 +8,13 @@ const createCategory = async (name) => {
     return await newCategory.save()
 }
 
-const getCategory = async () => {
+const getAllCategories = async () => {
     const allCategory = await Category.find()
     return allCategory
 }
 
 module.exports = {
     createCategory,
-    getCategory
+    getAllCategories,
 
 }
