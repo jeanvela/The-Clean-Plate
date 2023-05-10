@@ -19,7 +19,7 @@ const Home = () => {
         <div className="border-t-4 border-gray-200 my-5"></div>
       </div>
       {/* hola */}
-      
+      {/* as */}
       <Footer />
     </div>
   );
