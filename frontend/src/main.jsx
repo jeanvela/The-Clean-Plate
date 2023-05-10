@@ -7,9 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { productsApi } from "./features/productsApi";
 import NavBar from "../src/components/NavBar/NavBar";
+import productName from "./features/productsByNameSilce";
+import Footer from "./components/views/Footer.jsx";
 
 const store = configureStore({
-  reducer: { [productsApi.reducerPath]: productsApi.reducer },
+  reducer: { [productsApi.reducerPath]: productsApi.reducer, productName },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 });
@@ -20,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <NavBar />
         <App />
+        <Footer/>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
