@@ -1,5 +1,6 @@
 import "./App.css";
 import Home from "../src/components/views/Home";
+import FormProdutcs from "./components/formProducts/FormProducts";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <div>
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/createproduct" element={<FormProdutcs />} />
         </Routes>
       </div>
     </>
