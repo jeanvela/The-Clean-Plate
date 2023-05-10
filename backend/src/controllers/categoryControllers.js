@@ -1,3 +1,4 @@
+
 const Category = require('../models/Category')
 
 const createCategory = async (name) => {
@@ -15,4 +16,5 @@ const getCategory = async () => {
 module.exports = {
     createCategory,
     getCategory
+
 }
