@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import styles from "../../styles/footer.module.css";
 
 const Footer = () => {
@@ -8,13 +8,19 @@ const Footer = () => {
         <div id={styles.textColor} className="py-4">
           <ul className="flex justify-center space-x-12">
             <li>
-              <a href="#">About</a>
+              <Link to="About">
+                About
+              </Link>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <Link to='Contact'>
+                Contact
+              </Link>
             </li>
             <li>
-              <a href="#">Products</a>
+              <Link to='categories/products'>
+                Products
+              </Link>
             </li>
           </ul>
         </div>
@@ -28,6 +34,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
-

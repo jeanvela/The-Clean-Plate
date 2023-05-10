@@ -4,11 +4,11 @@ const Category = require('../models/Category')
 const createProductsHandler = async(req, res) => {
 
 
-    const {name, price, category, description, stock} = req.body;
+    const {name, price, category, description, stock, image} = req.body;
 
     try{
 
-        const newProduct = await createProduct(name, price, category, description, stock)
+        const newProduct = await createProduct(name, price, category, description, stock, image)
 
         for (const categoryName of category) {
             let categories = await Category.findOne({ name: categoryName });
