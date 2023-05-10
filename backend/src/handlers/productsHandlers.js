@@ -60,7 +60,7 @@ const getProductsHandler = async(req, res) => {
     
         if(name) {
             const product = products.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
-            product.length ? res.status(200).json(product) : res.status(400).json({'message' : 'Ups, product Not Found'})
+            product.length ? res.status(200).json(product) : res.status(400).json({'message' : 'Ups, product Not Found, try again'})
         } else {
 
             res.status(200).json(products)
