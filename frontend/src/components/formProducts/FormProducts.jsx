@@ -3,7 +3,6 @@ import Footer from "../views/Footer";
 const FormProdutcs = () => {
   return (
     <div>
-      {/* <NavBar></NavBar> */}
 
       <section className="flex items-center justify-center flex-col h-screen">
         <form>
