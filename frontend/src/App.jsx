@@ -12,11 +12,12 @@ function App() {
       <div>
         <Routes>
           <Route exact path="/" element={<Home />} />
+
           <Route exact path="/createproduct" element={<FormProdutcs />} />
           <Route path="/categories/products" element={<Cards />} />
           <Route path="/categories/products/:id" element={<CardDetail />} />
           <Route path="/categories" element={<Categories />} />
-
+      
         </Routes>
       </div>
     </>
