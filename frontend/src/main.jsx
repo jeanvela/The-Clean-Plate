@@ -7,9 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { productsApi } from "./features/productsApi";
 import NavBar from "../src/components/NavBar/NavBar";
+import productName from "./features/productsByNameSilce";
 
 const store = configureStore({
-  reducer: { [productsApi.reducerPath]: productsApi.reducer },
+  reducer: { [productsApi.reducerPath]: productsApi.reducer, productName },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 });
