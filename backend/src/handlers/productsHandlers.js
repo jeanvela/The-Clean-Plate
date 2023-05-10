@@ -8,7 +8,7 @@ const createProductsHandler = async(req, res) => {
 
     try{
 
-        const newProduct = await createProduct(name, price, category, description, stock, Image)
+        const newProduct = await createProduct(name, price, category, description, stock, image)
 
         for (const categoryName of category) {
             let categories = await Category.findOne({ name: categoryName });
