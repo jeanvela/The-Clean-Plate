@@ -23,6 +23,10 @@ const productSchema = new Schema({
     image: {
         type: String,
         require: true
+    },
+    origin: {
+        type: String,
+        require: true
     }
 })
 
