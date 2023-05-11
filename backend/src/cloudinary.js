@@ -10,7 +10,6 @@ cloudinary.config({
 
 // !--------------------------------
 const uploadImage = async (filePath) => {
-    console.log(filePath)
     return await cloudinary.uploader.upload(filePath, { // * cuando suba la imagen que lo guarde en la carpeta products
         folder: 'products'
     })
