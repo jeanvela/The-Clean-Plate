@@ -20,10 +20,10 @@ const productSchema = new Schema({
         type: Boolean,
         default: true
     },
-    image: {
-        type: String,
-        require: true
-    }
+    // image: {
+    //     public_id: String,
+    //     secure_url: String
+    // }
 })
 
 module.exports = model('product', productSchema)
