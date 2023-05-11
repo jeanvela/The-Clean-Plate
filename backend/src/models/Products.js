@@ -25,8 +25,7 @@ const productSchema = new Schema({
         require: true
     },
     image: {
-        public_id: String,
-        secure_url: String
+        type: String
     }
 })
 
