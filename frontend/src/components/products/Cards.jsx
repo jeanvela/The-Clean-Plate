@@ -3,7 +3,9 @@ import { useGetAllProductsQuery } from "../../features/productsApi";
 
 function Cards() {
   const { data: cards } = useGetAllProductsQuery();
-
+  {
+    console.log(cards);
+  }
   return (
     <div className=" grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3">
       {cards?.length
@@ -15,7 +17,6 @@ function Cards() {
                 category={card.category}
                 description={card.description}
                 price={card.price}
-                cantidad={card.cantidad}
                 id={card.id}
               />
             </ul>

@@ -12,7 +12,11 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/categories/products" element={<Cards />} />
-          <Route path="/categories/products/:id" element={<CardDetail />} />
+          <Route
+            path="/categories/products/:id
+"
+            element={<CardDetail />}
+          />
           <Route path="/categories" element={<Categories />} />
         </Routes>
       </div>

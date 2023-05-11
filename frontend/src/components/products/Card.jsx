@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
-function Card({ id, name, cantidad, image, price, description, stock }) {
+function Card({ id, name, image, price, description, stock, category }) {
+  // const id = ObjectId(_id).valueOf();
+  {
+    console.log(id);
+  }
   return (
     <div className="max-w-md mx-auto bg-amber-50 rounded-xl shadow-md overflow-hidden  h-48 hover/edit:translate-x-0.5  hover/edit:bg-stone-50">
       <div className="md:flex">
@@ -18,19 +22,19 @@ function Card({ id, name, cantidad, image, price, description, stock }) {
           </div>
 
           <p className="block mt-1  text-lg leading-tight font-medium text-black ">
-            precio:
+            price:
             {price}
           </p>
 
-          <p className="mt-1 text-black text-lg ">cantidad:{cantidad}</p>
+          {/* <p className="mt-1 text-black text-lg ">category:{category}</p> */}
           <Link to={`/categories/products/${id}`}>
             <div className=" text-white cursor-pointer p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-1">
               Detail
             </div>
           </Link>
-          <button className=" text-white cursor-pointer p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-1  ">
+          <div className=" text-white cursor-pointer p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-1  ">
             Add To Cart
-          </button>
+          </div>
         </div>
       </div>
     </div>
