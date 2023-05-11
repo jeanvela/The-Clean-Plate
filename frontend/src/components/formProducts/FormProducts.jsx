@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useGetCategoriesQuery } from "../../features/productsApi";
 import axios from "axios";
-import {validate} from "./validations";
+import { validate } from "./validations";
 
 const CreateProduct = () => {
-  const categoriesForm = useGetCategoriesQuery();
+  const categoriesQuery = useGetCategoriesQuery();
   const [create, setCreate] = useState(false);
   const initialState = {
     name: "",
     price: "",
-    //categories: [],
+    category: [],
     description: "",
     stock: "",
     imageURL: "",
@@ -18,44 +18,67 @@ const CreateProduct = () => {
   const [errors, setErrors] = useState({ form: "complete form" });
   const [completed, setCompleted] = useState(initialState);
 
-  const finalForm = {
-    name: completed.name,
-    price: completed.price,
-    //categories: completed.categories.map((item) => item.id),
-    description: completed.description,
-    stock: completed.stock,
-    imageURL: completed.imageURL,
-  };
-
-  useEffect(() => {}, [categoriesForm.data]);
-
-
-
   const handleChange = (e) => {
     setCompleted({ ...completed, [e.target.name]: e.target.value });
-    setErrors(validate({
+    const validationErrors = validate({
       ...completed,
       [e.target.name]: e.target.value,
-    }));
+    });
+    setErrors({ ...errors, [e.target.name]: validationErrors[e.target.name] });
   };
-  
+
+  const handleCategories = (e) => {
+    const selectedCategory = categoriesQuery.data.find(
+      (category) => category.name === e.target.value
+    );
+    if (
+      !completed.category.some(
+        (category) => category.id === selectedCategory.id
+      )
+    ) {
+      setCompleted({
+        ...completed,
+        category: [...completed.category, selectedCategory],
+      });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate(completed);
     if (Object.keys(validationErrors).length === 0) {
-      axios.post("/products", finalForm);
-      setCreate(!create);
-      setCompleted(initialState);
+      const finalForm = {
+        name: completed.name,
+        price: completed.price,
+        category: completed.category.map((item) => item.id),
+        description: completed.description,
+        stock: completed.stock,
+        imageURL: completed.imageURL,
+      };
+      axios
+        .post("http://localhost:3001/products", JSON.stringify(finalForm), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          setCreate(!create);
+          setCompleted(initialState);
+          alert("Product created successfully!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       setErrors(validationErrors);
     }
   };
 
   return (
-    <div>
+    <div className="max-w-lg mx-auto">
       <section className="flex items-center justify-center flex-col h-screen">
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-wrap -mx-3 mb-6">
+        <form onSubmit={handleSubmit} className="w-full">
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Name:
             </label>
@@ -68,10 +91,10 @@ const CreateProduct = () => {
               value={completed.name}
               onChange={handleChange}
             />
-            {errors.name ? <label>{errors.name}</label> : null}
+            {errors.name && <span className="text-red-500">{errors.name}</span>}
           </div>
 
-          <div className="relative flex flex-wrap -mx-3 mb-6">
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Price:
             </label>
@@ -83,22 +106,30 @@ const CreateProduct = () => {
               value={completed.price}
               onChange={handleChange}
             />
-            {errors.price ? <label>{errors.price}</label> : null}
+            {errors.price && (
+              <span className="text-red-500">{errors.price}</span>
+            )}
           </div>
-          <div className="relative flex flex-wrap -mx-3 mb-6">
+
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Categories:
             </label>
             <select
+              name="category"
+              onChange={handleCategories}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              name="categories"
             >
-              <option>opcion 1</option>
-              <option>opcion 2</option>
+              {categoriesQuery.data &&
+                categoriesQuery.data.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
             </select>
           </div>
 
-          <div className="flex flex-wrap -mx-3 mb-6 ">
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Description:
             </label>
@@ -110,26 +141,12 @@ const CreateProduct = () => {
               value={completed.description}
               onChange={handleChange}
             />
-            {errors.description ? <label>{errors.description}</label> : null}
+            {errors.description && (
+              <span className="text-red-500">{errors.description}</span>
+            )}
           </div>
 
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Stock:
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              placeholder="Stock..."
-              type="number"
-              id="stock"
-              name="stock"
-              value={completed.stock}
-              onChange={handleChange}
-            />
-            {errors.stock ? <label>{errors.stock}</label> : null}
-          </div>
-
-          <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Image:
             </label>
@@ -142,7 +159,23 @@ const CreateProduct = () => {
               value={completed.imageURL}
               onChange={handleChange}
             />
-            {errors.imageURL ? <label>{errors.imageURL}</label> : null}
+            {errors.imageURL ? (
+              <label className="text-red-500">{errors.imageURL}</label>
+            ) : null}
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Stock:
+            </label>
+            <input
+              className="ml-2 mb-2"
+              placeholder="Stock..."
+              type="checkbox"
+              id="stock"
+              name="stock"
+              value={completed.stock}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="flex items-center justify-center">
