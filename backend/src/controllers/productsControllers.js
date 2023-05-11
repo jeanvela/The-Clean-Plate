@@ -2,14 +2,15 @@ const Product = require('../models/Products')
 const {uploadImage} = require('../cloudinary')
 const fs = require('fs-extra')
 
-const createProduct =  async (name, price, category, description, stock ,req) => {
+const createProduct =  async (name, price, category, description, stock, origin, req) => {
     
     const newProduct = new Product({
       name,
       price,
       category,
       description,
-      stock
+      stock,
+      origin
     });
     console.log(req.files)
     if(req.files?.image) {
