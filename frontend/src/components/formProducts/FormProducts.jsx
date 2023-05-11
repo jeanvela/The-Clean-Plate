@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useGetCategoriesQuery } from "../../features/productsApi";
+import { useGetCategoryQuery } from "../../features/productsApi";
 import axios from "axios";
 import { validate } from "./validations";
 
 const CreateProduct = () => {
-  const categoriesQuery = useGetCategoriesQuery();
+  const categoriesQuery = useGetCategoryQuery();
   const [create, setCreate] = useState(false);
   const initialState = {
     name: "",
