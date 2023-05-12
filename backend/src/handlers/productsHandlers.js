@@ -9,6 +9,8 @@ const Category = require("../models/Category");
 const createProductsHandler = async (req, res) => {
   const { name, price, category, description, stock, image } = req.body;
 
+  const { name, price, category, description, stock, origin } = req.body;
+
   try {
     const newProduct = await createProduct(
       name,
@@ -16,7 +18,8 @@ const createProductsHandler = async (req, res) => {
       category,
       description,
       stock,
-      image
+      origin,
+      req
     );
 
     for (const categoryName of category) {

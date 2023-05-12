@@ -1,4 +1,6 @@
 const Product = require("../models/Products");
+const { uploadImage } = require("../cloudinary");
+const fs = require("fs-extra");
 
 const createProduct = async (
   name,
@@ -6,17 +8,26 @@ const createProduct = async (
   category,
   description,
   stock,
-  image
+  origin,
+  req
 ) => {
+  let result;
+  if (req.files && req.files.image) {
+    result = await uploadImage(req.files.image.tempFilePath);
+  }
+
   const newProduct = new Product({
     name,
     price,
     category,
     description,
     stock,
-    image,
+    origin,
+    image: result.secure_url,
   });
-
+  console.log(newProduct);
+  console.log(result);
+  await fs.unlink(req.files.image.tempFilePath);
   return await newProduct.save();
 };
 

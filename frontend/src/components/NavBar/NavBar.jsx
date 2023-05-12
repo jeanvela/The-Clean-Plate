@@ -25,7 +25,7 @@ function NavBar() {
             </a>
           </Link>
 
-          <Link to="/categories">
+          <Link to="categories/products">
             <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Products
             </a>
