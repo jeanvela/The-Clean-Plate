@@ -7,7 +7,6 @@ const {
 const Category = require("../models/Category");
 
 const createProductsHandler = async (req, res) => {
-  const { name, price, category, description, stock, image } = req.body;
 
   const { name, price, category, description, stock, origin } = req.body;
 
