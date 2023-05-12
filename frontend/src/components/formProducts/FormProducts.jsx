@@ -12,7 +12,8 @@ const CreateProduct = () => {
     category: [],
     description: "",
     stock: "",
-    imageURL: "",
+    image: "",
+    origin: "",
   };
 
   const [errors, setErrors] = useState({ form: "complete form" });
@@ -50,10 +51,11 @@ const CreateProduct = () => {
       const finalForm = {
         name: completed.name,
         price: completed.price,
-        category: completed.category.map((item) => item.id),
+        category: completed.category.map((item) => item.name),
         description: completed.description,
         stock: completed.stock,
-        imageURL: completed.imageURL,
+        image: completed.image,
+        origin: completed.origin,
       };
       axios
         .post("http://localhost:3001/products", JSON.stringify(finalForm), {
@@ -113,13 +115,32 @@ const CreateProduct = () => {
 
           <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
+              Origin:
+            </label>
+            <select
+              name="origin"
+              onChange={handleChange}
+              value={completed.origin}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            >
+              <option value="animal">Animal</option>
+              <option value="vegetal">Plant</option>
+            </select>
+          </div>
+
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Categories:
             </label>
             <select
               name="category"
               onChange={handleCategories}
+              value={completed.category
+                .map((category) => category.name)
+                .join(",")}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             >
+              <option value="">Choose</option>
               {categoriesQuery.data &&
                 categoriesQuery.data.map((category) => (
                   <option key={category.id} value={category.name}>
@@ -153,14 +174,14 @@ const CreateProduct = () => {
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               placeholder="Url..."
-              type="text"
-              id="imageURL"
-              name="imageURL"
-              value={completed.imageURL}
+              type="file"
+              id="image"
+              name="image"
+              value={completed.image}
               onChange={handleChange}
             />
-            {errors.imageURL ? (
-              <label className="text-red-500">{errors.imageURL}</label>
+            {errors.image ? (
+              <label className="text-red-500">{errors.image}</label>
             ) : null}
           </div>
           <div className="flex flex-wrap -mx-3 mb-6 w-full">
@@ -173,8 +194,10 @@ const CreateProduct = () => {
               type="checkbox"
               id="stock"
               name="stock"
-              value={completed.stock}
-              onChange={handleChange}
+              checked={completed.stock}
+              onChange={(e) =>
+                setCompleted({ ...completed, stock: e.target.checked })
+              }
             />
           </div>
 

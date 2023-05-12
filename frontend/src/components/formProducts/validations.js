@@ -13,9 +13,11 @@ if (!values.price) {
 if (!values.description) {
   errors.description = "Description is required";
 }
-
-if (!values.imageURL) {
-  errors.imageURL = "Image URL is required";
+if (!values.category) {
+  errors.category = 'Category is required';
+}
+if (!values.image) {
+  errors.image = "Image URL is required";
 }
 return errors;
 };
