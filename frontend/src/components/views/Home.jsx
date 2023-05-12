@@ -1,11 +1,7 @@
 
-// import NavBar from "../NavBar/NavBar";
-import Footer from "./Footer";
-
 const Home = () => {
   return (
     <div>
-      {/* <NavBar/> */}
 
       <div className="h-screen">
       {/* <div className="border-t-4 border-gray-200 my-5"></div> */}
@@ -18,14 +14,8 @@ const Home = () => {
         </div>
         <div className="border-t-4 border-gray-200 my-5"></div>
       </div>
-      {/* hola */}
-      
-      <Footer />
     </div>
   );
 };
 
-
 export default Home;
-
-

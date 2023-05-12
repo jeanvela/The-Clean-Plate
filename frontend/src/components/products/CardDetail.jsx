@@ -3,10 +3,9 @@ import { useParams } from "react-router-dom";
 
 function CardDetail() {
   const { id } = useParams();
-  // {
-  //   console.log(idProduct);
-  // }
+
   const { data: detail } = useGetProductDetailQuery(id) || {};
+
   return (
     <div className="">
       <div className="max-w-md mx-auto bg-amber-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl  h-full hover/edit:translate-x-0.5 hover/edit:bg-stone-50 mt-12 mb-6  ">

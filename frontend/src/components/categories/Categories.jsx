@@ -1,7 +1,7 @@
 import Category from "./Category";
 
 import { useGetCategoriesQuery } from "../../features/productsApi";
-// comentario
+
 function Categories() {
   const { data: categories } = useGetCategoriesQuery();
   return (

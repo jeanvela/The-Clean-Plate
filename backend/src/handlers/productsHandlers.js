@@ -7,7 +7,7 @@ const {
 const Category = require("../models/Category");
 
 const createProductsHandler = async (req, res) => {
-  const { name, price, category, description, stock } = req.body;
+  const { name, price, category, description, stock, image } = req.body;
 
   try {
     const newProduct = await createProduct(
@@ -15,7 +15,8 @@ const createProductsHandler = async (req, res) => {
       price,
       category,
       description,
-      stock
+      stock,
+      image
     );
 
     for (const categoryName of category) {
@@ -47,13 +48,21 @@ const getProductsByIdHandler = async (req, res) => {
 
 const getProductsHandler = async (req, res) => {
   const { name } = req.query;
-
   try {
-    const products = name
-      ? await getProductByName(name)
-      : await getAllProducts();
+    const products = await getAllProducts();
 
-    res.status(200).json(products);
+    if (name) {
+      const product = products.filter((el) =>
+        el.name.toLowerCase().includes(name.toLowerCase())
+      );
+      product.length
+        ? res.status(200).json(product)
+        : res
+            .status(400)
+            .json({ message: "Ups, product Not Found, try again" });
+    } else {
+      res.status(200).json(products);
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
