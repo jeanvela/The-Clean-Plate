@@ -9,9 +9,15 @@ import { productsApi } from "./features/productsApi";
 import NavBar from "../src/components/NavBar/NavBar";
 import productName from "./features/productsByNameSilce";
 import Footer from "./components/views/Footer.jsx";
-
+import products from "./features/productsSlice";
+import categories from "./features/categorySlice";
 const store = configureStore({
-  reducer: { [productsApi.reducerPath]: productsApi.reducer, productName },
+  reducer: {
+    [productsApi.reducerPath]: productsApi.reducer,
+    productName,
+    products,
+    categories,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 });
@@ -22,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <NavBar />
         <App />
-        <Footer/>
+        <Footer />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

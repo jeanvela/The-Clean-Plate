@@ -6,22 +6,22 @@ export const productsApi = createApi({
     baseUrl: "http://localhost:3001",
   }),
   endpoints: (builder) => ({
-    getAllProducts: builder.query({
-      query: () => "/products",
-    }),
+    // getAllProducts: builder.query({
+    //   query: () => "/products",
+    // }),
     getProductDetail: builder.query({
       query: (id) => `/products/${id}`,
     }),
-    getCategories: builder.query({
-      query: () => "/category",
-    }),
+    // getCategories: builder.query({
+    //   query: () => "/category",
+    // }),
     getProductCategory: builder.query({
       query: () => "/products",
-      // transformResponse: Response.filter((el) =>el.category === id  )
+      //   // transformResponse: Response.filter((el) =>el.category === id  )
     }),
-    getCategory: builder.query({
-      query: () => "/category",
-    }),
+    // getCategory: builder.query({
+    //   query: () => "/category",
+    // }),
   }),
 });
 
