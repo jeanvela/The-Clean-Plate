@@ -1,47 +1,37 @@
-const {
-  createProduct,
-  getProductById,
-  getAllProducts,
-  getProductByName,
-} = require("../controllers/productsControllers");
-const Category = require("../models/Category");
-const { uploadImage } = require("../cloudinary");
-const fs = require("fs-extra");
+const {createProduct, getProductById, getAllProducts, getProductByName} = require('../controllers/productsControllers')
+const Category = require('../models/Category')
+const {uploadImage} = require('../cloudinary');
+const  fs  = require('fs-extra');
 
-const createProductsHandler = async (req, res) => {
-  const { name, price, category, description, stock, origin } = req.body;
+const createProductsHandler = async(req, res) => {
 
-  try {
-    let image;
-    if (req.files?.image) {
-      image = await uploadImage(req.files.image.tempFilePath);
-    }
 
-    const newProduct = await createProduct(
-      name,
-      price,
-      category,
-      description,
-      stock,
-      origin,
-      image.secure_url
-    );
+    const {name, price, category, description, stock, origin} = req.body;
 
-    await fs.unlink(req.files.image.tempFilePath);
+    try{
+        const image = await uploadImage(req.file.path)
+        console.log(req.file)
+        console.log(image)
+        const newProduct = await createProduct(name, price, category, description, stock, origin, image.url)
 
-    for (const categoryName of category) {
-      let categories = await Category.findOne({ name: categoryName });
+        await fs.unlink(req.file.path)
 
-      if (categories) {
-        newProduct.category.push(categories.id);
-      }
-    }
+        for (const categoryName of category) {
+            let categories = await Category.findOne({ name: categoryName });
+            
+            if (categories) {
+              newProduct.category.push(categories.id);
+            }
+          }
+      
+          await newProduct.save();
 
-    await newProduct.save();
 
-    res.status(201).json(newProduct);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+        res.status(201).json(newProduct)
+
+    }catch(error){
+
+        res.status(400).json({error: error.message})
   }
 };
 
