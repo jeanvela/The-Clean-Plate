@@ -9,14 +9,12 @@ const createProductsHandler = async(req, res) => {
     const {name, price, category, description, stock, origin} = req.body;
 
     try{
-        let image;
-        if (req.files?.image) {
-            image = await uploadImage(req.files.image.tempFilePath)
-        }
+        const image = await uploadImage(req.file.path)
+        console.log(req.file)
+        console.log(image)
+        const newProduct = await createProduct(name, price, category, description, stock, origin, image.url)
 
-        const newProduct = await createProduct(name, price, category, description, stock, origin, image.secure_url)
-
-        await fs.unlink(req.files.image.tempFilePath)
+        await fs.unlink(req.file.path)
 
         for (const categoryName of category) {
             let categories = await Category.findOne({ name: categoryName });
