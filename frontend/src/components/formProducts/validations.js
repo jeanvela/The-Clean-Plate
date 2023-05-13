@@ -16,8 +16,8 @@ if (!values.description) {
 if (!values.category) {
   errors.category = 'Category is required';
 }
-if (!values.image) {
-  errors.image = "Image URL is required";
-}
+// if (!values.image) {
+//   errors.image = "Image URL is required";
+// }
 return errors;
 };

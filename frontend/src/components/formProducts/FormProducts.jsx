@@ -46,23 +46,34 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate(completed);
+    const finalForm = {
+      name: completed.name,
+      price: completed.price,
+      category: completed.category.map((item) => item.name),
+      description: completed.description,
+      stock: Number(completed.stock),
+      image: completed.image,
+      origin: completed.origin,
+    };
+    
+    const validationErrors = validate(finalForm);
+    
     if (Object.keys(validationErrors).length === 0) {
-      const finalForm = {
-        name: completed.name,
-        price: completed.price,
-        category: completed.category.map((item) => item.name),
-        description: completed.description,
-        stock: completed.stock,
-        image: completed.image,
-        origin: completed.origin,
-      };
+      const formData = new FormData();
+    
+      formData.append("name", finalForm.name);
+      formData.append("price", finalForm.price);
+      formData.append("description", finalForm.description);
+      formData.append("stock", finalForm.stock);
+      formData.append("origin", finalForm.origin);
+      formData.append("image", e.target.image.files[0]);
+    
+      finalForm.category.forEach((category) =>
+        formData.append("category", category)
+      );
+    
       axios
-        .post("http://localhost:3001/products", JSON.stringify(finalForm), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .post("http://localhost:3001/products", formData)
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);
@@ -102,7 +113,7 @@ const CreateProduct = () => {
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              type="Number"
+              type="number"
               name="price"
               placeholder="Product price..."
               value={completed.price}
