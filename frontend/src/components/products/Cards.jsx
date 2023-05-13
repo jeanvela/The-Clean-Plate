@@ -1,19 +1,19 @@
 import Card from "./Card";
-// import { useGetAllProductsQuery } from "../../features/productsApi";
 import { useEffect } from "react";
-import { getAllProducts } from "../../features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProductByName } from "../../features/productsByNameSilce";
 function Cards() {
   const dispatch = useDispatch();
-  const { allProducts } = useSelector((state) => state.products);
-  // const { data: cards } = useGetAllProductsQuery();
+  const { pruduct } = useSelector((state) => state.productName);
+  console.log(pruduct, "fhadhfsdgfhsk");
   useEffect(() => {
-    dispatch(getAllProducts());
+    const mov = "";
+    dispatch(fetchProductByName(mov));
   }, [dispatch]);
   return (
     <div className=" grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3">
-      {allProducts?.length
-        ? allProducts.map((card) => (
+      {pruduct?.length
+        ? pruduct.map((card) => (
             <ul key={card._id}>
               <Card
                 name={card.name}
@@ -25,7 +25,7 @@ function Cards() {
               />
             </ul>
           ))
-        : console.log({ allProducts })}
+        : console.log({ pruduct })}
     </div>
   );
 }
