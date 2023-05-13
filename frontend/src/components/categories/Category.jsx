@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Category({ name, image, id }) {
   return (
     <div className="  rounded-lg relative  ">
-      <Link to="/categories/products">
+      <Link to={`/categories/${name.toLowerCase()}`}>
         <img
           src={image}
           alt="image"

@@ -1,3 +1,4 @@
+
 const Product = require('../models/Products')
 
 const createProduct =  async (name, price, category, description, stock, origin, image) => {
@@ -16,39 +17,30 @@ const createProduct =  async (name, price, category, description, stock, origin,
 
 
 const getProductById = async (idProduct) => {
+  const productById = await Product.findById(idProduct);
 
-    const productById = await Product.findById(idProduct);
-
-    return productById;
-
-}
-
+  return productById;
+};
 
 const getAllProducts = async () => {
-    
-    const allProducts = await Product.find();
+  const allProducts = await Product.find();
 
-    return allProducts;
-
-}
-
+  return allProducts;
+};
 
 const getProductByName = async (name) => {
+  const productByName = await Product.find({
+    name: {
+      $regex: name,
+    },
+  });
 
-    const productByName = await Product.find({
-        name: {
-            $regex: name
-        }
-    });
-
-    return productByName;
-
-}
-
+  return productByName;
+};
 
 module.exports = {
-    createProduct,
-    getProductById,
-    getAllProducts,
-    getProductByName,
-}
+  createProduct,
+  getProductById,
+  getAllProducts,
+  getProductByName,
+};

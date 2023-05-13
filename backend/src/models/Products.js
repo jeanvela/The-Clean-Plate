@@ -17,8 +17,8 @@ const productSchema = new Schema({
         type: String
     },
     stock: {
-        type: Boolean,
-        default: true
+        type: Number,
+        require: true
     },
     origin: {
         type: String,

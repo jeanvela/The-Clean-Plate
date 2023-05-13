@@ -1,9 +1,18 @@
 import Category from "./Category";
-
-import { useGetCategoriesQuery } from "../../features/productsApi";
+import { useDispatch, useSelector } from "react-redux";
+// import { useGetCategoriesQuery } from "../../features/productsApi";
+import { useEffect } from "react";
+import { getAllCategories } from "../../features/categorySlice";
 
 function Categories() {
-  const { data: categories } = useGetCategoriesQuery();
+  const dispatch = useDispatch();
+  const { allCategories: categories } = useSelector(
+    (state) => state.categories
+  );
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
+  // const { data: categories } = useGetCategoriesQuery();
   return (
     <div className=" grid grid-cols-3 gap-3 mt-5 mx-3 ">
       {categories?.length
