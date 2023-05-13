@@ -9,13 +9,11 @@ import { productsApi } from "./features/productsApi";
 import NavBar from "../src/components/NavBar/NavBar";
 import productName from "./features/productsByNameSilce";
 import Footer from "./components/views/Footer.jsx";
-import products from "./features/productsSlice";
 import categories from "./features/categorySlice";
 const store = configureStore({
   reducer: {
     [productsApi.reducerPath]: productsApi.reducer,
     productName,
-    products,
     categories,
   },
   middleware: (getDefaultMiddleware) =>
