@@ -1,37 +1,42 @@
-const {createProduct, getProductById, getAllProducts, getProductByName} = require('../controllers/productsControllers')
-const Category = require('../models/Category')
-const {uploadImage} = require('../cloudinary');
-const  fs  = require('fs-extra');
+const {
+  createProduct,
+  getProductById,
+  getAllProducts,
+  getProductByName,
+} = require("../controllers/productsControllers");
+const Category = require("../models/Category");
+const { uploadImage } = require("../cloudinary");
 
-const createProductsHandler = async(req, res) => {
+const createProductsHandler = async (req, res) => {
 
+  const { name, price, category, description, stock, origin } = req.body;
 
-    const {name, price, category, description, stock, origin} = req.body;
+  try {
+    const image = await uploadImage(req.file.path);
 
-    try{
-        const image = await uploadImage(req.file.path)
-        console.log(req.file)
-        console.log(image)
-        const newProduct = await createProduct(name, price, category, description, stock, origin, image.url)
+    const newProduct = await createProduct(
+      name,
+      price,
+      category,
+      description,
+      stock,
+      origin,
+      image,
+    );
 
-        await fs.unlink(req.file.path)
+    for (const categoryName of category) {
+      let categories = await Category.findOne({ name: categoryName });
 
-        for (const categoryName of category) {
-            let categories = await Category.findOne({ name: categoryName });
-            
-            if (categories) {
-              newProduct.category.push(categories.id);
-            }
-          }
-      
-          await newProduct.save();
+      if (categories) {
+        newProduct.category.push(categories.id);
+      }
+    }
 
+    await newProduct.save();
 
-        res.status(201).json(newProduct)
-
-    }catch(error){
-
-        res.status(400).json({error: error.message})
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
