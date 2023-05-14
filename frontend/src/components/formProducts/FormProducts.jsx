@@ -20,7 +20,15 @@ const CreateProduct = () => {
   const [completed, setCompleted] = useState(initialState);
 
   const handleChange = (e) => {
-    setCompleted({ ...completed, [e.target.name]: e.target.value });
+    if (e.target.name === "stock") {
+      setCompleted({
+        ...completed,
+        [e.target.name]: parseInt(e.target.value, 10),
+      });
+    } else {
+      setCompleted({ ...completed, [e.target.name]: e.target.value });
+    }
+
     const validationErrors = validate({
       ...completed,
       [e.target.name]: e.target.value,
@@ -32,16 +40,30 @@ const CreateProduct = () => {
     const selectedCategory = categoriesQuery.data.find(
       (category) => category.name === e.target.value
     );
-    if (
-      !completed.category.some(
-        (category) => category.id === selectedCategory.id
-      )
-    ) {
+    const existingIndex = completed.category.findIndex(
+      (category) => category.id === selectedCategory.id
+    );
+    if (existingIndex === -1) {
+      // La categoría no se ha seleccionado antes, agregue el nuevo elemento
       setCompleted({
         ...completed,
         category: [...completed.category, selectedCategory],
       });
+    } else {
+      // La categoría ya se seleccionó antes, reemplace el elemento existente
+      const newCategoryArray = [...completed.category];
+      newCategoryArray.splice(existingIndex, 1, selectedCategory);
+      setCompleted({
+        ...completed,
+        category: newCategoryArray,
+      });
     }
+
+    const validationErrors = validate({
+      ...completed,
+      category: [...completed.category, selectedCategory],
+    });
+    setErrors({ ...errors, category: validationErrors.category });
   };
 
   const handleSubmit = (e) => {
@@ -49,29 +71,32 @@ const CreateProduct = () => {
     const finalForm = {
       name: completed.name,
       price: completed.price,
-      category: completed.category.map((item) => item.name),
+      category:
+        completed.category.length > 0
+          ? completed.category.map((item) => item.name)
+          : "",
       description: completed.description,
       stock: Number(completed.stock),
       image: completed.image,
       origin: completed.origin,
     };
-    
+
     const validationErrors = validate(finalForm);
-    
+
     if (Object.keys(validationErrors).length === 0) {
       const formData = new FormData();
-    
+
       formData.append("name", finalForm.name);
       formData.append("price", finalForm.price);
       formData.append("description", finalForm.description);
       formData.append("stock", finalForm.stock);
       formData.append("origin", finalForm.origin);
       formData.append("image", e.target.image.files[0]);
-    
+
       finalForm.category.forEach((category) =>
         formData.append("category", category)
       );
-    
+
       axios
         .post("http://localhost:3001/products", formData)
         .then(() => {
@@ -124,6 +149,21 @@ const CreateProduct = () => {
             )}
           </div>
 
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Stock:
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              placeholder="Stock..."
+              type="number"
+              id="stock"
+              name="stock"
+              checked={completed.stock}
+              onChange={handleChange}
+            />
+          </div>
+
           <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Origin:
@@ -134,9 +174,13 @@ const CreateProduct = () => {
               value={completed.origin}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             >
+              <option>Choose</option>
               <option value="animal">Animal</option>
-              <option value="vegetal">Plant</option>
+              <option value="plant">Plant</option>
             </select>
+            {errors.origin && (
+              <span className="text-red-500">{errors.origin}</span>
+            )}
           </div>
 
           <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
@@ -151,7 +195,7 @@ const CreateProduct = () => {
                 .join(",")}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             >
-              <option value="">Choose</option>
+              <option value="choose">Choose</option>
               {categoriesQuery.data &&
                 categoriesQuery.data.map((category) => (
                   <option key={category.id} value={category.name}>
@@ -159,6 +203,9 @@ const CreateProduct = () => {
                   </option>
                 ))}
             </select>
+            {errors.category && (
+              <span className="text-red-500">{errors.category}</span>
+            )}
           </div>
 
           <div className="flex flex-wrap -mx-3 mb-6 w-full">
@@ -194,22 +241,6 @@ const CreateProduct = () => {
             {errors.image ? (
               <label className="text-red-500">{errors.image}</label>
             ) : null}
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6 w-full">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Stock:
-            </label>
-            <input
-              className="ml-2 mb-2"
-              placeholder="Stock..."
-              type="checkbox"
-              id="stock"
-              name="stock"
-              checked={completed.stock}
-              onChange={(e) =>
-                setCompleted({ ...completed, stock: e.target.checked })
-              }
-            />
           </div>
 
           <div className="flex items-center justify-center">
