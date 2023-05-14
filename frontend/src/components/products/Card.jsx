@@ -19,10 +19,10 @@ function Card({ id, name, image, price, description, stock, category }) {
 
           <p className="block mt-1  text-lg leading-tight font-medium text-black ">
             price:
-            {price}
+            {price}$
           </p>
 
-          <p className="mt-1 text-black text-lg ">category:{category}</p>
+          <p className="mt-1 text-black text-lg ">category: {category}</p>
           <Link to={`/categories/products/${id}`}>
             <div className=" text-white cursor-pointer p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-1">
               Detail
