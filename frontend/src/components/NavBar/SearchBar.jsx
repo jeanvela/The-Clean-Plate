@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useDispatch } from "react-redux";
-import { fetchProductByName } from "../../features/productsByNameSilce";
+import { fetchProductByName } from "../../features/productsSlice";
 import "./searchBar.css";
 
 function SearchBar() {
