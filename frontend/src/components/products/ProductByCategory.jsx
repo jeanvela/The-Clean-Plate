@@ -6,7 +6,7 @@ import Card from "./Card";
 function ProductByCategory() {
   const { id } = useParams();
   const { data: element } = useGetProductCategoryQuery() || {};
-  const fil = element?.filter((el) => el.category == id);
+  const fil = element?.filter((el) => el.category[0].toLowerCase() == id);
 
   return (
     <div className=" grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3">
@@ -16,7 +16,7 @@ function ProductByCategory() {
               <Card
                 name={cat.name}
                 image={cat.image}
-                category={cat.category}
+                category={cat.category[0]}
                 description={cat.description}
                 price={cat.price}
                 id={cat._id}

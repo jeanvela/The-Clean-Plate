@@ -53,7 +53,7 @@ function Cards() {
             <Card
               name={card.name}
               image={card.image}
-              category={card.category}
+              category={card.category[0]}
               description={card.description}
               price={card.price}
               id={card._id}
