@@ -8,13 +8,22 @@ cloudinary.config({
     secure: true
 })
 
+
+
+  
+
 // !--------------------------------
 const uploadImage = async (filePath) => {
-    return await cloudinary.uploader.upload(filePath, { // * cuando suba la imagen que lo guarde en la carpeta products
-        folder: 'products'
-    })
-}
+    try {
+        const result = await cloudinary.uploader.upload(filePath, {
+            folder: 'products'
+        });
+        return result.secure_url;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
 
 module.exports = {
     uploadImage
-}
+};
