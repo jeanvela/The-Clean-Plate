@@ -6,6 +6,7 @@ const {
 } = require("../controllers/productsControllers");
 const Category = require("../models/Category");
 const { uploadImage } = require("../cloudinary");
+const fs = require('fs-extra')
 
 const createProductsHandler = async (req, res) => {
 
@@ -33,7 +34,7 @@ const createProductsHandler = async (req, res) => {
     }
 
     await newProduct.save();
-
+    await fs.unlink(req.file.path)
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(400).json({ error: error.message });
