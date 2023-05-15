@@ -8,7 +8,6 @@ const Category = require("../models/Category");
 const { uploadImage } = require("../cloudinary");
 
 const createProductsHandler = async (req, res) => {
-
   const { name, price, category, description, stock, origin } = req.body;
 
   try {
@@ -21,7 +20,7 @@ const createProductsHandler = async (req, res) => {
       description,
       stock,
       origin,
-      image,
+      image
     );
 
     for (const categoryName of category) {
@@ -33,7 +32,7 @@ const createProductsHandler = async (req, res) => {
     }
 
     await newProduct.save();
-
+    await fs.unLink(req.file.path);
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(400).json({ error: error.message });
