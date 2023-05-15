@@ -19,9 +19,9 @@ function NavBar() {
             </a>
           </Link>
 
-          <Link to="/about">
+          <Link to="/categories">
             <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              About
+              Categories
             </a>
           </Link>
 

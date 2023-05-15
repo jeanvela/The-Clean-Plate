@@ -19,7 +19,7 @@ function Card({ id, name, image, price, description, stock, category }) {
 
           <p className="block mt-1  text-lg leading-tight font-medium text-black ">
             price:
-            {price} $
+            {price}$
           </p>
 
           <p className="mt-1 text-black text-lg ">category: {category}</p>
