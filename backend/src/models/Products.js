@@ -17,12 +17,15 @@ const productSchema = new Schema({
         type: String
     },
     stock: {
-        type: Boolean,
+        type: Number,
         default: true
     },
-    image: {
+    origin: {
         type: String,
         require: true
+    },
+    image: {
+        type: String
     }
 })
 

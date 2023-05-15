@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-function Category({ name, image, id }) {
+function Category({ name, id }) {
   return (
     <div className="  rounded-lg relative  ">
-      <Link to="/categories/products">
+      <Link to={`/categories/${name.toLowerCase()}`}>
         <img
-          src={image}
+          src="./bg.jpg"
           alt="image"
           className="object-cover h-40 w-full rounded-lg absolute mix-blend-overlay  opacity-75"
         />
