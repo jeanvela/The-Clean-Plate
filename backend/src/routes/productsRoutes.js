@@ -4,10 +4,12 @@ const {
   getProductsByIdHandler,
   getProductsHandler,
 } = require("../handlers/productsHandlers");
+const jwt = require('jsonwebtoken')
+const multer = require('multer');
+const { verifyToken, isAdmin} = require('../middlewares/index')
 
 const router = Router();
 
-const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -27,7 +29,7 @@ const validate = (req, res, next) => {
   next();
 };
 
-router.post("/", validate, createProductsHandler);
+router.post("/", [verifyToken, isAdmin,validate], createProductsHandler);
 router.get("/:idProduct", getProductsByIdHandler);
 router.get("/", getProductsHandler);
 

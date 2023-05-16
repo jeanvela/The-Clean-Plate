@@ -5,6 +5,7 @@ mongoose.connect('mongodb+srv://jean:20011015kiraynana@proyecto.nn5v7j5.mongodb.
     
     useUnifiedTopology: true,
     useNewUrlParser: true,
+   
 })
     .then(db => console.log('Database is connect'))
     .catch(err => console.log(err))
