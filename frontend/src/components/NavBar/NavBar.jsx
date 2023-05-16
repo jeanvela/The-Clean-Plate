@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useAuth0 } from "@auth0/auth0-react";
 //import "./navBar.css"
 function NavBar() {
+
+  const {loginWithRedirect, logout, isAuthenticated} = useAuth0()
+
   return (
     <>
       <div className="flex justify-between items-center flex-row bg-yellow-900 py-6 text-yellow-400 ">
@@ -42,6 +46,11 @@ function NavBar() {
               Form
             </a>
           </Link>
+          { // ! si esta authenticado que muestre el boton de logout sino el boton de login
+            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => loginWithRedirect()}>Login</button>
+          }
+          {/* <button onClick={() => loginWithRedirect()}>Login</button>
+          <button onClick={() => logout()}>Logout</button> */}
         </div>
       </div>
     </>
