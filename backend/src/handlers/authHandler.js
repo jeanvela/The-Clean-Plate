@@ -1,4 +1,6 @@
 const { createUser } = require('../controllers/authControllers')
+const jwt = require('jsonwebtoken')
+const Role = rerquire('../models/Roles')
 
 const singupHandler = async (req, res) => {
     const {username, email, password, roles} = req.body
