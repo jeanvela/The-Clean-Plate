@@ -1,6 +1,8 @@
 const express = require('express');
 const router = require('./routes/index');
+const {createRoles} = require('../src/libs/initialSetup')
 const server = express();
+createRoles()
 const cors = require('cors');
 const morgan = require('morgan');
 // const fileUpload = require('express-fileupload');

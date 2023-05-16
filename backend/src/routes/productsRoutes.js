@@ -6,7 +6,7 @@ const {
 } = require("../handlers/productsHandlers");
 const jwt = require('jsonwebtoken')
 const multer = require('multer');
-const { verifyToken, isModerator} = require('../middlewares/index')
+const { verifyToken, isAdmin} = require('../middlewares/index')
 
 const router = Router();
 
@@ -29,7 +29,7 @@ const validate = (req, res, next) => {
   next();
 };
 
-router.post("/", [verifyToken, isModerator,validate], createProductsHandler);
+router.post("/", [verifyToken, isAdmin,validate], createProductsHandler);
 router.get("/:idProduct", getProductsByIdHandler);
 router.get("/", getProductsHandler);
 
