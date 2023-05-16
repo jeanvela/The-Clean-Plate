@@ -9,46 +9,52 @@ function NavBar() {
 
   return (
     <>
-      <div className="flex justify-between items-center flex-row bg-yellow-900 py-6 text-yellow-400 ">
+      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 mb-3">
         <Link to="/">
           <h2 className="font-normal text-2xl">The Clean Plate</h2>
         </Link>
 
         <SearchBar />
 
-        <div className="container-links">
+        <div className="container-links flex flex-row-">
           <Link to="/">
-            <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
+            <div className="flex mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Home
-            </a>
+            </div>
           </Link>
 
           <Link to="/categories">
-            <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
+            <div className="flex mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Categories
-            </a>
+            </div>
           </Link>
 
           <Link to="categories/products">
-            <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
+            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Products
-            </a>
+            </div>
           </Link>
 
           <Link to="/contact">
-            <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
+            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Contact
-            </a>
+            </div>
           </Link>
 
           <Link to="/createproduct">
-            <a className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
+            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Form
-            </a>
+            </div>
           </Link>
           <Link to="/cart">
-            <BsCart4 className=" h-6 w-6 relative block" />
-            <p className=" absolute flex ">{amount}</p>
+            <div className=" mr-4 block relative">
+              <BsCart4 className=" h-7 w-6" />
+              <div>
+                <p className=" absolute  -top-3 -right-2 w-7 h-7  text-black rounded-full  bg-opacity-50 flex items-center justify-center bg-gray-200 ">
+                  {amount}
+                </p>
+              </div>
+            </div>
           </Link>
         </div>
       </div>
