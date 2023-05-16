@@ -16,7 +16,7 @@ function Cart() {
   useEffect(() => {
     dispatch(getTotal());
   }, [cart, dispatch]);
-  const { cartItem, total, amount } = useSelector((store) => store.cart);
+  const { cartItem } = useSelector((store) => store.cart);
 
   const handelRemove = (cartItem) => {
     dispatch(removeCartItem(cartItem));
