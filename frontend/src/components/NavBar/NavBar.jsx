@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
 
 
 //import "./navBar.css"
@@ -13,18 +14,25 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function NavBar() {
 
-  const {loginWithRedirect, logout, isAuthenticated, user} = useAuth0()
+  const {loginWithRedirect, logout, isAuthenticated, user, loginWithPopup} = useAuth0()
 
+  
+
+  const sendData = async () => {
+    try {
+      await loginWithPopup();
   const data = user? user.email : ""
-
-  const sendData = async() => {
-
-    loginWithRedirect()
-
-    await axios.post('http://localhost/auth/', data)
-
-
-  }
+  console.log(data)
+      const response = await axios.post('http://localhost:3001/auth/', data);
+  
+      // Manejar la respuesta de la solicitud si es necesario
+      
+    } catch (error) {
+      // Manejar cualquier error que pueda ocurrir durante la solicitud
+      console.error(error);
+    }
+  };
+  
 
 
 
