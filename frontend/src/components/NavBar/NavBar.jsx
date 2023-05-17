@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
 
 
 //import "./navBar.css"
@@ -15,23 +16,31 @@ function NavBar() {
 
   const {loginWithRedirect, logout, isAuthenticated, user} = useAuth0()
 
-  const data = user? user.email : ""
-
-  const sendData = async() => {
-
-    loginWithRedirect()
-
-    await axios.post('http://localhost/auth/', data)
-
-
-  }
-
-
-
-
+  
 
 
   const { amount } = useSelector((state) => state.cart);
+  const sendData = async() => {
+    
+  //   await loginWithRedirect()
+  //   console.log(data)
+  // return await axios.post('http://localhost:3001/auth', data)
+  // try {
+  //   await loginWithRedirect();
+  //   let data = user? user.email : ""
+  //   const response = await axios.post('http://localhost:3001/auth', data);
+
+  //   // Manejar la respuesta de la solicitud si es necesario
+  //   console.log(response.data);
+  // } catch (error) {
+  //   // Manejar cualquier error que pueda ocurrir durante la solicitud
+  //   console.error(error);
+  // }
+  const data = user? user.email: ""
+  await loginWithRedirect()
+  console.log(data)
+  
+  }
 
   return (
     <>
