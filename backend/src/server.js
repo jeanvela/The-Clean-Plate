@@ -1,3 +1,4 @@
+const {createRoles} = require('./libs/initialSetUp')
 const express = require('express');
 const router = require('./routes/index');
 const server = express();
@@ -5,6 +6,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 // const fileUpload = require('express-fileupload');
 const multer = require('multer')
+createRoles()
 
 const storage = multer.diskStorage({
     destination: './public/upload/',

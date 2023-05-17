@@ -3,8 +3,34 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+
+
 //import "./navBar.css"
+
+
+
+
 function NavBar() {
+
+  const {loginWithRedirect, logout, isAuthenticated, user} = useAuth0()
+
+  const data = user? user.email : ""
+
+  const sendData = async() => {
+
+    loginWithRedirect()
+
+    await axios.post('http://localhost/auth/', data)
+
+
+  }
+
+
+
+
+
+
   const { amount } = useSelector((state) => state.cart);
 
   return (
@@ -56,6 +82,11 @@ function NavBar() {
               </div>
             </div>
           </Link>
+          { // ! si esta authenticado que muestre el boton de logout sino el boton de login
+            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => sendData()}>Login</button>
+          }
+
+
         </div>
       </div>
     </>
