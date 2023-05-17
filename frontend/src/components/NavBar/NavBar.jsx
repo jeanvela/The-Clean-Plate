@@ -14,17 +14,26 @@ import axios from 'axios'
 
 function NavBar() {
 
-  const {loginWithRedirect, logout, isAuthenticated, user, loginWithPopup} = useAuth0()
+  let {logout, isAuthenticated, loginWithPopup, user} = useAuth0()
+
+  
 
   
 
   const sendData = async () => {
+
+    
+
+
     try {
       await loginWithPopup();
-  const data = user? user.email : ""
-  console.log(data)
-      const response = await axios.post('http://localhost:3001/auth/', data);
-  
+      
+      
+        const name = user? user.name : '' 
+        console.log(name);
+        await axios.post('http://localhost:3001/auth/', name);
+      
+      
       // Manejar la respuesta de la solicitud si es necesario
       
     } catch (error) {
