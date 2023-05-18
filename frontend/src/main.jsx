@@ -13,6 +13,7 @@ import products from "./features/productsSlice";
 import cart, { getTotal } from "./features/cartSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Auth0Provider} from '@auth0/auth0-react'
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ store.dispatch(getTotal());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <Auth0Provider domain="dev-kpcb1xpi7aaypegd.us.auth0.com" clientId="PTbYBGwYv0xFnKTDvp2VkKS0P6ZB6JVB" redirectUri={window.location.origin} scope="openid profile email">
     <BrowserRouter>
       <ToastContainer />
       <Provider store={store}>
@@ -36,5 +38,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Footer />
       </Provider>
     </BrowserRouter>
+    </Auth0Provider>
   </React.StrictMode>
 );

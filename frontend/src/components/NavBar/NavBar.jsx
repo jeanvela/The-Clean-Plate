@@ -1,11 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
 //import "./navBar.css"
+
 function NavBar() {
+  let {logout, isAuthenticated, loginWithPopup, user } = useAuth0()
+  const [email,setEmail] = useState('')
   const { amount } = useSelector((state) => state.cart);
+  // let data = user.email
+
+  // const handleSubmitData = async () => {
+  //   if (!isAuthenticated) {
+  //     await loginWithPopup()
+  //   }
+  //   const data = user? user.email : "xd"
+  //   console.log(data)
+    
+  // };
+
+  // useEffect(() => {
+  //   const getUserEmail = async () => {
+  //     if (isAuthenticated && user) {
+  //      setEmail(user.email)
+  //     }
+  //   }
+  //   getUserEmail()
+  //   console.log(email)
+  // },[isAuthenticated,user])
+
+  // const handleLogin = async () => {
+  //   await loginWithPopup()
+  // }
+  useEffect(() => {
+    const getUserEmail = async () => {
+      if (isAuthenticated && user) {
+        setEmail(user.email);
+      }
+    };
+  
+    getUserEmail();
+  }, [isAuthenticated, user]);
+  
+  useEffect(() => {
+    console.log(email);
+    if (isAuthenticated) {
+      axios.post('http://localhost:3001/auth', {username: email})
+      .then(response => console.log(response))
+      .catch(error => consoel.log(error))
+    }
+  }, [email]);
+  
+  const handleLogin = async () => {
+    await loginWithPopup();
+  };
+
+  // if (isAuthenticated) {
+  //   return axios.post('http://localhost:3001/auth',email)
+  // }
 
   return (
     <>
@@ -56,6 +111,11 @@ function NavBar() {
               </div>
             </div>
           </Link>
+          { // ! si esta authenticado que muestre el boton de logout sino el boton de login
+            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => handleLogin()}>Login</button>
+          }
+
+
         </div>
       </div>
     </>
