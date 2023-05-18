@@ -1,46 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
-
-
 //import "./navBar.css"
 
-
-
-
 function NavBar() {
-
-  const {loginWithRedirect, logout, isAuthenticated, user} = useAuth0()
-
-  
-
-
+  let {logout, isAuthenticated, loginWithPopup, user } = useAuth0()
+  const [email,setEmail] = useState('')
   const { amount } = useSelector((state) => state.cart);
-  const sendData = async() => {
-    
-  //   await loginWithRedirect()
-  //   console.log(data)
-  // return await axios.post('http://localhost:3001/auth', data)
-  // try {
-  //   await loginWithRedirect();
-  //   let data = user? user.email : ""
-  //   const response = await axios.post('http://localhost:3001/auth', data);
+  // let data = user.email
 
-  //   // Manejar la respuesta de la solicitud si es necesario
-  //   console.log(response.data);
-  // } catch (error) {
-  //   // Manejar cualquier error que pueda ocurrir durante la solicitud
-  //   console.error(error);
+  // const handleSubmitData = async () => {
+  //   if (!isAuthenticated) {
+  //     await loginWithPopup()
+  //   }
+  //   const data = user? user.email : "xd"
+  //   console.log(data)
+    
+  // };
+
+  // useEffect(() => {
+  //   const getUserEmail = async () => {
+  //     if (isAuthenticated && user) {
+  //      setEmail(user.email)
+  //     }
+  //   }
+  //   getUserEmail()
+  //   console.log(email)
+  // },[isAuthenticated,user])
+
+  // const handleLogin = async () => {
+  //   await loginWithPopup()
   // }
-  const data = user? user.email: ""
-  await loginWithRedirect()
-  console.log(data)
+  useEffect(() => {
+    const getUserEmail = async () => {
+      if (isAuthenticated && user) {
+        setEmail(user.email);
+      }
+    };
   
-  }
+    getUserEmail();
+  }, [isAuthenticated, user]);
+  
+  useEffect(() => {
+    console.log(email);
+    if (isAuthenticated) {
+      axios.post('http://localhost:3001/auth', {username: email})
+      .then(response => console.log(response))
+      .catch(error => consoel.log(error))
+    }
+  }, [email]);
+  
+  const handleLogin = async () => {
+    await loginWithPopup();
+  };
+
+  // if (isAuthenticated) {
+  //   return axios.post('http://localhost:3001/auth',email)
+  // }
 
   return (
     <>
@@ -92,7 +112,7 @@ function NavBar() {
             </div>
           </Link>
           { // ! si esta authenticado que muestre el boton de logout sino el boton de login
-            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => sendData()}>Login</button>
+            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => handleLogin()}>Login</button>
           }
 
 

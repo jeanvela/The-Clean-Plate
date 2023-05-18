@@ -29,7 +29,7 @@ store.dispatch(getTotal());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Auth0Provider domain="dev-kpcb1xpi7aaypegd.us.auth0.com" clientId="PTbYBGwYv0xFnKTDvp2VkKS0P6ZB6JVB" redirectUri={window.location.origin}>
+    <Auth0Provider domain="dev-kpcb1xpi7aaypegd.us.auth0.com" clientId="PTbYBGwYv0xFnKTDvp2VkKS0P6ZB6JVB" redirectUri={window.location.origin} scope="openid profile email">
     <BrowserRouter>
       <ToastContainer />
       <Provider store={store}>
