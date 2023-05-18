@@ -1,14 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setCart } from "../../features/cartSlice";
 
 function Card({ id, name, image, price, description, stock, category }) {
-  const { products } = useSelector((state) => state.products);
   const product = { name, price, image, id, category };
   const HandleAddToCart = (product) => {
     dispatch(setCart(product));
   };
-  console.log(products);
   const dispatch = useDispatch();
   return (
     <div className="max-w-md mx-auto bg-amber-50 rounded-xl shadow-md overflow-hidden  h-48 hover/edit:translate-x-0.5  hover/edit:bg-stone-50">
