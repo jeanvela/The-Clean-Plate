@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProducts,
-  filterByCategory,
-  filterByOrigin,
+  filterByCategoryAndOrigin 
 } from "../../features/productsSlice";
 import { getAllCategories } from "../../features/categorySlice";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -16,6 +15,9 @@ function Cards() {
 
   const [itemsToShow, setItemsToShow] = useState(20);
   const [hasMore, setHasMore] = useState(true)
+  const [selectedCategory, setSelectedCategory] = useState("All");
+const [selectedOrigin, setSelectedOrigin] = useState("All");
+
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -23,28 +25,29 @@ function Cards() {
   }, [dispatch]);
 
   const handlerFilterByCategory = (e) => {
-    e.preventDefault();
-    dispatch(filterByCategory(e.target.value));
-
+    const category = e.target.value;
+    setSelectedCategory(category);
+    dispatch(filterByCategoryAndOrigin({ category, origin: selectedOrigin }));
   };
-
+  
   const handlerFilterByOrigin = (e) => {
-    e.preventDefault();
-    dispatch(filterByOrigin(e.target.value));
-
+    const origin = e.target.value;
+    setSelectedOrigin(origin);
+    dispatch(filterByCategoryAndOrigin({ category: selectedCategory, origin }));
   };
+  
 
 
   const fetchMoreData = () => {
     setTimeout(() => {
       const additionalItems = products.slice(itemsToShow, itemsToShow + 20);
-      setItemsToShow(itemsToShow + additionalItems.length)
-      if (itemsToShow >= products.length){
-        setHasMore(false)
+      setItemsToShow(itemsToShow + additionalItems.length);
+      if (itemsToShow >= products.length) {
+        setHasMore(false);
       }
     }, 1000);
-
   };
+  
 
   const displayedProducts = products.slice(0, itemsToShow);
 
@@ -81,34 +84,34 @@ function Cards() {
       </div>
 
       <div  id="InfiniteScroll">
-        <InfiniteScroll
-          dataLength={displayedProducts.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-        >
-          <div className="grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3"> {displayedProducts?.length ? (
-            displayedProducts.map((card) => (
-              <Card
-                key={card._id}
-                name={card.name}
-                image={card.image}
-                category={card.category[0]}
-                description={card.description}
-                price={card.price}
-                id={card._id}
-              />
-            ))
-          ) : (
-            <p>No products found.</p>
-          )}</div>
-         
-        </InfiniteScroll>
+      <InfiniteScroll
+  dataLength={displayedProducts.length}
+  next={fetchMoreData}
+  hasMore={hasMore}
+  loader={<h4>Loading...</h4>}
+>
+  <div className="grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3">
+    {displayedProducts?.length ? (
+      displayedProducts.map((card) => (
+        <Card
+          key={card._id}
+          name={card.name}
+          image={card.image}
+          category={card.category[0]}
+          description={card.description}
+          price={card.price}
+          id={card._id}
+        />
+      ))
+    ) : (
+      <p>No products found.</p>
+    )}
+  </div>
+</InfiniteScroll>
+
       </div>
     </div>
   );
 }
 
 export default Cards;
-
-
