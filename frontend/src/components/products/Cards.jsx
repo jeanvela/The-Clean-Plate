@@ -115,5 +115,3 @@ const [selectedOrigin, setSelectedOrigin] = useState("All");
 }
 
 export default Cards;
-
-
