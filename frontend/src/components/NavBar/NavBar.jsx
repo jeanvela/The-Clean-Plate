@@ -51,7 +51,7 @@ function NavBar() {
       axios
         .post("http://localhost:3001/auth", { username: email })
         .then((response) => console.log(response))
-        .catch((error) => consoel.log(error));
+        .catch((error) => console.log(error));
     }
   }, [email]);
 
