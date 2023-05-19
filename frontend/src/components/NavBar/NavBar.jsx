@@ -4,12 +4,12 @@ import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios'
+import axios from "axios";
 //import "./navBar.css"
 
 function NavBar() {
-  let {logout, isAuthenticated, loginWithPopup, user } = useAuth0()
-  const [email,setEmail] = useState('')
+  let { logout, isAuthenticated, loginWithPopup, user } = useAuth0();
+  const [email, setEmail] = useState("");
   const { amount } = useSelector((state) => state.cart);
   // let data = user.email
 
@@ -19,7 +19,7 @@ function NavBar() {
   //   }
   //   const data = user? user.email : "xd"
   //   console.log(data)
-    
+
   // };
 
   // useEffect(() => {
@@ -41,19 +41,20 @@ function NavBar() {
         setEmail(user.email);
       }
     };
-  
+
     getUserEmail();
   }, [isAuthenticated, user]);
-  
+
   useEffect(() => {
     console.log(email);
     if (isAuthenticated) {
-      axios.post('http://localhost:3001/auth', {username: email})
-      .then(response => console.log(response))
-      .catch(error => consoel.log(error))
+      axios
+        .post("http://localhost:3001/auth", { username: email })
+        .then((response) => console.log(response))
+        .catch((error) => consoel.log(error));
     }
   }, [email]);
-  
+
   const handleLogin = async () => {
     await loginWithPopup();
   };
@@ -66,12 +67,12 @@ function NavBar() {
     <>
       <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
         <Link to="/">
-          <h2 className="font-normal text-2xl">The Clean Plate</h2>
+          <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
         </Link>
 
         <SearchBar />
 
-        <div className="container-links flex flex-row-">
+        <div className="container-links flex flex-row mr-4">
           <Link to="/">
             <div className="flex mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
               Home
@@ -111,11 +112,14 @@ function NavBar() {
               </div>
             </div>
           </Link>
-          { // ! si esta authenticado que muestre el boton de logout sino el boton de login
-            isAuthenticated? <button onClick={() => logout()}>Logout</button> : <button onClick={() => handleLogin()}>Login</button>
+          {
+            // ! si esta authenticado que muestre el boton de logout sino el boton de login
+            isAuthenticated ? (
+              <button onClick={() => logout()}>Logout</button>
+            ) : (
+              <button onClick={() => handleLogin()}>Login</button>
+            )
           }
-
-
         </div>
       </div>
     </>
