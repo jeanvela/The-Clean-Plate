@@ -126,7 +126,7 @@ function Cart() {
                   </button>
                 </div>
                 <div className=" justify-self-start pr-4  font-bold">
-                  ${item.price * item.cartAmount}
+                  ${(item.price * item.cartAmount).toFixed(2)}
                 </div>
               </div>
             ))}
