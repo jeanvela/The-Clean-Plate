@@ -2,39 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { BsCart4 } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import  {setUserRole}  from '../../features/userSlice.js';
 //import "./navBar.css"
 
 function NavBar() {
   let { logout, isAuthenticated, loginWithPopup, user } = useAuth0();
   const [email, setEmail] = useState("");
   const { amount } = useSelector((state) => state.cart);
-  // let data = user.email
+  const dispatch = useDispatch();
+  const userRole = useSelector((state) => state.user.role);
 
-  // const handleSubmitData = async () => {
-  //   if (!isAuthenticated) {
-  //     await loginWithPopup()
-  //   }
-  //   const data = user? user.email : "xd"
-  //   console.log(data)
 
-  // };
 
-  // useEffect(() => {
-  //   const getUserEmail = async () => {
-  //     if (isAuthenticated && user) {
-  //      setEmail(user.email)
-  //     }
-  //   }
-  //   getUserEmail()
-  //   console.log(email)
-  // },[isAuthenticated,user])
-
-  // const handleLogin = async () => {
-  //   await loginWithPopup()
-  // }
   useEffect(() => {
     const getUserEmail = async () => {
       if (isAuthenticated && user) {
@@ -50,7 +32,11 @@ function NavBar() {
     if (isAuthenticated) {
       axios
         .post("http://localhost:3001/auth", { username: email })
-        .then((response) => console.log(response))
+        .then((response) => {
+          const role = (response.data.roles[0].name)
+          dispatch(setUserRole(role));
+          console.log(role)
+        })
         .catch((error) => console.log(error));
     }
   }, [email]);
@@ -59,9 +45,7 @@ function NavBar() {
     await loginWithPopup();
   };
 
-  // if (isAuthenticated) {
-  //   return axios.post('http://localhost:3001/auth',email)
-  // }
+ 
 
   return (
     <>
@@ -113,7 +97,7 @@ function NavBar() {
             </div>
           </Link>
           {
-            // ! si esta authenticado que muestre el boton de logout sino el boton de login
+           
             isAuthenticated ? (
               <button onClick={() => logout()}>Logout</button>
             ) : (
