@@ -18,7 +18,7 @@ function Card({ id, name, image, price, description, stock, category }) {
     dispatch(setCart(product));
   };
   return (
-    <div className="max-w-md mx-auto bg-amber-50 rounded-xl shadow-md overflow-hidden  h-48 hover/edit:translate-x-0.5  hover/edit:bg-amber-200">
+    <div className="max-w-md w-pxmx-auto bg-amber-50 rounded-xl shadow-md overflow-hidden  h-48 hover/edit:translate-x-0.5  hover/edit:bg-amber-200">
       <div className="md:flex">
         <div className="md:shrink-0">
           <img
