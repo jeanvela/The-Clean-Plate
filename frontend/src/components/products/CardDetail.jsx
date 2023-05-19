@@ -7,8 +7,8 @@ function CardDetail() {
   const { data: detail } = useGetProductDetailQuery(id) || {};
 
   return (
-    <div className="">
-      <div className="max-w-md mx-auto bg-amber-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl  h-full hover/edit:translate-x-0.5 hover/edit:bg-stone-50 mt-12 mb-6  ">
+    <div className="  h-screen w-full flex bg-cover bg-[url('/../bg2.jpg')]  bg-center ">
+      <div className="max-w-md mx-auto justify-center  bg-amber-100 rounded-xl  overflow-hidden shadow-lg md:max-w-2xl  hover/edit:translate-x-0.5 hover/edit:bg-amber-200 self-center  ">
         {detail ? (
           <div className="md:flex">
             <img

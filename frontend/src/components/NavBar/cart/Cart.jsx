@@ -1,7 +1,10 @@
-import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+// import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+// initMercadoPago("TEST-9383d3c8-904c-422e-ac44-393f95935cce");
+
 import {
   decreaseAmount,
   removeCartItem,
@@ -11,6 +14,7 @@ import {
 } from "../../../features/cartSlice";
 
 function Cart() {
+  // const [preferenceId, setPreferenceId] = useState(null);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   useEffect(() => {
@@ -30,6 +34,30 @@ function Cart() {
   const handelClearCart = () => {
     dispatch(clearCart());
   };
+
+  // const handelClick = () => {
+  //   fetch("http://localhost:3001/purchases", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(preferenceId),
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((preference) => {
+  //       setPreferenceId(preference.id);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
+  // const script = document.createElement("script");
+  // script.type = "text/javascript";
+  // script.src =
+  //   "https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js";
+  // script.setAttribute("data-preference-id", preferenceId);
 
   return (
     <div className=" px-2  py-4 ">
@@ -57,19 +85,21 @@ function Cart() {
                 className=" grid grid-cols-4  gap-2 items-center border-t-2 p-4"
                 key={item.id}
               >
-                <div className="flex">
+                <div className="flex ">
                   <img
-                    className=" w-24 max-w-full ml-4"
+                    className=" w-24 max-w-full ml-0 rounded-md"
                     src={item.image}
                     alt={item.name}
                   />
-                  <div>
-                    <h3 className=" text-sm font-normal uppercase">
-                      {item.name}
-                    </h3>
+                  <div className=" ml-3">
+                    <Link to={`../categories/products/${item.id}`}>
+                      <h3 className=" text-sm font-normal uppercase">
+                        {item.name}
+                      </h3>
+                    </Link>
                     <p>{item.category}</p>
                     <button
-                      className=" mt-2 cursor-pointer text-gray-300"
+                      className=" mt-2 cursor-pointer text-stone-400"
                       onClick={() => handelRemove(item)}
                     >
                       remove
@@ -77,7 +107,7 @@ function Cart() {
                   </div>
                 </div>
 
-                <div>${item.price}</div>
+                <div id="summary-price">${item.price}</div>
                 <div className=" flex-start flex justify-center w-16  max-w-full border-s-2    border-x-2  rounded-md  ">
                   <button
                     className="p-3 cursor-pointer"
@@ -85,7 +115,9 @@ function Cart() {
                   >
                     -
                   </button>
-                  <div className=" pt-3">{item.cartAmount}</div>
+                  <div className=" pt-3" id="summary-quantity">
+                    {item.cartAmount}
+                  </div>
                   <button
                     className=" p-3  cursor-pointer"
                     onClick={() => handleIncrement(item)}
@@ -102,27 +134,32 @@ function Cart() {
           <div className=" flex-start flex justify-between pt-4 border-t-2 ">
             <button
               onClick={() => handelClearCart()}
-              className=" max-w-full w-32  h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
+              className=" max-w-full w-32  h-10 rounded-md ml-4 font-normal bg-yellow-900 text-white cursor-pointer"
             >
               Clear cart
             </button>
-            <div className=" w-64 max-w-full">
+            <div className=" w-64 max-w-full mr-4">
               <div className=" flex justify-between  text-lg  ">
                 <span>Subtotal</span>
-                <span className=" font-bold mr-4">
+                <span className=" font-bold mr-4" id="summary-total">
                   {" "}
                   ${cart.total.toFixed(2)}
                 </span>
               </div>
 
               <p className="  text-sm font-extralight my-2">Free shipping</p>
-              <button className=" max-w-full h-9 rounded-md font-normal bg-yellow-900 text-white cursor-pointer">
+              <button
+                className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
+                id="checkout-btn"
+                // onClick={handelClick}
+              >
                 Check Out
               </button>
               <div className=" mt-4">
                 <Link to="/categories/products">
                   <span>Keep shopping</span>
                 </Link>
+                {/* <Wallet initialization={{ preferenceId: preferenceId }} /> */}
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ function NavBar() {
 
   return (
     <>
-      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 mb-3">
+      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
         <Link to="/">
           <h2 className="font-normal text-2xl">The Clean Plate</h2>
         </Link>

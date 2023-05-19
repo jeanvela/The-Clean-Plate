@@ -63,6 +63,7 @@ function Cards() {
                 description={card.description}
                 price={card.price}
                 id={card._id}
+                key={card._id}
               />
             </ul>
           ))
