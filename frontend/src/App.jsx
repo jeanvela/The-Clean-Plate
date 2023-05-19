@@ -7,6 +7,7 @@ import CardDetail from "./components/products/CardDetail";
 import Categories from "./components/categories/Categories";
 import ProductByCategory from "./components/products/ProductByCategory";
 import Cart from "./components/NavBar/cart/Cart";
+import ContactUs from "./components/views/ContactUs";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/categories/:id" element={<ProductByCategory />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/Contact" element={<ContactUs />} />
         </Routes>
       </div>
     </>
