@@ -52,26 +52,35 @@ const getProductsByIdHandler = async (req, res) => {
 };
 
 const getProductsHandler = async (req, res) => {
-  const { name } = req.query;
+  const { name, category, origin } = req.query;
   try {
-    const products = await getAllProducts();
+    let products = await getAllProducts();
 
+    // Aplica el filtro por nombre si está presente
     if (name) {
-      const product = products.filter((el) =>
+      products = products.filter((el) =>
         el.name.toLowerCase().includes(name.toLowerCase())
       );
-      product.length
-        ? res.status(200).json(product)
-        : res
-            .status(400)
-            .json({ message: "Ups, product Not Found, try again" });
-    } else {
-      res.status(200).json(products);
     }
+
+    // Aplica el filtro por categoría si está presente
+    if (category && category !== "All") {
+      products = products.filter((el) => el.category.includes(category));
+    }
+
+    // Aplica el filtro por origen si está presente
+    if (origin && origin !== "All") {
+      products = products.filter((el) => el.origin === origin);
+    }
+
+    // Devuelve los productos filtrados
+    res.status(200).json(products);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
+
 
 module.exports = {
   createProductsHandler,
