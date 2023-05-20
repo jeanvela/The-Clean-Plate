@@ -9,29 +9,36 @@ import  {setUserRole}  from '../../features/userSlice.js';
 //import "./navBar.css"
 
 function NavBar() {
-  let { logout, isAuthenticated, loginWithPopup, user } = useAuth0();
+  let { logout, isAuthenticated, loginWithPopup, user, getAccessTokenSilently} = useAuth0();
   const [email, setEmail] = useState("");
   const { amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
 
-
-
   useEffect(() => {
+    const getToken =(token) => {
+      localStorage.setItem('access_token',token)
+    }
     const getUserEmail = async () => {
       if (isAuthenticated && user) {
+        const accesToken = await getAccessTokenSilently()
         setEmail(user.email);
+        getToken(accesToken)
       }
-    };
-
+    }; 
     getUserEmail();
   }, [isAuthenticated, user]);
 
   useEffect(() => {
     console.log(email);
     if (isAuthenticated) {
+      const token = localStorage.getItem('access_token')
       axios
-        .post("http://localhost:3001/auth", { username: email })
+        .post("http://localhost:3001/auth", { username: email },{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         .then((response) => {
           const role = (response.data.roles[0].name)
           dispatch(setUserRole(role));
@@ -44,8 +51,6 @@ function NavBar() {
   const handleLogin = async () => {
     await loginWithPopup();
   };
-
- 
 
   return (
     <>
@@ -97,7 +102,6 @@ function NavBar() {
             </div>
           </Link>
           {
-           
             isAuthenticated ? (
               <button onClick={() => logout()}>Logout</button>
             ) : (

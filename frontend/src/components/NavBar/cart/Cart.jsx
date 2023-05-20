@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react'
 
 // import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 // initMercadoPago("TEST-9383d3c8-904c-422e-ac44-393f95935cce");
@@ -14,6 +15,9 @@ import {
 } from "../../../features/cartSlice";
 
 function Cart() {
+
+  const {isAuthenticated, loginWithPopup} = useAuth0()
+
   // const [preferenceId, setPreferenceId] = useState(null);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -148,13 +152,22 @@ function Cart() {
               </div>
 
               <p className="  text-sm font-extralight my-2">Free shipping</p>
-              <button
+              {/* <button
                 className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
                 id="checkout-btn"
                 // onClick={handelClick}
               >
                 Check Out
-              </button>
+              </button> */}
+              {
+                isAuthenticated? <button
+                className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
+                id="checkout-btn"
+                // onClick={handelClick}
+              >
+                Check Out
+              </button>: <button className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer" onClick={() => loginWithPopup()}>login in page</button>
+              }
               <div className=" mt-4">
                 <Link to="/categories/products">
                   <span>Keep shopping</span>
