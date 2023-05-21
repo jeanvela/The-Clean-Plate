@@ -14,13 +14,15 @@ import cart, { getTotal } from "./features/cartSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {Auth0Provider} from '@auth0/auth0-react'
+import user from './features/userSlice.js'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [productsApi.reducerPath]: productsApi.reducer,
     products,
     categories,
     cart,
+    user,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
