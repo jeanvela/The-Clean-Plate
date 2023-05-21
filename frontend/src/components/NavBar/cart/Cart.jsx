@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react'
-
-// import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-// initMercadoPago("TEST-9383d3c8-904c-422e-ac44-393f95935cce");
+import { useAuth0 } from "@auth0/auth0-react";
+import PayButton from "./PayButton";
 
 import {
   decreaseAmount,
@@ -13,10 +11,8 @@ import {
   clearCart,
   getTotal,
 } from "../../../features/cartSlice";
-
 function Cart() {
-
-  const {isAuthenticated, loginWithPopup} = useAuth0()
+  const { isAuthenticated, loginWithPopup } = useAuth0();
 
   // const [preferenceId, setPreferenceId] = useState(null);
   const dispatch = useDispatch();
@@ -38,30 +34,6 @@ function Cart() {
   const handelClearCart = () => {
     dispatch(clearCart());
   };
-
-  // const handelClick = () => {
-  //   fetch("http://localhost:3001/purchases", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(preferenceId),
-  //   })
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((preference) => {
-  //       setPreferenceId(preference.id);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-  // const script = document.createElement("script");
-  // script.type = "text/javascript";
-  // script.src =
-  //   "https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js";
-  // script.setAttribute("data-preference-id", preferenceId);
 
   return (
     <div className=" px-2  py-4 ">
@@ -119,9 +91,7 @@ function Cart() {
                   >
                     -
                   </button>
-                  <div className=" pt-3" id="summary-quantity">
-                    {item.cartAmount}
-                  </div>
+                  <div className=" pt-3">{item.cartAmount}</div>
                   <button
                     className=" p-3  cursor-pointer"
                     onClick={() => handleIncrement(item)}
@@ -145,7 +115,7 @@ function Cart() {
             <div className=" w-64 max-w-full mr-4">
               <div className=" flex justify-between  text-lg  ">
                 <span>Subtotal</span>
-                <span className=" font-bold mr-4" id="summary-total">
+                <span className=" font-bold mr-4">
                   {" "}
                   ${cart.total.toFixed(2)}
                 </span>
@@ -159,20 +129,24 @@ function Cart() {
               >
                 Check Out
               </button> */}
-              {
-                isAuthenticated? <button
-                className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
-                id="checkout-btn"
-                // onClick={handelClick}
-              >
-                Check Out
-              </button>: <button className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer" onClick={() => loginWithPopup()}>login in page</button>
-              }
+              {isAuthenticated ? (
+                <PayButton
+                  className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
+                  item={cart.cartItem}
+                />
+              ) : (
+                <button
+                  className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
+                  onClick={() => loginWithPopup()}
+                >
+                  login in page
+                </button>
+              )}
+
               <div className=" mt-4">
                 <Link to="/categories/products">
                   <span>Keep shopping</span>
                 </Link>
-                {/* <Wallet initialization={{ preferenceId: preferenceId }} /> */}
               </div>
             </div>
           </div>

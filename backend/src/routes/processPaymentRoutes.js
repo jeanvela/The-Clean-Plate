@@ -1,8 +1,8 @@
-const { Router } = require("express");
-const { processPaymentHandler } = require("../handlers/processPaymentHandler");
+// const { Router } = require("express");
+// const { processPaymentHandler } = require("../handlers/processPaymentHandler");
 
-const router = Router();
+// const router = Router();
 
-router.post('/', processPaymentHandler);
+// router.post('/', processPaymentHandler);
 
-module.exports = router;
+// module.exports = router;
