@@ -8,6 +8,7 @@ import Categories from "./components/categories/Categories";
 import ProductByCategory from "./components/products/ProductByCategory";
 import Cart from "./components/NavBar/cart/Cart";
 import ContactUs from "./components/views/ContactUs";
+import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
+          <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
         </Routes>
       </div>
     </>

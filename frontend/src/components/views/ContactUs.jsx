@@ -53,7 +53,7 @@ grid justify-self-stretch place-content-center
             {" "}
             <div className=" justify-center  flex-col  ">
               <h2 className=" font-bold text-5xl flex justify-center mb-6 text-yellow-900  ">
-                contactUs
+                Contact Us
               </h2>
             </div>
             <div className="form-group mb-6   w-96">
