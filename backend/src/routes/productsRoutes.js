@@ -3,6 +3,7 @@ const {
   createProductsHandler,
   getProductsByIdHandler,
   getProductsHandler,
+  enableProducts
 } = require("../handlers/productsHandlers");
 
 const router = Router();
@@ -30,5 +31,6 @@ const validate = (req, res, next) => {
 router.post("/", validate, createProductsHandler);
 router.get("/:idProduct", getProductsByIdHandler);
 router.get("/", getProductsHandler);
+router.put('/', enableProducts)
 
 module.exports = router;

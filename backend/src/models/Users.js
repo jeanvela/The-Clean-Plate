@@ -10,8 +10,10 @@ const userSchema = new Schema({
 
     roles: {
         type: Array
+    },
+    enable: {
+        type: Boolean
     }
-  
 })
 
 module.exports = model('User', userSchema)
