@@ -4,7 +4,7 @@ const orderSchema = new Schema(
   {
     userId: {
       type: String,
-      require: true,
+      // require: true,
     },
     customerId: {
       type: String,
