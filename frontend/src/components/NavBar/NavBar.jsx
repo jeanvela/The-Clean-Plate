@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import  {setUserRole}  from '../../features/userSlice.js';
+import { setId } from "../../features/userIdSlice.js";
 //import "./navBar.css"
 
 function NavBar() {
@@ -14,6 +15,7 @@ function NavBar() {
   const { amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
+  const userId = useSelector((state) => state.idUser.user)
 
   useEffect(() => {
     const getToken =(token) => {
@@ -40,9 +42,14 @@ function NavBar() {
           }
         })
         .then((response) => {
+          console.log(response)
           const role = (response.data.roles[0].name)
+          const id = response.data._id
           dispatch(setUserRole(role));
           console.log(role)
+
+          dispatch(setId(id))
+          console.log(id)
         })
         .catch((error) => console.log(error));
     }
