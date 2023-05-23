@@ -11,6 +11,7 @@ import ContactUs from "./components/views/ContactUs";
 import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
 import Dashboard from "./components/views/Dashboard";
 import { useSelector } from 'react-redux';
+import Layout from "./components/Dashboard/HomeLayout";
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
           {userRole === "admin" && (
             <>
               <Route exact path="/createproduct" element={<FormProdutcs />} />
-              <Route exact path="/Dashboard" element={<Dashboard />} />
+              <Route exact path="/Dashboard" element={<Layout />} />
             </>
           )}
         </Routes>
