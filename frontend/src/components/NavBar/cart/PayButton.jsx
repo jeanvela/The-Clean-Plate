@@ -8,13 +8,12 @@ function PayButton({ item }) {
     axios
       .post("http://localhost:3001/stripe/stripe/create-checkout-session", {
         item,
-        userId: user,
+        userId: user._id,
       })
       .then((response) => {
         if (response.data.url) {
           window.location.href = response.data.url;
         }
-        console.log(user);
       })
 
       .catch((error) => console.log(error));
