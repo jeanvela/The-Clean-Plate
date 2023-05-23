@@ -7,25 +7,23 @@ const router = Router();
 const Order = require("../models/Order");
 
 router.post("/create-checkout-session", express.json(), async (req, res) => {
-  try {
-    const customer = await stripe.customers.create({
-      metadata: {
-        userId: req.body.userId.toString(),
-        cart: JSON.stringify(req.body.item),
-      },
-    });
-  
-    const line_items = req.body.item?.map((el) => {
-      return {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: el.name,
-            images: [el.image],
-            description: el.category,
-            metadata: {
-              id: el.id,
-            },
+  const customer = await stripe.customers.create({
+    metadata: {
+      userId: req.body.userId,
+      cart: JSON.stringify(req.body.item),
+    },
+  });
+
+  const line_items = req.body.item?.map((el) => {
+    return {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: el.name,
+          images: [el.image],
+          description: el.category,
+          metadata: {
+            id: el.id,
           },
           unit_amount: el.price * 100,
         },

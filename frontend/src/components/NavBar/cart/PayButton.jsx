@@ -3,18 +3,17 @@ import { useSelector } from "react-redux";
 
 function PayButton({ item }) {
   const user = useSelector((state) => state.idUser.user);
-
+  
   const handleCheckOut = () => {
     axios
       .post("http://localhost:3001/stripe/stripe/create-checkout-session", {
         item,
-        userId: user,
+        userId: user
       })
       .then((response) => {
         if (response.data.url) {
           window.location.href = response.data.url;
         }
-        console.log(user);
       })
 
       .catch((error) => console.log(error));

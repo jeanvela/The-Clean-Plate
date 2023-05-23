@@ -10,13 +10,12 @@ import Cart from "./components/NavBar/cart/Cart";
 import ContactUs from "./components/views/ContactUs";
 import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
 import Dashboard from "./components/views/Dashboard";
-import { useSelector } from 'react-redux';
-
+import { useSelector } from "react-redux";
+import PageNotFound from "./components/views/PageNotFound";
 
 function App() {
   const userRole = useSelector((state) => state.user.role);
-  console.log(userRole)
-
+  console.log(userRole);
   return (
     <>
       <div>
@@ -29,6 +28,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+          <Route path="*" element={<PageNotFound />} />
           {userRole === "admin" && (
             <>
               <Route exact path="/createproduct" element={<FormProdutcs />} />
