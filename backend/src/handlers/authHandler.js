@@ -1,5 +1,4 @@
 const Users = require('../models/Users')
-const Role = require('../models/Roles');
 const Roles = require('../models/Roles');
 
 const authHandler = async (req, res) => {
@@ -28,10 +27,34 @@ const authHandler = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    try {
+        const allUsers = await Users.find()
+        res.status(200).json(allUsers)
+    } catch (error) {
+        res.status(404).json({error: error.message})
+    }
+}
+
+const enableUsers = async (req, res) => {
+    const {enable} = req.body
+    try {
+        const  findUsers = await Users.updateMany({},{
+            $set: {
+                enable: enable
+            }
+        })
+        res.status(200).json(findUsers)
+    } catch (error) {
+        res.status(404).json({error: error.message})
+    }
+}
 
 
 module.exports = {
     authHandler,
+    getUser,
+    enableUsers
 };
   
 

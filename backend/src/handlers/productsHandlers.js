@@ -7,6 +7,7 @@ const {
 const Category = require("../models/Category");
 const { uploadImage } = require("../cloudinary");
 const fs = require("fs-extra");
+const Products = require("../models/Products");
 
 const createProductsHandler = async (req, res) => {
   const { name, price, category, description, stock, origin } = req.body;
@@ -80,10 +81,24 @@ const getProductsHandler = async (req, res) => {
   }
 };
 
+const enableProducts = async (req, res) => {
+  const {enable} = req.body
+  try {
+    const findProducts = await Products.updateMany({},{
+      $set: {
+        enable: enable
+      }
+    })
+    res.status(200).json(findProducts)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
 
 
 module.exports = {
   createProductsHandler,
   getProductsByIdHandler,
   getProductsHandler,
+  enableProducts
 };

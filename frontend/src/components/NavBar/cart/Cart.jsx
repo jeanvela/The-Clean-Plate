@@ -130,10 +130,7 @@ function Cart() {
                 Check Out
               </button> */}
               {isAuthenticated ? (
-                <PayButton
-                  className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
-                  item={cart.cartItem}
-                />
+                <PayButton item={cart.cartItem} />
               ) : (
                 <button
                   className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
