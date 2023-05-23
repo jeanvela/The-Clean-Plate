@@ -9,7 +9,7 @@ const Order = require("../models/Order");
 router.post("/create-checkout-session", express.json(), async (req, res) => {
   const customer = await stripe.customers.create({
     metadata: {
-      userId: req.body.userId.toString(),
+      userId: req.body.userId,
       cart: JSON.stringify(req.body.item),
     },
   });
