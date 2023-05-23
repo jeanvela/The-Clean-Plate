@@ -37,19 +37,23 @@ const getUser = async (req, res) => {
 }
 
 const enableUsers = async (req, res) => {
-    const {enable} = req.body
+    const { enable } = req.body;
+    const { id } = req.params;
     try {
-        const  findUsers = await Users.updateMany({},{
-            $set: {
-                enable: enable
-            }
-        })
-        res.status(200).json(findUsers)
-    } catch (error) {
-        res.status(404).json({error: error.message})
-    }
-}
+      const findUser = await Users.updateOne(
+        { _id: id }, 
+        { $set: { enable: enable } } 
+      );
 
+      
+
+      res.status(200).json(findUser);
+
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  };
+  
 
 module.exports = {
     authHandler,

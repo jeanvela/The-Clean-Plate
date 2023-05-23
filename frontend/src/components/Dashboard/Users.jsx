@@ -25,12 +25,31 @@ const UsersDashboard =  () => {
 
   console.log(filteredUsers)
 
+
+  const handleBlock = async(id) => {
+
+    try {
+
+      await axios.patch(`http://localhost:3001/auth/${id}`, {enable: false});
+      const response = await axios.get("http://localhost:3001/auth/");
+      const users = response.data;
+      const filterUsers = users.filter(u => u.enable === true);
+      dispatch(setFilteredUsers(filterUsers));
+     
+    } catch (error) {
+      console.error(error);
+    }
+
+
+  }
+
   return (
     <div>
       {filteredUsers && filteredUsers.map(u => (
         <div >
           <p>Username: {u.username}</p>
           <p>Roles: {u.roles.map(r => r.name)}</p>
+          <button onClick={() => {handleBlock(u._id)}}>Block</button>
           
         </div>
       ))}

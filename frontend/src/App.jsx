@@ -9,7 +9,7 @@ import ProductByCategory from "./components/products/ProductByCategory";
 import Cart from "./components/NavBar/cart/Cart";
 import ContactUs from "./components/views/ContactUs";
 import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
-import Dashboard from "./components/views/Dashboard";
+import Users from '../src/components/Dashboard/Users';
 import { useSelector } from 'react-redux';
 
 
@@ -32,7 +32,7 @@ function App() {
           {userRole === "admin" && (
             <>
               <Route exact path="/createproduct" element={<FormProdutcs />} />
-              <Route exact path="/Dashboard" element={<Dashboard />} />
+              <Route exact path="/Dashboard" element={<Users />} />
             </>
           )}
         </Routes>

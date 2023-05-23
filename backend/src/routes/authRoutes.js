@@ -7,6 +7,6 @@ const router = Router();
 
 router.post('/', authHandler)
 router.get('/',getUser)
-router.put('/', enableUsers)
+router.patch('/:id', enableUsers)
 
 module.exports = router;
