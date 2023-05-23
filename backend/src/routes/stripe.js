@@ -7,6 +7,7 @@ const router = Router();
 const Order = require("../models/Order");
 
 router.post("/create-checkout-session", express.json(), async (req, res) => {
+  try {
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
@@ -28,8 +29,8 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
           unit_amount: el.price * 100,
         },
         quantity: el.cartAmount,
-      };
-    });
+      }
+    }});
   
     const session = await stripe.checkout.sessions.create({
       shipping_address_collection: {
