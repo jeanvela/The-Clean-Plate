@@ -7,7 +7,6 @@ const router = Router();
 const Order = require("../models/Order");
 
 router.post("/create-checkout-session", express.json(), async (req, res) => {
-  try {
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
@@ -26,77 +25,75 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
           metadata: {
             id: el.id,
           },
-          unit_amount: el.price * 100,
         },
-        quantity: el.cartAmount,
-      }
-    }});
-  
-    const session = await stripe.checkout.sessions.create({
-      shipping_address_collection: {
-        allowed_countries: ["US", "CA"],
+        unit_amount: el.price * 100,
       },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: "fixed_amount",
-            fixed_amount: {
-              amount: 0,
-              currency: "usd",
+      quantity: el.cartAmount,
+    };
+  });
+
+  const session = await stripe.checkout.sessions.create({
+    shipping_address_collection: {
+      allowed_countries: ["US", "CA"],
+    },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: 0,
+            currency: "usd",
+          },
+          display_name: "Free shipping",
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 5,
             },
-            display_name: "Free shipping",
-            delivery_estimate: {
-              minimum: {
-                unit: "business_day",
-                value: 5,
-              },
-              maximum: {
-                unit: "business_day",
-                value: 7,
-              },
+            maximum: {
+              unit: "business_day",
+              value: 7,
             },
           },
         },
-        {
-          shipping_rate_data: {
-            type: "fixed_amount",
-            fixed_amount: {
-              amount: 1500,
-              currency: "usd",
+      },
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: 1500,
+            currency: "usd",
+          },
+          display_name: "Next day air",
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 1,
             },
-            display_name: "Next day air",
-            delivery_estimate: {
-              minimum: {
-                unit: "business_day",
-                value: 1,
-              },
-              maximum: {
-                unit: "business_day",
-                value: 1,
-              },
+            maximum: {
+              unit: "business_day",
+              value: 1,
             },
           },
         },
-      ],
-      customer: customer.id,
-      line_items,
-      mode: "payment",
-      success_url: "http://127.0.0.1:5173/CheckoutSuccess",
-      cancel_url: "http://127.0.0.1:5173/cart",
-    });
-    // console.log(line_items);
-    res.send({ url: session.url });
-  } catch (error) {
-    res.status(404).json({error: error.message})
-  }
+      },
+    ],
+    customer: customer.id,
+    line_items,
+    mode: "payment",
+    success_url: "http://127.0.0.1:5173/CheckoutSuccess",
+    cancel_url: "http://127.0.0.1:5173/cart",
+  });
+  console.log(line_items);
+  res.send({ url: session.url });
 });
 
 //createOrder
 const createOrder = async (customer, data) => {
   const Items = JSON.parse(customer.metadata.cart);
-
+  const userId = customer.metadata.userId;
   const newOrder = new Order({
-    userId: customer.metadata.userId,
+    userId: userId,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
     products: Items,
@@ -133,7 +130,7 @@ router.post(
 
     try {
       event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-      // console.log("verified");
+      console.log("verified");
     } catch (err) {
       console.log(`Webhook Error: ${err.message}`);
       response.status(400).send(`Webhook Error: ${err.message}`);
