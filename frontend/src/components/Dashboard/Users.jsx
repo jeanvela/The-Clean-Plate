@@ -13,7 +13,7 @@ const UsersDashboard =  () => {
       try {
         const response = await axios.get("http://localhost:3001/auth/");
         const users = response.data;
-        const filterUsers = users.filter(u => u.enable === true);
+        const filterUsers = users
         dispatch(setFilteredUsers(filterUsers));
         
       } catch (error) {
@@ -34,8 +34,27 @@ const UsersDashboard =  () => {
       await axios.patch(`http://localhost:3001/auth/${id}`, {enable: false});
       const response = await axios.get("http://localhost:3001/auth/");
       const users = response.data;
-      const filterUsers = users.filter(u => u.enable === true);
+      const filterUsers = users
       dispatch(setFilteredUsers(filterUsers));
+      alert('User blocked')
+     
+    } catch (error) {
+      console.error(error);
+    }
+
+
+  }
+
+  const handleUnlock = async(id) => {
+
+    try {
+
+      await axios.patch(`http://localhost:3001/auth/${id}`, {enable: true});
+      const response = await axios.get("http://localhost:3001/auth/");
+      const users = response.data;
+      const filterUsers = users
+      dispatch(setFilteredUsers(filterUsers));
+      alert('Unlocked user')
      
     } catch (error) {
       console.error(error);
@@ -53,6 +72,8 @@ const UsersDashboard =  () => {
           <p>Username: {u.username}</p>
           <p>Roles: {u.roles.map(r => r.name)}</p>
           <button onClick={() => {handleBlock(u._id)}}>Block</button>
+          <p></p>
+          <button onClick={() => {handleUnlock(u._id)}}>Unlock</button>
           
         </div>
       ))}
