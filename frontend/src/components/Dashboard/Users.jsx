@@ -2,6 +2,7 @@ import React, { useEffect} from 'react';
 import axios from 'axios';
 import  {setFilteredUsers}  from '../../features/userSlice';
 import { useSelector, useDispatch } from "react-redux";
+import SideBar from './SideBar';
 
 const UsersDashboard =  () => {
   const filteredUsers = useSelector((state) => state.user.filteredUsers);
@@ -44,7 +45,9 @@ const UsersDashboard =  () => {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-6">
+      <SideBar/>
+    <div className="grid space-x-2 grid-cols-3 col-span-5 gap-2 mt-5 mx-2 grid-rows-3">
       {filteredUsers && filteredUsers.map(u => (
         <div >
           <p>Username: {u.username}</p>
@@ -53,6 +56,7 @@ const UsersDashboard =  () => {
           
         </div>
       ))}
+    </div>
     </div>
   );
 };

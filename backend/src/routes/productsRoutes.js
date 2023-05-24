@@ -31,6 +31,6 @@ const validate = (req, res, next) => {
 router.post("/", validate, createProductsHandler);
 router.get("/:idProduct", getProductsByIdHandler);
 router.get("/", getProductsHandler);
-router.put('/', enableProducts)
+router.patch('/:idProduct', enableProducts)
 
 module.exports = router;

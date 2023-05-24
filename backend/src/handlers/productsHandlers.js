@@ -81,19 +81,38 @@ const getProductsHandler = async (req, res) => {
   }
 };
 
+// const enableProducts = async (req, res) => {
+//   const {enable} = req.body
+//   try {
+//     const findProducts = await Products.updateMany({},{
+//       $set: {
+//         enable: enable
+//       }
+//     })
+//     res.status(200).json(findProducts)
+//   } catch (error) {
+//     res.status(400).json({error: error.message})
+//   }
+// }
+
 const enableProducts = async (req, res) => {
-  const {enable} = req.body
-  try {
-    const findProducts = await Products.updateMany({},{
-      $set: {
-        enable: enable
-      }
-    })
-    res.status(200).json(findProducts)
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
-}
+    const { enable } = req.body;
+    const { id } = req.params;
+    try {
+      const findProducts = await Products.updateOne(
+        { _id: id }, 
+        { $set: { enable: enable } } 
+      );
+
+      
+
+      res.status(200).json(findProducts);
+
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  };
+  
 
 
 module.exports = {
