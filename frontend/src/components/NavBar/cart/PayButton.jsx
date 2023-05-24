@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 function PayButton({ item }) {
   const user = useSelector((state) => state.user);
   const userId = user._id;
+  console.log(userId);
   const handleCheckOut = () => {
     axios
       .post("http://localhost:3001/stripe/stripe/create-checkout-session", {
