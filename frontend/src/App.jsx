@@ -13,17 +13,61 @@ import Dashboard from "./components/views/Dashboard";
 import ProductsDashboard from "../src/components/Dashboard/Products";
 import UsersDashboard from "../src/components/Dashboard/Users";
 import { useSelector } from 'react-redux';
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
+import { useEffect, useState } from "react";
 
 
-function App() {
+
+function App () {
   const userRole = useSelector((state) => state.user.role);
-  console.log(userRole)
+  const [enabled, setEnabled] = useState(false);
 
+  let {user} = useAuth0();
+
+  console.log(user)
+
+  useEffect(() => {
+    const checkEnable = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
+        const data = response.data;
+        setEnabled(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (user && user.email) {
+      checkEnable();
+    }
+  }, [user]);
+
+
+ 
+
+  
+ 
+
+  
+  
+
+   
+
+
+  
+
+  
   return (
     <>
       <div>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+         
+        
+          <Route  path="/" element={<Home />} />
+
+          { enabled === true && (
+            <>
           <Route path="/categories/products" element={<Cards />} />
           <Route path="/categories/products/:id" element={<CardDetail />} />
           <Route path="/categories/:id" element={<ProductByCategory />} />
@@ -31,6 +75,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+          </>
+          )}
+       
           {userRole === "admin" && (
             <>
               <Route exact path="/createproduct" element={<FormProdutcs />} />

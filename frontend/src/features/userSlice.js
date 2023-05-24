@@ -5,7 +5,8 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     role: '',
-    filteredUsers: [],
+    filteredUsers: []
+   
   },
   reducers: {
     setUserRole: (state, action) => {
@@ -17,12 +18,15 @@ const userSlice = createSlice({
       state.filteredUsers = action.payload;
 
     },
+
+    
   },
 });
 
 export const { 
   setUserRole,
-  setFilteredUsers 
+  setFilteredUsers,
+ 
 } = userSlice.actions;
 
 export default userSlice.reducer;

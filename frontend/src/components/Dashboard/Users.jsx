@@ -4,6 +4,7 @@ import  {setFilteredUsers}  from '../../features/userSlice';
 import { useSelector, useDispatch } from "react-redux";
 import SideBar from './SideBar';
 
+
 const UsersDashboard =  () => {
   const filteredUsers = useSelector((state) => state.user.filteredUsers);
   const dispatch = useDispatch()
@@ -22,9 +23,9 @@ const UsersDashboard =  () => {
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [filteredUsers]);
 
-  console.log(filteredUsers)
+  
 
 
   const handleBlock = async(id) => {
@@ -35,7 +36,8 @@ const UsersDashboard =  () => {
       const response = await axios.get("http://localhost:3001/auth/");
       const users = response.data;
       const filterUsers = users
-      dispatch(setFilteredUsers(filterUsers));
+      await dispatch(setFilteredUsers(filterUsers));
+      
       alert('User blocked')
      
     } catch (error) {
@@ -53,7 +55,9 @@ const UsersDashboard =  () => {
       const response = await axios.get("http://localhost:3001/auth/");
       const users = response.data;
       const filterUsers = users
-      dispatch(setFilteredUsers(filterUsers));
+      
+      await dispatch(setFilteredUsers(filterUsers));
+      
       alert('Unlocked user')
      
     } catch (error) {

@@ -12,7 +12,8 @@ const userSchema = new Schema({
         type: Array
     },
     enable: {
-        type: Boolean
+        type: Boolean,
+        default: true
     }
 })
 
