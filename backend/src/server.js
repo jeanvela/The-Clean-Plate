@@ -1,30 +1,33 @@
-const express = require('express');
-const router = require('./routes/index');
+const { createRoles } = require("./libs/initialSetUp");
+const express = require("express");
+const router = require("./routes/index");
 const server = express();
-const cors = require('cors');
-const morgan = require('morgan');
+const cors = require("cors");
+const morgan = require("morgan");
 // const fileUpload = require('express-fileupload');
-const multer = require('multer')
+const multer = require("multer");
+createRoles();
 
 const storage = multer.diskStorage({
-    destination: './public/upload/',
-    filename: (req, file, cb) => {
-        cb(null,file.originalname)
-    }
-})
+  destination: "./public/upload/",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 //---
-const upload = multer({storage})
+const upload = multer({ storage });
 
-server.use(morgan('dev'))
+server.use(morgan("dev"));
+server.use(express.urlencoded({ extended: false }));
+server.use(cors());
+server.use(upload.single("image"));
+server.use("/stripe", router);
 server.use(express.json());
-server.use(express.urlencoded({extended:false}))
-server.use(cors())
-server.use(upload.single('image'))
 // server.use(fileUpload({
 //     useTempFiles: true,
 //     tempFileDir: './src/public/upload' // ./upload/
 // }));
 
-server.use('/', router)
+server.use("/", router);
 
 module.exports = server;

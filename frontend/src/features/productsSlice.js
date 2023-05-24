@@ -1,71 +1,132 @@
-import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+// import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+// import axios from 'axios';
+
+// export const setByCategory = createAsyncThunk(
+//   'products/setByCategory',
+//   async (category) => {
+//     const response = await axios.get('http://localhost:3001/products', {
+//       params: {
+//         category,
+//       },
+//     });
+//     return response.data;
+//   }
+// );
+
+// export const setByOrigin = createAsyncThunk(
+//   'products/setByOrigin',
+//   async (origin) => {
+//     const response = await axios.get('http://localhost:3001/products', {
+//       params: {
+//         origin,
+//       },
+//     });
+//     return response.data;
+//   }
+// );
+
+// export const productsSlice = createSlice({
+//   name: 'products',
+//   initialState: {
+//     allProducts: [],
+//     products: [],
+//     categoryFilter: 'All',
+//     originFilter: 'All',
+//   },
+//   reducers: {
+//     setProducts: (state, action) => {
+//       state.allProducts = action.payload;
+//       state.products = action.payload;
+//     },
+//     setByName: (state, action) => {
+//       state.products = action.payload;
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder
+//       .addCase(setByCategory.fulfilled, (state, action) => {
+//         state.products = action.payload;
+//       })
+//       .addCase(setByOrigin.fulfilled, (state, action) => {
+//         state.products = action.payload;
+//       });
+//   },
+// });
+
+// export const { setProducts, setByName } = productsSlice.actions;
+// export default productsSlice.reducer;
+
+// export const getAllProducts = () => async (dispatch) => {
+//   try {
+//     const response = await axios.get("http://localhost:3001/products");
+//     dispatch(setProducts(response.data));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// export const fetchProductByName = (name) => async (dispatch) => {
+//     try {
+//       const json = await axios.get(`http://localhost:3001/products?name=${name}`);
+//       dispatch(setByName(json.data));
+//     } catch (error) {
+//       console.log(error);
+//     }
+// };
+
+// export const filterByCategory = (payload) => {
+//   return (dispatch) => {
+//     dispatch(setByCategory(payload));
+//   };
+// };
+
+// export const filterByOrigin = (payload) => {
+//   return (dispatch) => {
+//     dispatch(setByOrigin(payload));
+//   };
+// };
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+export const setByCategoryAndOrigin = createAsyncThunk(
+  'products/setByCategoryAndOrigin',
+  async ({ category, origin }) => {
+    const response = await axios.get('http://localhost:3001/products', {
+      params: {
+        category,
+        origin,
+      },
+    });
+    return response.data;
+  }
+);
 
 export const productsSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState: {
     allProducts: [],
-    products:[],
-    categoryFilter: "All",
-    originFilter: "All"
+    products: [],
+    categoryFilter: 'All',
+    originFilter: 'All',
   },
   reducers: {
     setProducts: (state, action) => {
       state.allProducts = action.payload;
       state.products = action.payload;
     },
-    setByName:(state,action) => {
-        state.products = action.payload;
+    setByName: (state, action) => {
+      state.products = action.payload;
     },
-    setByCategory: (state, action) => {
-      state.categoryFilter = action.payload;
-      const allProducts = state.allProducts;
-      let filteredProducts = [];
-      if (action.payload === "All") {
-        filteredProducts = allProducts;
-      } else {
-        allProducts.forEach((product) => {
-          let found = product.category.find((c) => c === action.payload);
-
-          if (found) {
-            filteredProducts.push(product);
-          }
-        });
-      }
-      state.products = filteredProducts.filter(product => {
-        if(state.originFilter === "All") {
-          return true;
-        }
-        return product.origin === state.originFilter;
-      });
-    },
-    setByOrigin:(state, action) => {
-      state.originFilter = action.payload;
-      const currentProducts = state.allProducts;
-      let filteredProducts=[];
-      if (action.payload === "All"){
-        filteredProducts = currentProducts;
-      } else {
-        currentProducts.forEach((product)=> {
-          let found = product.origin === action.payload
-
-          if(found) {
-            filteredProducts.push(product)
-          }
-        })
-      }
-      state.products = filteredProducts.filter(product => {
-        if(state.categoryFilter === "All") {
-          return true;
-        }
-        return product.category.includes(state.categoryFilter);
-      });
-    }
   },
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
+        state.products = action.payload;
+      });
+  },
 });
 
-export const { setProducts, setByName, setByCategory, setByOrigin } = productsSlice.actions;
+export const { setProducts, setByName } = productsSlice.actions;
 export default productsSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {
@@ -86,14 +147,8 @@ export const fetchProductByName = (name) => async (dispatch) => {
     }
 };
 
-export const filterByCategory = (payload) => {
+export const filterByCategoryAndOrigin = ({ category, origin }) => {
   return (dispatch) => {
-    dispatch(setByCategory(payload));
-  };
-};
-
-export const filterByOrigin = (payload) => {
-  return (dispatch) => {
-    dispatch(setByOrigin(payload));
+    dispatch(setByCategoryAndOrigin({ category, origin }));
   };
 };
