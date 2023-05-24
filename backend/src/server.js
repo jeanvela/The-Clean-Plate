@@ -18,10 +18,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 server.use(morgan("dev"));
-server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 server.use(upload.single("image"));
+server.use("/stripe", router);
+server.use(express.json());
 // server.use(fileUpload({
 //     useTempFiles: true,
 //     tempFileDir: './src/public/upload' // ./upload/
