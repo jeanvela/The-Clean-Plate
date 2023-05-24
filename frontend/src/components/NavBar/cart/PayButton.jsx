@@ -2,8 +2,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 function PayButton({ item }) {
-  const user = useSelector((state) => state.user);
-  const userId = user._id;
+  // const user = useSelector((state) => state.idUser);
+
+  const idUser = useSelector((state) => state.idUser);
+  const userId = idUser.user;
   console.log(userId);
   const handleCheckOut = () => {
     axios

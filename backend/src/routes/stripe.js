@@ -84,16 +84,16 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
     success_url: "http://127.0.0.1:5173/CheckoutSuccess",
     cancel_url: "http://127.0.0.1:5173/cart",
   });
-  // console.log(line_items);
+  console.log(line_items);
   res.send({ url: session.url });
 });
 
 //createOrder
 const createOrder = async (customer, data) => {
   const Items = JSON.parse(customer.metadata.cart);
-
+  const userId = customer.metadata.userId;
   const newOrder = new Order({
-    userId: customer.metadata.userId,
+    userId: userId,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
     products: Items,
@@ -130,7 +130,7 @@ router.post(
 
     try {
       event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-      // console.log("verified");
+      console.log("verified");
     } catch (err) {
       console.log(`Webhook Error: ${err.message}`);
       response.status(400).send(`Webhook Error: ${err.message}`);
