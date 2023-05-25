@@ -1,6 +1,8 @@
 
 
 import FeaturedCategories from "./FeaturedCategories";
+import FormPublications from "../formPublications/FormPublications";
+import Publications from "../Publications/Publications";
 
 
 const Home = () => {
@@ -27,6 +29,11 @@ const Home = () => {
           <FeaturedCategories />
         </div>
         <div className="border-t-4 border-gray-200 my-5"></div>
+
+        <Publications/>
+
+        <FormPublications/>
+
       </div>
       
     </div>
