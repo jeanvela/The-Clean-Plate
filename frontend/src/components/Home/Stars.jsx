@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { setRating } from "../../features/PublicationsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Star = () => {
-  const [rating, setRating] = useState(null);
+  
   const [hover, setHover] = useState(null);
+  const rating = useSelector((state) => state.publication.rating);
+  const dispatch = useDispatch()
 
   return (
     <div className="flex" >
@@ -16,7 +20,7 @@ const Star = () => {
               type="radio"
               name="rating"
               value={ratingValue}
-              onClick={() => setRating(ratingValue)}
+              onClick={() => dispatch(setRating(ratingValue))}
               className="opacity-0 absolute h-0 w-0"
             />
             <FaStar

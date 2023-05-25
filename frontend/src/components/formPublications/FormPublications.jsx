@@ -1,12 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios'
+import { useSelector } from "react-redux";
 
 const FormPublications = () => {
 
+    const rating = useSelector((state) => state.publication.rating);
+
     const [FormPublications, setFormPublications] = useState({
         description: '',
-        score: 0
+        score: rating
     })
 
     const handleInputChange = (event) => {
@@ -54,8 +57,8 @@ const FormPublications = () => {
             <label>Opinion: </label>
             <input name='description' type='text' value={FormPublications.description} onChange={handleInputChange}/>
 
-            <label>Score: </label>
-            <input name='score' type='Number' value={FormPublications.score} onChange={handleInputChange}/>
+            <label>Score: {rating} </label>
+            
             <button type='submit'>Post</button>
 
         </form>
