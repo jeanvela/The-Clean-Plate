@@ -1,4 +1,7 @@
+
+
 import FeaturedCategories from "./FeaturedCategories";
+
 
 const Home = () => {
   return (
@@ -25,6 +28,7 @@ const Home = () => {
         </div>
         <div className="border-t-4 border-gray-200 my-5"></div>
       </div>
+      
     </div>
   );
 };
