@@ -2,8 +2,13 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearCart, getTotal } from "../../../features/cartSlice";
 import { Link } from "react-router-dom";
+import axios from "axios";
 function ChechOutSuccess() {
   const dispatch = useDispatch();
+
+  axios
+    .get("http://localhost:3001/stripe/stripe/webhook")
+    .then((response) => console.log(response));
 
   useEffect(() => {
     dispatch(clearCart());

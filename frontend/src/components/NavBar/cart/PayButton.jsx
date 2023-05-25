@@ -6,7 +6,7 @@ function PayButton({ item }) {
 
   const idUser = useSelector((state) => state.idUser);
   const userId = idUser.user;
-  console.log(userId);
+  // console.log(userId);
   const handleCheckOut = () => {
     axios
       .post("http://localhost:3001/stripe/stripe/create-checkout-session", {

@@ -22,7 +22,7 @@ function NavBar() {
   const { amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
-  const userId = useSelector((state) => state.idUser.user)
+  const userId = useSelector((state) => state.idUser.user);
 
   useEffect(() => {
     const getToken = (token) => {
@@ -53,16 +53,14 @@ function NavBar() {
           }
         )
         .then((response) => {
-
-          console.log(response)
-          const role = (response.data.roles[0].name)
-          const id = response.data._id
+          console.log(response);
+          const role = response.data.roles[0].name;
+          const id = response.data._id;
           dispatch(setUserRole(role));
-          console.log(role)
+          console.log(role);
 
-          dispatch(setId(id))
-          console.log(id)
-
+          dispatch(setId(id));
+          console.log(id);
         })
         .catch((error) => console.log(error));
     }
@@ -74,7 +72,7 @@ function NavBar() {
 
   return (
     <>
-      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
+      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400  w-full  ">
         <div className="flex items-center">
           <SideBar />
           <Link to="/">

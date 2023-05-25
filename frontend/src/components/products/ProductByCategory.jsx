@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductCategoryQuery } from "../../features/productsApi";
 import Card from "./Card";
