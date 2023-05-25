@@ -1,17 +1,8 @@
 import { useGetProductDetailQuery } from "../../features/productsApi";
 import { useParams } from "react-router-dom";
-import RelatedProducts from "./RelatedProducts";
-import Slider from "react-slick";
 
 function CardDetail() {
   const { id } = useParams();
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   const { data: detail } = useGetProductDetailQuery(id) || {};
 
@@ -45,9 +36,6 @@ function CardDetail() {
           console.log(detail)
         )}
       </div>
-      <Slider {...settings}>
-        <RelatedProducts className=" flex  flex-row justify-center  items-end" />
-      </Slider>
     </div>
   );
 }
