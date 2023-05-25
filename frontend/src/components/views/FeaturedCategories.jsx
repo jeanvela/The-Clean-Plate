@@ -25,7 +25,11 @@ function FeaturedCategories() {
       <Slider {...settings}>
         {categories?.length
           ? categories.map((category) => (
-              <SliderCard key={category.id} name={category.name} />
+              <SliderCard
+                key={category.id}
+                name={category.name}
+                image={category.image}
+              />
             ))
           : console.log(categories)}
       </Slider>

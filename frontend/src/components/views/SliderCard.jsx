@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-function SliderCard({ name }) {
+function SliderCard({ name, image }) {
   return (
     <div className="  border border-gray-200 rounded-lg shadow bg-opacity-30 mx-1 bg-yellow-900  ">
-      <img className="rounded-t-lg" src="./bg.jpg" alt="" />
+      <img className="rounded-t-lg h-80 " src={image} alt="" />
 
       <div className="p-5">
         <h5 className="mb-2 text-2xl font-bold  text-yellow-900 ">{name}</h5>
