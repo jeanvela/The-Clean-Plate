@@ -85,13 +85,13 @@
 //     dispatch(setByOrigin(payload));
 //   };
 // };
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const setByCategoryAndOrigin = createAsyncThunk(
-  'products/setByCategoryAndOrigin',
+  "products/setByCategoryAndOrigin",
   async ({ category, origin }) => {
-    const response = await axios.get('http://localhost:3001/products', {
+    const response = await axios.get("http://localhost:3001/products", {
       params: {
         category,
         origin,
@@ -102,12 +102,12 @@ export const setByCategoryAndOrigin = createAsyncThunk(
 );
 
 export const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState: {
     allProducts: [],
     products: [],
-    categoryFilter: 'All',
-    originFilter: 'All',
+    categoryFilter: "All",
+    originFilter: "All",
   },
   reducers: {
     setProducts: (state, action) => {
@@ -119,10 +119,9 @@ export const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
-        state.products = action.payload;
-      });
+    builder.addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
   },
 });
 
@@ -139,12 +138,12 @@ export const getAllProducts = () => async (dispatch) => {
 };
 
 export const fetchProductByName = (name) => async (dispatch) => {
-    try {
-      const json = await axios.get(`http://localhost:3001/products?name=${name}`);
-      dispatch(setByName(json.data));
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    const json = await axios.get(`http://localhost:3001/products?name=${name}`);
+    dispatch(setByName(json.data));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const filterByCategoryAndOrigin = ({ category, origin }) => {
