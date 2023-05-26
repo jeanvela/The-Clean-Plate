@@ -17,6 +17,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
+import OrderDashboard from "../src/components/Dashboard/Order";
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
@@ -73,6 +74,7 @@ function App () {
               <Route exact path="/Dashboard" element={<Dashboard />} />
               <Route exact path="/Dashboard/products" element={<ProductsDashboard />} />
               <Route exact path="/Dashboard/users" element={<UsersDashboard />} />
+              <Route exact path="/Dashboard/ordes" element={<OrderDashboard/>} />
             </>
           )}
         </Routes>
