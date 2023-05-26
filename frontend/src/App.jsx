@@ -16,9 +16,7 @@ import { useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import PageNotFound from "./components/views/PageNotFound";
-
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
