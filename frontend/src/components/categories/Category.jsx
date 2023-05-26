@@ -7,7 +7,7 @@ function Category({ name, id, image }) {
         <img
           src={image}
           alt="image"
-          className="object-cover object-center h-40 w-full rounded-lg absolute mix-blend-overlay opacity-80  "
+          className="object-cover object-center h-40 w-full rounded-lg absolute mix-blend-overlay opacity-90  "
         />
         <h1 className=" text-5xl p-16  text-center font-bold text-yellow-950">
           {name}
