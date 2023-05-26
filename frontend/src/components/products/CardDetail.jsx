@@ -1,4 +1,3 @@
-// import { useGetProductDetailQuery } from "../../features/productsApi";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,12 +12,7 @@ function CardDetail() {
   const {
     productId: { name, price, image, category, description },
   } = useSelector((state) => state.products);
-
-  //  const { data: detail } = useGetProductDetailQuery(id) || {};
-  const cat = category[0];
-  console.log(cat, "catatata");
-  const detail = { name, price, image, id, category: cat };
-
+  const detail = { name, price, image, id };
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {

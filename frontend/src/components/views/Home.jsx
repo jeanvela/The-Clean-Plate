@@ -1,4 +1,7 @@
 import FeaturedCategories from "./FeaturedCategories";
+import FormPublications from "../formPublications/FormPublications";
+import Publications from "../Publications/Publications";
+import Star from "../Home/Stars";
 
 const Home = () => {
   return (
@@ -24,6 +27,12 @@ const Home = () => {
           <FeaturedCategories />
         </div>
         <div className="border-t-4 border-gray-200 my-5"></div>
+
+        <Publications/>
+
+        <FormPublications/>
+        <Star/>
+
       </div>
     </div>
   );

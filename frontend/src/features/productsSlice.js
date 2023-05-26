@@ -107,8 +107,10 @@ export const productsSlice = createSlice({
     allProducts: [],
     products: [],
     productId: {},
+
     categoryFilter: "All",
     originFilter: "All",
+    enableProducts: [],
   },
   reducers: {
     setProducts: (state, action) => {
@@ -121,6 +123,9 @@ export const productsSlice = createSlice({
     setById: (state, action) => {
       state.productId = action.payload;
     },
+    setEnableProduct: (state, action) => {
+      state.enableProducts = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
@@ -129,7 +134,8 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { setProducts, setByName, setById } = productsSlice.actions;
+export const { setProducts, setByName, setEnableProduct, setById } =
+  productsSlice.actions;
 export default productsSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {

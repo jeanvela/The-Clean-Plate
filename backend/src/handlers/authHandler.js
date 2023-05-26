@@ -36,10 +36,58 @@ const getUser = async (req, res) => {
     }
 }
 
+const enableUsers = async (req, res) => {
+    const { enable } = req.body;
+    const { id } = req.params;
+    try {
+      const findUser = await Users.updateOne(
+        { _id: id }, 
+        { $set: { enable: enable } } 
+      );
+
+      
+
+      res.status(200).json(findUser);
+
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  };
+
+  const getEnable = async(req, res) => {
+
+    try{
+
+    const {email} = req.query
+
+    const user = await Users.findOne({ username: email });
+
+    if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+
+    const enable = user.enable
+
+    res.status(200).json(enable);
+
+    }catch(error){
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+
+
+
+
+
+
+
+  }
+  
 
 module.exports = {
     authHandler,
-    getUser
+    getUser,
+    enableUsers,
+    getEnable
 };
   
 
