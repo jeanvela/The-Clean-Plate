@@ -2,17 +2,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearCart, getTotal } from "../../../features/cartSlice";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { runFireworks } from "./confetti";
 function ChechOutSuccess() {
   const dispatch = useDispatch();
-
-  axios
-    .get("http://localhost:3001/stripe/stripe/webhook")
-    .then((response) => console.log(response));
 
   useEffect(() => {
     dispatch(clearCart());
     dispatch(getTotal());
+    runFireworks();
   }, [dispatch]);
   return (
     <div className="  h-screen w-full flex  bg-slate-200  bg-cover bg-[url('/../bg3.jpg')]  bg-center ">

@@ -25,7 +25,6 @@ function CardDetail() {
   const HandleAddToCart = (detail) => {
     dispatch(setCart(detail));
   };
-  console.log(" dajfnjadnfjadnj", detail);
   return (
     <div className="  h-screen w-full flex bg-cover bg-[url('/../bg2.jpg')]  bg-center ">
       <div className="max-w-md mx-auto justify-center  bg-amber-100 rounded-xl  overflow-hidden shadow-lg md:max-w-2xl  hover/edit:translate-x-0.5 hover/edit:bg-amber-200 self-center  ">

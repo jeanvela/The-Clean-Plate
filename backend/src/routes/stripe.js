@@ -85,7 +85,7 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       success_url: "http://127.0.0.1:5173/CheckoutSuccess",
       cancel_url: "http://127.0.0.1:5173/cart",
     });
-    // console.log(line_items);
+    console.log("session console", session);
     res.send({ url: session.url });
   } catch (error) {
     console.log(error);
