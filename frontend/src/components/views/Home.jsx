@@ -1,10 +1,7 @@
-
-
 import FeaturedCategories from "./FeaturedCategories";
 import FormPublications from "../formPublications/FormPublications";
 import Publications from "../Publications/Publications";
 import Star from "../Home/Stars";
-
 
 const Home = () => {
   return (
@@ -23,7 +20,7 @@ const Home = () => {
             The Clean Plate
           </h1>
           <h3 className=" justify-center items-center self-center  text-6xl mt-4 font-semibold text-yellow-900">
-            Eat well, live better
+            Eat well, live better.
           </h3>
         </div>
         <div>
@@ -37,7 +34,6 @@ const Home = () => {
         <Star/>
 
       </div>
-      
     </div>
   );
 };
