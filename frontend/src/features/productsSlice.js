@@ -14,15 +14,15 @@ export const setByCategoryAndOrigin = createAsyncThunk(
   }
 );
 
-export const deleteProduct = createAsyncThunk(
-  "products/deleteProduct",
-  async (productId) => {
-    await axios.patch(`http://localhost:3001/products/${productId}`, {
-      enable: false,
-    });
-    return productId;
-  }
-);
+// export const deleteProduct = createAsyncThunk(
+//   "products/deleteProduct",
+//   async (productId) => {
+//     await axios.patch(`http://localhost:3001/products/${productId}`, {
+//       enable: false,
+//     });
+//     return productId;
+//   }
+// );
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -31,7 +31,7 @@ export const productsSlice = createSlice({
     products: [],
     categoryFilter: 'All',
     originFilter: 'All',
-    deletedProductIds: [],
+    enableProducts: [],
   },
   reducers: {
     setProducts: (state, action) => {
@@ -41,7 +41,12 @@ export const productsSlice = createSlice({
     setByName: (state, action) => {
       state.products = action.payload;
     },
-    
+    setEnableProduct: (state, action) => {
+
+      state.enableProducts = action.payload;
+
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -49,18 +54,18 @@ export const productsSlice = createSlice({
         state.products = action.payload;
       });
 
-      builder
-      .addCase(deleteProduct.fulfilled, (state, action) => {
-        state.products = state.products.filter(
-          (product) => product._id !== action.payload
-        );
-      });
+    // builder
+    // .addCase(deleteProduct.fulfilled, (state, action) => {
+    //   state.products = state.products.filter(
+    //     (product) => product._id !== action.payload
+    //   );
+    // });
   },
 
 
 });
 
-export const { setProducts, setByName, setfilteredProducts } = productsSlice.actions;
+export const { setProducts, setByName, setEnableProduct } = productsSlice.actions;
 export default productsSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {
@@ -73,12 +78,12 @@ export const getAllProducts = () => async (dispatch) => {
 };
 
 export const fetchProductByName = (name) => async (dispatch) => {
-    try {
-      const json = await axios.get(`http://localhost:3001/products?name=${name}`);
-      dispatch(setByName(json.data));
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    const json = await axios.get(`http://localhost:3001/products?name=${name}`);
+    dispatch(setByName(json.data));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const filterByCategoryAndOrigin = ({ category, origin }) => {
