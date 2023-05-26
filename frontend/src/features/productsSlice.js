@@ -106,6 +106,7 @@ export const productsSlice = createSlice({
   initialState: {
     allProducts: [],
     products: [],
+    productId: {},
     categoryFilter: "All",
     originFilter: "All",
   },
@@ -117,6 +118,9 @@ export const productsSlice = createSlice({
     setByName: (state, action) => {
       state.products = action.payload;
     },
+    setById: (state, action) => {
+      state.productId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
@@ -125,7 +129,7 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { setProducts, setByName } = productsSlice.actions;
+export const { setProducts, setByName, setById } = productsSlice.actions;
 export default productsSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {
@@ -141,6 +145,15 @@ export const fetchProductByName = (name) => async (dispatch) => {
   try {
     const json = await axios.get(`http://localhost:3001/products?name=${name}`);
     dispatch(setByName(json.data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductsById = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`http://localhost:3001/products/${id}`);
+    dispatch(setById(res.data));
   } catch (error) {
     console.log(error);
   }

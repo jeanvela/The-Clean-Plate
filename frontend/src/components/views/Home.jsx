@@ -1,7 +1,4 @@
-
-
 import FeaturedCategories from "./FeaturedCategories";
-
 
 const Home = () => {
   return (
@@ -20,7 +17,7 @@ const Home = () => {
             The Clean Plate
           </h1>
           <h3 className=" justify-center items-center self-center  text-6xl mt-4 font-semibold text-yellow-900">
-            Eat well, live better
+            Eat well, live better.
           </h3>
         </div>
         <div>
@@ -28,7 +25,6 @@ const Home = () => {
         </div>
         <div className="border-t-4 border-gray-200 my-5"></div>
       </div>
-      
     </div>
   );
 };
