@@ -18,6 +18,8 @@ import axios from 'axios'
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
+import About from './components/views/About'
+
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
@@ -52,7 +54,7 @@ function App () {
          
         
           <Route  path="/" element={<Home />} />
-
+          <Route path="/About" element={<About />} />
           { enabled === true && (
             <>
           <Route path="/categories/products" element={<Cards />} />
@@ -62,6 +64,7 @@ function App () {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+         
 
           </>
           )}
