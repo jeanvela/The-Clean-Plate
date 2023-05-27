@@ -119,7 +119,7 @@ const SideBar = (props) => {
 
             <li>
               <Link
-                to="/users"
+                to="/profile"
                 href="#"
                 className="flex items-center p-2  rounded-lg text-white  hover:bg-yellow-700"
               >
