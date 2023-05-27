@@ -5,6 +5,9 @@ const categorySchema = new Schema({
     type: String,
     require: true,
   },
+  image: {
+    type: String,
+  },
 });
 
 module.exports = model("category", categorySchema);

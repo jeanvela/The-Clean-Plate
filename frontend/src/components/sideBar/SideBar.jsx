@@ -134,7 +134,16 @@ const SideBar = (props) => {
                 >
                   <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
                 </svg>
+
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
+  
+              </Link>
+            </li>
+            <li>
+              <Link to= '/Dashboard/ordes'
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
+              >
+                <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
               </Link>
             </li>
             <li>
@@ -168,6 +177,7 @@ const SideBar = (props) => {
               </Link>
             </li>
           </ul>
+          
           <ul>
             {isAuthenticated && (
               <li className="mt-8">

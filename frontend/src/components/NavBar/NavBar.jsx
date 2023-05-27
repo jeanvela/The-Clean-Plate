@@ -72,7 +72,7 @@ function NavBar() {
 
   return (
     <>
-      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
+      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400  w-full  ">
         <div className="flex items-center">
           <SideBar email={email} />
           <Link to="/">

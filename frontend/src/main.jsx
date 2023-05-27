@@ -16,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import {Auth0Provider} from '@auth0/auth0-react'
 import user from './features/userSlice.js'
 import idUser from './features/userIdSlice.js'
+import publication from './features/PublicationsSlice.js'
+import ordes from './features/ordesSlice.js'
 
 export const store = configureStore({
   reducer: {
@@ -24,7 +26,9 @@ export const store = configureStore({
     categories,
     cart,
     user,
-    idUser
+    idUser,
+    publication,
+    ordes
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),

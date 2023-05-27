@@ -8,30 +8,31 @@ const Order = require("../models/Order");
 
 router.post("/create-checkout-session", express.json(), async (req, res) => {
   try {
-  const customer = await stripe.customers.create({
-    metadata: {
-      userId: req.body.userId,
-      cart: JSON.stringify(req.body.item),
-    },
-  });
+    const customer = await stripe.customers.create({
+      metadata: {
+        userId: req.body.userId,
+        cart: JSON.stringify(req.body.item),
+      },
+    });
 
-  const line_items = req.body.item?.map((el) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: el.name,
-          images: [el.image],
-          description: el.category,
-          metadata: {
-            id: el.id,
+    const line_items = req.body.item?.map((el) => {
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: el.name,
+            images: [el.image],
+            description: el.category,
+            metadata: {
+              id: el.id,
+            },
           },
-          unit_amount: el.price * 100,
+          unit_amount: Math.round(el.price * 100),
         },
         quantity: el.cartAmount,
-      }
-    }});
-  
+      };
+    });
+
     const session = await stripe.checkout.sessions.create({
       shipping_address_collection: {
         allowed_countries: ["US", "CA"],
@@ -84,19 +85,19 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       success_url: "http://127.0.0.1:5173/CheckoutSuccess",
       cancel_url: "http://127.0.0.1:5173/cart",
     });
-    // console.log(line_items);
+    console.log("session console", session);
     res.send({ url: session.url });
   } catch (error) {
-    res.status(404).json({error: error.message})
+    console.log(error);
   }
 });
 
 //createOrder
 const createOrder = async (customer, data) => {
   const Items = JSON.parse(customer.metadata.cart);
-
+  const userId = customer.metadata.userId;
   const newOrder = new Order({
-    userId: customer.metadata.userId,
+    userId: userId,
     customerId: data.customer,
     paymentIntentId: data.payment_intent,
     products: Items,
@@ -116,16 +117,11 @@ const createOrder = async (customer, data) => {
 
 //stripe webhook
 
-const endpointSecret =
-  "whsec_94da73b7cc291f76b0a28e57bc4ebda7068b376c726dc303c652b36967d61738";
-
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
   (request, response) => {
-    const endpointSecret =
-      "whsec_94da73b7cc291f76b0a28e57bc4ebda7068b376c726dc303c652b36967d61738";
-
+    const endpointSecret = process.env.ENDPOINT;
     const payload = request.body;
     const sig = request.headers["stripe-signature"];
 
@@ -133,7 +129,7 @@ router.post(
 
     try {
       event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-      // console.log("verified");
+      console.log("verified");
     } catch (err) {
       console.log(`Webhook Error: ${err.message}`);
       response.status(400).send(`Webhook Error: ${err.message}`);
