@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+
 import { BsCart4 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,7 +9,7 @@ import { setUserRole } from "../../features/userSlice.js";
 import { setId } from "../../features/userIdSlice.js";
 //import "./navBar.css"
 import SideBar from "../sideBar/SideBar";
-
+import SearchBar from "./SearchBar";
 function NavBar() {
   let {
     logout,
@@ -22,7 +22,7 @@ function NavBar() {
   const { amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
-  const userId = useSelector((state) => state.idUser.user)
+  const userId = useSelector((state) => state.idUser.user);
 
   useEffect(() => {
     const getToken = (token) => {
@@ -33,6 +33,8 @@ function NavBar() {
         const accesToken = await getAccessTokenSilently();
         setEmail(user.email);
         getToken(accesToken);
+
+       
       }
     };
     getUserEmail();
@@ -53,16 +55,14 @@ function NavBar() {
           }
         )
         .then((response) => {
-
-          console.log(response)
-          const role = (response.data.roles[0].name)
-          const id = response.data._id
+          console.log(response);
+          const role = response.data.roles[0].name;
+          const id = response.data._id;
           dispatch(setUserRole(role));
-          console.log(role)
+          console.log(role);
 
-          dispatch(setId(id))
-          console.log(id)
-
+          dispatch(setId(id));
+          console.log(id);
         })
         .catch((error) => console.log(error));
     }
@@ -76,13 +76,14 @@ function NavBar() {
     <>
       <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
         <div className="flex items-center">
-          <SideBar />
+          <SideBar email={email}/>
           <Link to="/">
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
 
-        <SearchBar />
+        <SearchBar email={email}/>
+        {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">
