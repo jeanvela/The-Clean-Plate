@@ -33,8 +33,6 @@ function NavBar() {
         const accesToken = await getAccessTokenSilently();
         setEmail(user.email);
         getToken(accesToken);
-
-       
       }
     };
     getUserEmail();
@@ -76,13 +74,13 @@ function NavBar() {
     <>
       <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400  w-full  ">
         <div className="flex items-center">
-          <SideBar email={email}/>
+          <SideBar email={email} />
           <Link to="/">
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
 
-        <SearchBar email={email}/>
+        <SearchBar email={email} />
         {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">
@@ -103,18 +101,6 @@ function NavBar() {
               Products
             </div>
           </Link>
-
-          <Link to="/contact">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Contact
-            </div>
-          </Link>
-
-          <Link to="/createproduct">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Form
-            </div>
-          </Link>
           <Link to="/cart">
             <div className=" mr-4 block relative">
               <BsCart4 className=" h-7 w-6" />
@@ -125,11 +111,6 @@ function NavBar() {
               </div>
             </div>
           </Link>
-          {isAuthenticated ? (
-            <button onClick={() => logout()}>Logout</button>
-          ) : (
-            <button onClick={() => handleLogin()}>Login</button>
-          )}
         </div>
       </div>
     </>
