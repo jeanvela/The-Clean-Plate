@@ -39,7 +39,7 @@ function ChechOutSuccess() {
           <Link to="/">
             <button className="max-w-full w-48 h-12 rounded-md font-normal bg-yellow-900 text-white cursor-pointer hover/edit:translate-x-0.5  hover/edit:text-yellow-400">
               {" "}
-              Home
+              Rate Us
             </button>
           </Link>
           <Link to="/categories/products">
