@@ -1,10 +1,11 @@
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const setByCategoryAndOrigin = createAsyncThunk(
-  'products/setByCategoryAndOrigin',
+  "products/setByCategoryAndOrigin",
   async ({ category, origin }) => {
-    const response = await axios.get('http://localhost:3001/products', {
+    const response = await axios.get("http://localhost:3001/products", {
       params: {
         category,
         origin,
@@ -14,24 +15,19 @@ export const setByCategoryAndOrigin = createAsyncThunk(
   }
 );
 
-// export const deleteProduct = createAsyncThunk(
-//   "products/deleteProduct",
-//   async (productId) => {
-//     await axios.patch(`http://localhost:3001/products/${productId}`, {
-//       enable: false,
-//     });
-//     return productId;
-//   }
-// );
 
 export const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState: {
     allProducts: [],
     products: [],
+
     categoryFilter: 'All',
     originFilter: 'All',
     enableProducts: [],
+    categoryFilter: "All",
+    originFilter: "All",
+
   },
   reducers: {
     setProducts: (state, action) => {
@@ -49,20 +45,11 @@ export const productsSlice = createSlice({
 
   },
   extraReducers: (builder) => {
+
     builder
       .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
         state.products = action.payload;
       });
-
-    // builder
-    // .addCase(deleteProduct.fulfilled, (state, action) => {
-    //   state.products = state.products.filter(
-    //     (product) => product._id !== action.payload
-    //   );
-    // });
-  },
-
-
 });
 
 export const { setProducts, setByName, setEnableProduct } = productsSlice.actions;
