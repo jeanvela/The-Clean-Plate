@@ -7,6 +7,7 @@ import {
 } from "../../features/productsSlice";
 import { getAllCategories } from "../../features/categorySlice";
 import InfiniteScroll from "react-infinite-scroll-component";
+import BackToTop from "./BackToTop";
 
 function Cards() {
   const dispatch = useDispatch();
@@ -109,6 +110,7 @@ function Cards() {
 
         </InfiniteScroll>
       </div>
+      <BackToTop />
     </div>
   );
 }

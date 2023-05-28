@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+
 import { BsCart4 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,7 +9,7 @@ import { setUserRole } from "../../features/userSlice.js";
 import { setId } from "../../features/userIdSlice.js";
 //import "./navBar.css"
 import SideBar from "../sideBar/SideBar";
-
+import SearchBar from "./SearchBar";
 function NavBar() {
   let {
     logout,
@@ -74,13 +74,14 @@ function NavBar() {
     <>
       <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400  w-full  ">
         <div className="flex items-center">
-          <SideBar />
+          <SideBar email={email} />
           <Link to="/">
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
 
-        <SearchBar />
+        <SearchBar email={email} />
+        {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">
@@ -100,18 +101,6 @@ function NavBar() {
               Products
             </div>
           </Link>
-
-          <Link to="/contact">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Contact
-            </div>
-          </Link>
-
-          <Link to="/createproduct">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Form
-            </div>
-          </Link>
           <Link to="/cart">
             <div className=" mr-4 block relative">
               <BsCart4 className=" h-7 w-6" />
@@ -122,11 +111,6 @@ function NavBar() {
               </div>
             </div>
           </Link>
-          {isAuthenticated ? (
-            <button onClick={() => logout()}>Logout</button>
-          ) : (
-            <button onClick={() => handleLogin()}>Login</button>
-          )}
         </div>
       </div>
     </>
