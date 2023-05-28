@@ -18,10 +18,12 @@ import axios from 'axios'
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
+import SpacePublications from "./components/views/SpacePublications";
+import BlockPage from "./components/views/BlockPage";
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(null);
 
   let {user} = useAuth0();
 
@@ -44,6 +46,7 @@ function App () {
   }, [user]);
 
   console.log(userRole);
+  console.log(enabled)
 
   return (
     <>
@@ -52,6 +55,23 @@ function App () {
          
         
           <Route  path="/" element={<Home />} />
+
+          {  enabled === false && (
+            <>
+          <Route path="/categories/products" element={<BlockPage />} />
+          <Route path="/categories/products/:id" element={<BlockPage />} />
+          <Route path="/categories/:id" element={<BlockPage />} />
+          <Route path="/categories" element={<BlockPage />} />
+          <Route path="/cart" element={<BlockPage />} />
+          <Route path="/Contact" element={<BlockPage />} />
+          <Route path="/CheckoutSuccess" element={<BlockPage />} />
+          <Route path="/opinion" element={<BlockPage/>} />
+          <Route path="/Dashboard/ordes" element={<BlockPage/>} />
+          <Route path="/about" element={<BlockPage/>} />
+          <Route path="/profile" element={<BlockPage/>} /> 
+          </>
+          )}
+
 
           { enabled === true && (
             <>
@@ -62,6 +82,7 @@ function App () {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+          <Route path="/opinion" element={<SpacePublications/>} />
 
           </>
           )}
