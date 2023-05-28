@@ -2,10 +2,11 @@ const Stripe = require("stripe");
 require("dotenv").config();
 const stripe = Stripe(process.env.STRIPE_KEY);
 const express = require("express");
-const { Router } = require("express");
+const { Router, response } = require("express");
 const router = Router();
 const Order = require("../models/Order");
-
+const Product = require("../models/Products");
+const { getProductById } = require("../controllers/productsControllers");
 router.post("/create-checkout-session", express.json(), async (req, res) => {
   try {
     const customer = await stripe.customers.create({
@@ -85,7 +86,7 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       success_url: "http://127.0.0.1:5173/CheckoutSuccess",
       cancel_url: "http://127.0.0.1:5173/cart",
     });
-    console.log("session console", session);
+    // console.log("session console", session);
     res.send({ url: session.url });
   } catch (error) {
     console.log(error);
@@ -109,11 +110,43 @@ const createOrder = async (customer, data) => {
 
   try {
     const saveOrder = await newOrder.save();
-    console.log("processed order", saveOrder);
+    // console.log("processed order", saveOrder);
   } catch (error) {
     console.log(error);
   }
 };
+// const success = (status, res) => {
+//   res.send(status);
+//   console.log("*******", status);
+// };
+// router.get("/success", success);
+
+//successe response
+
+const stockUpdate = async (customer, data) => {
+  const Items = JSON.parse(customer.metadata.cart);
+  const stripeProductId = Items?.map((el) => el.id);
+  for (let i = 0; i < Items.length; i++) {
+    const updateStock = await getProductById(Items[i].id);
+    if (updateStock) {
+      updateStock.stock -= Items[0].cartAmount;
+      const saveProduct = updateStock.save();
+    }
+    // console.log("========", updateStock, "========");
+    // console.log("**********", stripeProductId);
+  }
+};
+// const stockUpdate = async (customer, data) => {
+//   const Items = JSON.parse(customer.metadata.cart);
+//   const stripeProductId = Items[0].id;
+//   const updateStock = await getProductById(stripeProductId);
+//   if (updateStock) {
+//     updateStock.stock -= Items[0].cartAmount;
+//     const saveProduct = updateStock.save();
+//   }
+//   console.log("========", updateStock.stock, "========");
+//   console.log("**********", stripeProductId);
+// };
 
 //stripe webhook
 
@@ -142,11 +175,17 @@ router.post(
         .retrieve(data.customer)
         .then((customer) => {
           createOrder(customer, data);
+          stockUpdate(customer, data);
         })
+
+        // .then(() => {
+        //   const status = data.payment_status;
+        //   success(status);
+        // })
         .catch((error) => console.log(error.message));
     }
 
-    response.json({ success: true });
+    response.json(data.payment_status);
   }
 );
 
