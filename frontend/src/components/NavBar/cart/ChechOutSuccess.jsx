@@ -3,14 +3,26 @@ import { useDispatch } from "react-redux";
 import { clearCart, getTotal } from "../../../features/cartSlice";
 import { Link } from "react-router-dom";
 import { runFireworks } from "./confetti";
+// import axios from "axios";
+
 function ChechOutSuccess() {
   const dispatch = useDispatch();
 
+  // const success = () => {
+  //   const res = axios.get("http://localhost:3001/stripe/stripe/success");
+  //   let response = res.data;
+  //   if (response === "paid") {
+  //     console.log(response);
+  //     dispatch(clearCart());
+  //   }
+  // };
+
   useEffect(() => {
+    // success();
     dispatch(clearCart());
     dispatch(getTotal());
     runFireworks();
-  }, [dispatch]);
+  });
   return (
     <div className="  h-screen w-full flex  bg-slate-200  bg-cover bg-[url('/../bg3.jpg')]  bg-center ">
       <div
