@@ -3,7 +3,8 @@ const {
   createProductsHandler,
   getProductsByIdHandler,
   getProductsHandler,
-  enableProducts
+  enableProducts,
+  updateStock
 } = require("../handlers/productsHandlers");
 
 const router = Router();
@@ -31,6 +32,8 @@ const validate = (req, res, next) => {
 router.post("/", validate, createProductsHandler);
 router.get("/:idProduct", getProductsByIdHandler);
 router.get("/", getProductsHandler);
-router.patch('/:idProduct', enableProducts)
+router.patch('/enable/:idProduct', enableProducts);
+router.patch('/stock/:idProduct', updateStock);
+
 
 module.exports = router;

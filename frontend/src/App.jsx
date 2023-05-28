@@ -12,7 +12,6 @@ import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
 import Dashboard from "./components/views/Dashboard";
 import ProductsDashboard from "../src/components/Dashboard/Products";
 import UsersDashboard from "../src/components/Dashboard/Users";
-import { useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 import { useEffect, useState } from "react";
