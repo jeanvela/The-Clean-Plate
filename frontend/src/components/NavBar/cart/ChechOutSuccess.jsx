@@ -48,6 +48,12 @@ function ChechOutSuccess() {
               Keep shopping!
             </button>
           </Link>
+          <Link to="/opinion">
+            <button className="max-w-full w-48 h-12 rounded-md font-normal bg-yellow-900 text-white cursor-pointer hover/edit:translate-x-0.5 hover/edit:text-yellow-400">
+              {" "}
+              Leave your comments here!
+            </button>
+          </Link>
         </div>
       </div>
     </div>

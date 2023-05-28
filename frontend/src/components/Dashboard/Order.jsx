@@ -2,6 +2,7 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAllOrdes } from "../../features/ordesSlice";
+import style from '../../styles/order.module.css';
 
 const OrderDashboard = () => {
     const dispatch = useDispatch()
@@ -21,41 +22,46 @@ const OrderDashboard = () => {
                         {
                             ordes && ordes.map(e => (
                                 <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
-                                    <p className="text-base leading-4 text-gray-800">Order: {e._id}</p>
-                                    <p className="text-sm leading-none text-gray-800">
-                                        <span className="text-gray-300">Date:</span> {e.createdAt}
+                                    <p className={style.p}>Order: <span className={style.span_id}>{e._id}</span></p>
+                                    <p className={style.p}>
+                                    Date: <span className={style.span_id}>{e.createdAt}</span> 
                                     </p>
-                                    <div className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
-                                        <div className="pb-4 md:pb-8 w-full md:w-40">
-                                            {
-                                                e.products.map(product => (
-                                                    <>
-                                                        <img className="w-full hidden md:block" src={product.image} alt={product.name} />
-                                                    </>
-                                                ))
-                                            }
-                                        </div>
+                                    <div className={style.container_product}>
+                                        <div className={style.products}>
+                                            <div className={style.container_img}>
+                                                {
+                                                    e.products.map(product => (
+                                                        
+                                                        <img className={style.img} src={product.image} alt={product.name} />
+                                                        
+                                                    ))
+                                                }
+                                            </div>
                                         <div>
                                             {e.products.map(product => (
                                                 <>  
                                                     <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0"></div>
-                                                    <p className="text-base leading-4 text-gray-800">Name: {product.name}</p>
-                                                    <p className="text-base leading-4 text-gray-800">Category: {product.category}</p>
-                                                    <p className="text-base leading-4 text-gray-800">Price: {product.price}</p>
+                                                    <p className={style.p}>Name: <sapn className={style.span_id}>{product.name}</sapn></p>
+                                                    <p className={style.p}>Category: <span className={style.span_id}>{product.category}</span></p>
+                                                    <p className={style.p}>Price: <span className={style.span_id}>${product.price}</span></p>
                                                 </>
                                             ))}
                                         </div>
+                                        </div>
                                         <div>
-                                            <p className="text-base font-semibold leading-4 text-gray-800">Country: {e.shipping.address.country}</p>
-                                            <p className="text-base font-semibold leading-4 text-gray-800">Postal code: {e.shipping.address.postal_code}</p>
-                                            <p className="text-base font-semibold leading-4 text-gray-800">Line: {e.shipping.address.line1}</p>
-                                            <p className="text-base font-semibold leading-4 text-gray-800">Email: {e.shipping.email}</p>
-                                            <p className="text-base font-semibold leading-4 text-gray-800">Name: {e.shipping.name}</p>
+                                            <p className={style.p}>Country: {e.shipping.address.country}</p>
+                                            <p className={style.p}>Postal code: {e.shipping.address.postal_code}</p>
+                                            <p className={style.p}>Line: {e.shipping.address.line1}</p>
+                                            <p className={style.p}>Email: {e.shipping.email}</p>
+                                            <p className={style.p}>Name: {e.shipping.name}</p>
                                         </div>
                                     </div>
                                     <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0"></div>
-                                    <p className="text-base font-semibold leading-4 text-gray-800">Total</p>
-                                    <p className="text-base font-semibold leading-4 text-gray-600">${e.total}</p>
+                                    <div className={style.total}>
+                                        <p className={style.p}>Total:</p>
+                                        <p className={style.span_id}>${e.total}</p>
+                                    </div>
+                                    
                                 </div>
                             ))
                         }
