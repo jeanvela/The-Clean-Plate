@@ -50,7 +50,7 @@ export const productsSlice = createSlice({
       .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
         state.products = action.payload;
       });
-});
+}});
 
 export const { setProducts, setByName, setEnableProduct } = productsSlice.actions;
 export default productsSlice.reducer;
