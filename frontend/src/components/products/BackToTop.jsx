@@ -24,7 +24,7 @@ function BackToTop() {
     <div>
       {backToTop && (
         <button onClick={scrollUp} className=" fixed bottom-12 right-12   ">
-          <BsFillArrowUpCircleFill className="   text-stone-950  text-7xl" />
+          <BsFillArrowUpCircleFill className="   text-black text-7xl" />
           <p>back to top</p>
         </button>
       )}
