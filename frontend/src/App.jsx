@@ -35,6 +35,7 @@ function App () {
         const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
         const data = response.data;
         setEnabled(data);
+        
       } catch (error) {
         console.error(error);
       }
@@ -42,6 +43,7 @@ function App () {
 
     if (user && user.email) {
       checkEnable();
+      alert('You are blocked')
     }
   }, [user]);
 
