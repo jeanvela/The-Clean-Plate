@@ -13,11 +13,11 @@ import products from "./features/productsSlice";
 import cart, { getTotal } from "./features/cartSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {Auth0Provider} from '@auth0/auth0-react'
-import user from './features/userSlice.js'
-import idUser from './features/userIdSlice.js'
-import publication from './features/PublicationsSlice.js'
-import ordes from './features/ordesSlice.js'
+import { Auth0Provider } from "@auth0/auth0-react";
+import user from "./features/userSlice.js";
+import idUser from "./features/userIdSlice.js";
+import publication from "./features/PublicationsSlice.js";
+import ordes from "./features/ordesSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -28,7 +28,7 @@ export const store = configureStore({
     user,
     idUser,
     publication,
-    ordes
+    ordes,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
@@ -37,15 +37,20 @@ store.dispatch(getTotal());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Auth0Provider domain="dev-kpcb1xpi7aaypegd.us.auth0.com" clientId="PTbYBGwYv0xFnKTDvp2VkKS0P6ZB6JVB" redirectUri={window.location.origin} scope="openid profile email">
-    <BrowserRouter>
-      <ToastContainer />
-      <Provider store={store}>
-        <NavBar />
-        <App />
-        <Footer />
-      </Provider>
-    </BrowserRouter>
+    <Auth0Provider
+      domain="dev-kpcb1xpi7aaypegd.us.auth0.com"
+      clientId="PTbYBGwYv0xFnKTDvp2VkKS0P6ZB6JVB"
+      redirectUri={window.location.origin}
+      scope="openid profile email"
+    >
+      <BrowserRouter>
+        <ToastContainer />
+        <Provider store={store}>
+          <NavBar />
+          <App />
+          <Footer />
+        </Provider>
+      </BrowserRouter>
     </Auth0Provider>
   </React.StrictMode>
 );

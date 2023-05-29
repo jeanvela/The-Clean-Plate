@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../features/productsSlice";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
-import RelaitedProducts from "./RelaitedProducts";
+// import RelaitedProducts from "./RelaitedProducts";
 
 function CardDetail() {
   const { id } = useParams();
@@ -65,9 +65,9 @@ function CardDetail() {
           </div>
         </div>
       </div>{" "}
-      <div className="  m-1 mb-6 ">
+      {/* <div className="  m-1 mb-6 ">
         <RelaitedProducts item={category} />
-      </div>
+      </div> */}
     </>
   );
 }

@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { setRating } from "../../features/PublicationsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Star = () => {
-  
   const [hover, setHover] = useState(null);
   const rating = useSelector((state) => state.publication.rating);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
-    <div className="flex" >
+    <div className="flex">
       {[...Array(5)].map((star, index) => {
         const ratingValue = index + 1;
 
@@ -25,7 +24,7 @@ const Star = () => {
             />
             <FaStar
               size={40}
-              color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+              color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
             />
