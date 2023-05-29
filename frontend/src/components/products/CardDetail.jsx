@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../features/productsSlice";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
+import RelaitedProducts from "./RelaitedProducts";
 
 function CardDetail() {
   const { id } = useParams();
@@ -26,46 +27,48 @@ function CardDetail() {
     dispatch(setCart(detail));
   };
   return (
-    <div className="  h-screen w-full flex bg-cover bg-[url('/../bg2.jpg')]  bg-center ">
-      <div className="max-w-md mx-auto justify-center  bg-amber-100 rounded-xl  overflow-hidden shadow-lg md:max-w-2xl  hover/edit:translate-x-0.5 hover/edit:bg-amber-200 self-center  ">
-        <div className="md:flex">
-          <img
-            src={image}
-            alt="image"
-            className=" h-full w-full md:h-96
+    <>
+      <div className="  h-screen w-full flex bg-cover bg-[url('/../bg2.jpg')]  bg-center ">
+        <div className="max-w-md mx-auto justify-center  bg-amber-100 rounded-xl  overflow-hidden shadow-lg md:max-w-2xl  hover/edit:translate-x-0.5 hover/edit:bg-amber-200 self-center  ">
+          <div className="md:flex">
+            <img
+              src={image}
+              alt="image"
+              className=" h-full w-full md:h-96
                mr-3 md:w-56 object-fill"
-          />
-          <ul className=" my-4 text-lg leading-relaxed ">
-            <li className=" ">
-              <h1 className=" font-semibold  text-yellow-900 "> product:</h1>
-              <p>{name}</p>
-            </li>
-            <li>
-              <h3 className=" font-semibold text-yellow-900 ">category:</h3>
-              <p> {category}</p>{" "}
-            </li>
-            <li>
-              <h3 className=" font-semibold text-yellow-900">description:</h3>
-              <p>{description}</p>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  HandleAddToCart(detail);
-                  getTotal();
-                }}
-                className=" text-white cursor-pointer  p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-4  w-3/4  "
-              >
-                Add To Cart
-              </button>
-            </li>
-          </ul>
+            />
+            <ul className=" my-4 text-lg leading-relaxed ">
+              <li className=" ">
+                <h1 className=" font-semibold  text-yellow-900 "> product:</h1>
+                <p>{name}</p>
+              </li>
+              <li>
+                <h3 className=" font-semibold text-yellow-900 ">category:</h3>
+                <p> {category}</p>{" "}
+              </li>
+              <li>
+                <h3 className=" font-semibold text-yellow-900">description:</h3>
+                <p>{description}</p>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    HandleAddToCart(detail);
+                    getTotal();
+                  }}
+                  className=" text-white cursor-pointer  p-2 flex justify-center rounded-md bg-yellow-900  hover:bg-amber-800  mt-4  w-3/4  "
+                >
+                  Add To Cart
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-        {/* ) : (
-          console.log(detail)
-        )} */}
+      </div>{" "}
+      <div className="  m-1 mb-6 ">
+        <RelaitedProducts item={category} />
       </div>
-    </div>
+    </>
   );
 }
 
