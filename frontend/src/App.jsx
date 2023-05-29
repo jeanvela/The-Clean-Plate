@@ -20,6 +20,7 @@ import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
+import Profile from "./components/views/Profile";
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
@@ -35,6 +36,7 @@ function App () {
         const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
         const data = response.data;
         setEnabled(data);
+        
       } catch (error) {
         console.error(error);
       }
@@ -42,6 +44,7 @@ function App () {
 
     if (user && user.email) {
       checkEnable();
+      alert('You are blocked')
     }
   }, [user]);
 
@@ -83,6 +86,7 @@ function App () {
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
           <Route path="/opinion" element={<SpacePublications/>} />
+          <Route path="/profile" element={<Profile/>} /> 
 
           </>
           )}
