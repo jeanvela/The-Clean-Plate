@@ -128,11 +128,11 @@ export const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
-      state.products = action.payload;
-    });
-  },
-});
+    builder
+      .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
+        state.products = action.payload;
+      });
+}});
 
 export const { setProducts, setByName, setEnableProduct, setById } =
   productsSlice.actions;

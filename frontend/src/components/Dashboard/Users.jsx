@@ -75,18 +75,34 @@ const UsersDashboard = () => {
   return (
     <div className="grid grid-cols-6">
       <SideBar />
-      <div className="grid space-x-2 grid-cols-3 col-span-5 gap-2 mt-5 mx-2 grid-rows-3">
-        {filteredUsers && filteredUsers.map(u => (
-          <div >
-            <p>Username: {u.username}</p>
-            <p>Roles: {u.roles.map(r => r.name)}</p>
-            <button onClick={() => { handleBlock(u._id) }}>Block</button>
-            <p></p>
-            <button onClick={() => { handleUnlock(u._id) }}>Unlock</button>
-
-          </div>
-        ))}
+      <div className="grid space-x-2 grid-cols-3 col-span-5 gap-2 mt-5 mx-2 grid-rows-3 bg-yellow-200">
+        {filteredUsers &&
+          filteredUsers.map((u) => (
+            <div
+              key={u._id}
+              className={`border  border-yellow-400 p-4 mb-4 ${u.enable ? '' : 'opacity-50'
+                }`}
+            >
+              <p className="font-bold">Username: {u.username}</p>
+              <p>Roles: {u.roles.map((r) => r.name)}</p>
+              <div className="flex justify-between mt-4">
+                <button
+                  className="px-4 py-2 bg-red-500 text-white rounded"
+                  onClick={() => handleBlock(u._id)}
+                >
+                  Block
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={() => handleUnlock(u._id)}
+                >
+                  Unlock
+                </button>
+              </div>
+            </div>
+          ))}
       </div>
+
     </div>
   );
 };

@@ -90,21 +90,24 @@ function Cards() {
         >
           <div className="grid space-x-2 grid-cols-3 gap-2 mt-5 mx-2 grid-rows-3">
             {displayedProducts?.length ? (
-              displayedProducts.map((card) => (
-                <Card
-                  key={card._id}
-                  name={card.name}
-                  image={card.image}
-                  category={card.category[0]}
-                  description={card.description}
-                  price={card.price}
-                  id={card._id}
-                />
-              ))
+              displayedProducts
+                .filter((product) => product.enable) // Filtrar solo los productos con enable en true
+                .map((card) => (
+                  <Card
+                    key={card._id}
+                    name={card.name}
+                    image={card.image}
+                    category={card.category[0]}
+                    description={card.description}
+                    price={card.price}
+                    id={card._id}
+                  />
+                ))
             ) : (
               <p>No products found.</p>
             )}
           </div>
+
         </InfiniteScroll>
       </div>
       <BackToTop />
