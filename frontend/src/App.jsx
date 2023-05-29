@@ -18,9 +18,11 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
+import About from './components/views/About'
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
 import Profile from "./components/views/Profile";
+
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
@@ -61,7 +63,8 @@ function App () {
          
         
           <Route  path="/" element={<Home />} />
-
+          <Route path="/About" element={<About />} />
+            
           {  enabled === false && (
             <>
           <Route path="/categories/products" element={<BlockPage />} />
@@ -78,7 +81,6 @@ function App () {
           </>
           )}
 
-
           { enabled === true && (
             <>
           <Route path="/categories/products" element={<Cards />} />
@@ -88,8 +90,10 @@ function App () {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+
           <Route path="/opinion" element={<SpacePublications/>} />
           <Route path="/profile" element={<Profile/>} /> 
+
 
           </>
           )}
