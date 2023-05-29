@@ -16,6 +16,7 @@ function ProductByCategory() {
                 name={cat.name}
                 image={cat.image}
                 category={cat.category[0]}
+                stock={cat.stock}
                 description={cat.description}
                 price={cat.price}
                 id={cat._id}

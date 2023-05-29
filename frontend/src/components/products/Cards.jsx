@@ -98,6 +98,7 @@ function Cards() {
                     name={card.name}
                     image={card.image}
                     category={card.category[0]}
+                    stock={card.stock}
                     description={card.description}
                     price={card.price}
                     id={card._id}
@@ -107,7 +108,6 @@ function Cards() {
               <p>No products found.</p>
             )}
           </div>
-
         </InfiniteScroll>
       </div>
       <BackToTop />
