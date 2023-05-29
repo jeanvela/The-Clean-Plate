@@ -1,50 +1,60 @@
-// import Slider from "react-slick";
-// import Card from "./Card";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import { getAllProducts } from "../../features/productsSlice";
+import Slider from "react-slick";
+import Card from "./Card";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllProducts } from "../../features/productsSlice";
 
-// function RelaitedProducts({ item }) {
-//   const { products } = useSelector((state) => state.products);
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(getAllProducts());
-//   }, [dispatch]);
+function RelaitedProducts({ ...item }) {
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
-//   const settings = {
-//     dots: true,
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 3,
-//     slidesToScroll: 1,
-//     focusOnSelect: true,
-//   };
+  useEffect(() => {});
 
-//   const prod = products?.filter((el) => el.category[0] === item[0]);
-//   console.log(prod);
-//   console.log("=====", item);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+  };
+  let prod = "";
+  const itemRealValue = item.item;
+  let itemValue = "";
+  for (let i = 0; i < itemRealValue?.length; i++) {
+    itemValue = itemRealValue[i];
+  }
+  // for (let i = 0; i < prod.length; i++) {}
+  prod = products.filter((el) => el.category[0] === itemValue);
 
-//   return (
-//     <div className="">
-//       <Slider {...settings}>
-//         {prod?.length ? (
-//           prod.map((card) => (
-//             <Card
-//               key={card._id}
-//               name={card.name}
-//               image={card.image}
-//               category={card.category[0]}
-//               description={card.description}
-//               price={card.price}
-//               id={card._id}
-//             />
-//           ))
-//         ) : (
-//           <p>No products found.</p>
-//         )}
-//       </Slider>
-//     </div>
-//   );
-// }
+  // console.log(prod);
+  // console.log(itemValue);
 
-// export default RelaitedProducts;
+  return (
+    <div className="">
+      <Slider {...settings}>
+        {prod?.length ? (
+          prod.map((card) => (
+            <Card
+              key={card._id}
+              name={card.name}
+              image={card.image}
+              category={card.category[0]}
+              stock={card.stock}
+              description={card.description}
+              price={card.price}
+              id={card._id}
+            />
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
+      </Slider>
+    </div>
+  );
+}
+
+export default RelaitedProducts;

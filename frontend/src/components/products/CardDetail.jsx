@@ -6,25 +6,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../features/productsSlice";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
-// import RelaitedProducts from "./RelaitedProducts";
+import RelaitedProducts from "./RelaitedProducts";
+import { toast } from "react-toastify";
 
 function CardDetail() {
   const { id } = useParams();
   const {
-    productId: { name, price, image, category, description },
+    productId: { name, price, image, category, description, stock },
   } = useSelector((state) => state.products);
-  const detail = { name, price, image, id };
+  const detail = { name, price, image, id, stock };
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProductsById(id));
   }, [dispatch, id]);
 
+  const amount = cart.cartItem;
+  let stockControl = "";
+  for (let i = 0; i < amount.length; i++) {
+    stockControl = amount[i].cartAmount;
+  }
+
   useEffect(() => {
     dispatch(getTotal());
   }, [cart, dispatch]);
   const HandleAddToCart = (detail) => {
-    dispatch(setCart(detail));
+    if (detail.stock === 0) {
+      toast.error("we are trully sorry, there is no more stock left 😔", {
+        position: "bottom-left",
+      });
+    } else if (stockControl === detail.stock) {
+      toast.error("we are trully sorry, there is no more stock left 😔", {
+        position: "bottom-left",
+      });
+    } else {
+      dispatch(setCart(detail));
+    }
   };
   return (
     <>
@@ -46,6 +63,7 @@ function CardDetail() {
                 <h3 className=" font-semibold text-yellow-900 ">category:</h3>
                 <p> {category}</p>{" "}
               </li>
+
               <li>
                 <h3 className=" font-semibold text-yellow-900">description:</h3>
                 <p>{description}</p>
@@ -65,9 +83,9 @@ function CardDetail() {
           </div>
         </div>
       </div>{" "}
-      {/* <div className="  m-1 mb-6 ">
+      <div className="  m-1 mb-6 ">
         <RelaitedProducts item={category} />
-      </div> */}
+      </div>
     </>
   );
 }
