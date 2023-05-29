@@ -146,6 +146,7 @@ const SideBar = (props) => {
                 <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
               </Link>
             </li>
+            {userRole !== 'admin' && ( 
             <li>
               <Link
                 to="about"
@@ -161,6 +162,8 @@ const SideBar = (props) => {
                 <span className="flex-1 ml-3 whitespace-nowrap">About</span>
               </Link>
             </li>
+            )}
+            {userRole !== 'admin' && ( 
             <li>
               <Link
                 to="/contact"
@@ -176,6 +179,7 @@ const SideBar = (props) => {
                 <span className="flex-1 ml-3 whitespace-nowrap">Contact</span>
               </Link>
             </li>
+            )}
           </ul>
           
           <ul>

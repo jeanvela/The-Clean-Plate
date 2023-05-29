@@ -12,18 +12,21 @@ import ChechOutSuccess from "./components/NavBar/cart/ChechOutSuccess";
 import Dashboard from "./components/views/Dashboard";
 import ProductsDashboard from "../src/components/Dashboard/Products";
 import UsersDashboard from "../src/components/Dashboard/Users";
-import { useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
 import About from './components/views/About'
+import SpacePublications from "./components/views/SpacePublications";
+import BlockPage from "./components/views/BlockPage";
+import Profile from "./components/views/Profile";
 
 
 function App () {
   const userRole = useSelector((state) => state.user.role);
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(null);
 
   let {user} = useAuth0();
 
@@ -35,6 +38,10 @@ function App () {
         const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
         const data = response.data;
         setEnabled(data);
+        if(data === false){
+          alert('You are blocked')
+        }
+        
       } catch (error) {
         console.error(error);
       }
@@ -42,10 +49,12 @@ function App () {
 
     if (user && user.email) {
       checkEnable();
+      
     }
   }, [user]);
 
   console.log(userRole);
+  console.log(enabled)
 
   return (
     <>
@@ -55,6 +64,23 @@ function App () {
         
           <Route  path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
+            
+          {  enabled === false && (
+            <>
+          <Route path="/categories/products" element={<BlockPage />} />
+          <Route path="/categories/products/:id" element={<BlockPage />} />
+          <Route path="/categories/:id" element={<BlockPage />} />
+          <Route path="/categories" element={<BlockPage />} />
+          <Route path="/cart" element={<BlockPage />} />
+          <Route path="/Contact" element={<BlockPage />} />
+          <Route path="/CheckoutSuccess" element={<BlockPage />} />
+          <Route path="/opinion" element={<BlockPage/>} />
+          <Route path="/Dashboard/ordes" element={<BlockPage/>} />
+          <Route path="/about" element={<BlockPage/>} />
+          <Route path="/profile" element={<BlockPage/>} /> 
+          </>
+          )}
+
           { enabled === true && (
             <>
           <Route path="/categories/products" element={<Cards />} />
@@ -64,7 +90,10 @@ function App () {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<ContactUs />} />
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
-         
+
+          <Route path="/opinion" element={<SpacePublications/>} />
+          <Route path="/profile" element={<Profile/>} /> 
+
 
           </>
           )}

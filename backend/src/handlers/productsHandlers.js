@@ -7,7 +7,7 @@ const {
 const Category = require("../models/Category");
 const { uploadImage } = require("../cloudinary");
 const fs = require("fs-extra");
-const Products = require("../models/Products");
+const Products = require('../models/Products')
 
 const createProductsHandler = async (req, res) => {
   const { name, price, category, description, stock, origin } = req.body;
@@ -81,37 +81,54 @@ const getProductsHandler = async (req, res) => {
   }
 };
 
-// const enableProducts = async (req, res) => {
-//   const {enable} = req.body
-//   try {
-//     const findProducts = await Products.updateMany({},{
-//       $set: {
-//         enable: enable
-//       }
-//     })
-//     res.status(200).json(findProducts)
-//   } catch (error) {
-//     res.status(400).json({error: error.message})
-//   }
-// }
-
 const enableProducts = async (req, res) => {
-    const { enable } = req.body;
-    const { id } = req.params;
-    try {
-      const findProducts = await Products.updateOne(
-        { _id: id }, 
-        { $set: { enable: enable } } 
-      );
+  const { idProduct } = req.params;
+  const { enable } = req.body;
 
-      
+  try {
+    const product = await Products.findById(idProduct);
 
-      res.status(200).json(findProducts);
-
-    } catch (error) {
-      res.status(404).json({ error: error.message });
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrado" });
     }
-  };
+
+    product.enable = enable;
+    await product.save();
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const updateStock = async (req, res) => {
+  const { idProduct } = req.params;
+  const { action } = req.body;
+
+  try {
+    const product = await Products.findById(idProduct);
+
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    if (action === "increment") {
+      product.stock += 1;
+    } else if (action === "decrement") {
+      product.stock -= 1;
+    } else {
+      return res.status(400).json({ error: "Acción inválida" });
+    }
+
+    await product.save();
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
   
 
 
@@ -119,5 +136,6 @@ module.exports = {
   createProductsHandler,
   getProductsByIdHandler,
   getProductsHandler,
-  enableProducts
+  enableProducts,
+  updateStock
 };

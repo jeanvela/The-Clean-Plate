@@ -1,7 +1,5 @@
 import FeaturedCategories from "./FeaturedCategories";
-import FormPublications from "../formPublications/FormPublications";
 import Publications from "../Publications/Publications";
-import Star from "../Home/Stars";
 
 const Home = () => {
   return (
@@ -26,13 +24,13 @@ const Home = () => {
         <div>
           <FeaturedCategories />
         </div>
-        <div className="border-t-4 border-gray-200 my-5"></div>
 
-        <Publications/>
-
-        <FormPublications/>
-        <Star/>
-
+        <div className=" flex-col">
+          <h1 className=" text-4xl text-yellow-900 font-semibold my-6 mt-8   justify-center   flex">
+            Customer expierences
+          </h1>
+          <Publications />
+        </div>
       </div>
     </div>
   );

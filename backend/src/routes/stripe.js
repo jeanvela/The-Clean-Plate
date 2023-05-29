@@ -4,7 +4,8 @@ const stripe = Stripe(process.env.STRIPE_KEY);
 const express = require("express");
 const { Router } = require("express");
 const router = Router();
-const Order = require("../models/Order");
+const { createOrder } = require("../controllers/createOrderDbControllers");
+const { stockUpdateDb } = require("../controllers/stockUpdateDbControllers");
 
 router.post("/create-checkout-session", express.json(), async (req, res) => {
   try {
@@ -85,35 +86,22 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       success_url: "http://127.0.0.1:5173/CheckoutSuccess",
       cancel_url: "http://127.0.0.1:5173/cart",
     });
-    console.log("session console", session);
+    // console.log("session console", session);
     res.send({ url: session.url });
   } catch (error) {
     console.log(error);
   }
 });
 
-//createOrder
-const createOrder = async (customer, data) => {
-  const Items = JSON.parse(customer.metadata.cart);
-  const userId = customer.metadata.userId;
-  const newOrder = new Order({
-    userId: userId,
-    customerId: data.customer,
-    paymentIntentId: data.payment_intent,
-    products: Items,
-    subtotal: data.amount_subtotal,
-    total: data.amount_total,
-    shipping: data.customer_details,
-    payment_status: data.payment_status,
-  });
+// const success = (status, res) => {
+//   res.send(status);
+//   console.log("*******", status);
+// };
+// router.get("/success", success);
 
-  try {
-    const saveOrder = await newOrder.save();
-    console.log("processed order", saveOrder);
-  } catch (error) {
-    console.log(error);
-  }
-};
+//successe response
+
+
 
 //stripe webhook
 
@@ -142,11 +130,17 @@ router.post(
         .retrieve(data.customer)
         .then((customer) => {
           createOrder(customer, data);
+          stockUpdateDb(customer);
         })
+
+        // .then(() => {
+        //   const status = data.payment_status;
+        //   success(status);
+        // })
         .catch((error) => console.log(error.message));
     }
 
-    response.json({ success: true });
+    response.json(data.payment_status);
   }
 );
 

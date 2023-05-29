@@ -21,14 +21,14 @@ const ProductsDashboard = () => {
         const response = await axios.get("http://localhost:3001/products");
         const users = response.data;
         const filterProducts = users;
-        
+
         setChangeStockProducts(filterProducts);
         dispatch(setEnableProduct(filterProducts));
       } catch (error) {
         console.error(error);
       }
     };
-    
+
 
     fetchData();
   }, [dispatch]);
@@ -43,12 +43,11 @@ const ProductsDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/products/${id}`, { enable: false });
-      const response = await axios.get("http://localhost:3001/products");
-      const users = response.data;
-      const filterProducts = users
-      
-      await dispatch(setEnableProduct(filterProducts));
+      await axios.patch(`http://localhost:3001/products/enable/${id}`, { enable: false });
+      const response = await axios.get("http://localhost:3001/products/");
+      const products = response.data;
+      const filterUsers = products;
+      dispatch(setEnableProduct(filterUsers));
 
       Swal.fire({
         icon: 'success',
@@ -65,13 +64,13 @@ const ProductsDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/products/${id}`, { enable: true });
+      await axios.patch(`http://localhost:3001/products/enable/${id}`, { enable: true });
       const response = await axios.get("http://localhost:3001/products");
-      const users = response.data;
-      const filterProducts = users
+      const products = response.data;
+      const filterProducts = products
 
-      await dispatch(setEnableProduct(filterProducts));
-      
+      dispatch(setEnableProduct(filterProducts));
+
       Swal.fire({
         icon: 'warning',
         title: 'Product has been showed',
@@ -83,50 +82,68 @@ const ProductsDashboard = () => {
     }
   }
 
-  const handleStockUpdate = async (id, action) => {
+  const updateStock = async (idProduct, action) => {
     try {
-      const product = filteredProducts.find((p) => p._id === id);
-      const updatedStock = action === "increment" ? product.stock + 1 : product.stock - 1;
-  
-      await axios.patch(`http://localhost:3001/products/${id}`, { stock: updatedStock });
-  
-      const updatedProducts = filteredProducts.map((p) => {
-        if (p._id === id) {
-          return { ...p, stock: updatedStock };
-        }
-        return p;
-      });
-  
-      setChangeStockProducts(updatedProducts);
-      dispatch(setEnableProduct(updatedProducts));
+      await axios.patch(`http://localhost:3001/products/stock/${idProduct}`, { action });
+      const response = await axios.get("http://localhost:3001/products");
+      const products = response.data;
+      const updatedStock = products;
+
+      dispatch(setEnableProduct(updatedStock))
     } catch (error) {
       console.error(error);
+
     }
   };
-  
-  
+
+
+
 
 
   return (
     <div className="grid grid-cols-6">
       <SideBar />
-      <div className="grid space-x-2 grid-cols-3 col-span-5 gap-2 mt-5 mx-2 grid-rows-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 col-span-5 mt-5 mx-2 bg-yellow-200">
         {filteredProducts &&
           filteredProducts.map((product) => (
-            <div key={product.id}>
-              <p>Product: {product.name}</p>
+            <div
+              key={product.id}
+              className={`border border-yellow-400 p-4 mb-4 ${!product.enable ? 'opacity-50' : ''
+                }`}
+            >
+              <p className="font-bold">Product: {product.name}</p>
               <p>Stock: {product.stock}</p>
-              <button onClick={() => handleDelete(product._id)}>Hide Product</button>
-              <br />
-              <button onClick={() => { handleUnlock(product._id) }}>Show Product</button>
-              <br />
-              <button onClick={() => handleStockUpdate(product._id, 'increment')}>Add Stock</button>
-              <br />
-              <button onClick={() => handleStockUpdate(product._id, 'decrement')}>Remove Stock</button>
+              <div className="flex justify-between mt-4 gap-1">
+                <button
+                  className="px-4 py-2 bg-red-500 text-white rounded"
+                  onClick={() => handleDelete(product._id)}
+                >
+                  Hide Product
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={() => handleUnlock(product._id)}
+                >
+                  Show Product
+                </button>
+                <button
+                  className="px-4 py-2 bg-green-500 text-white rounded"
+                  onClick={() => updateStock(product._id, 'increment')}
+                >
+                  Add Stock
+                </button>
+                <button
+                  className="px-4 py-2 bg-yellow-500 text-white rounded"
+                  onClick={() => updateStock(product._id, 'decrement')}
+                >
+                  Remove Stock
+                </button>
+              </div>
             </div>
           ))}
       </div>
     </div>
+
   );
 };
 
