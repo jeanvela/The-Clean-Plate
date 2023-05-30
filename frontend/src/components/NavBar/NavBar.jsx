@@ -38,7 +38,6 @@ function NavBar() {
   }, [isAuthenticated, user]);
 
   useEffect(() => {
-    console.log(email);
     if (isAuthenticated) {
       const token = localStorage.getItem("access_token");
       axios
@@ -52,14 +51,10 @@ function NavBar() {
           }
         )
         .then((response) => {
-          console.log(response);
           const role = response.data.roles[0].name;
           const id = response.data._id;
           dispatch(setUserRole(role));
-          console.log(role);
-
           dispatch(setId(id));
-          console.log(id);
         })
         .catch((error) => console.log(error));
     }
@@ -80,7 +75,6 @@ function NavBar() {
         </div>
 
         <SearchBar email={email} />
-        {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">

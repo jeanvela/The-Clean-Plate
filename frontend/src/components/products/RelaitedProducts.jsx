@@ -30,8 +30,6 @@ function RelaitedProducts({ ...item }) {
   // for (let i = 0; i < prod.length; i++) {}
   prod = products.filter((el) => el.category[0] === itemValue);
 
-  console.log(prod);
-  // console.log(itemValue);
   return (
     <div className="">
       <Slider {...settings}>

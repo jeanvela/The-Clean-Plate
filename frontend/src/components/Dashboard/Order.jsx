@@ -10,7 +10,6 @@ const OrderDashboard = () => {
 
   useEffect(() => {
     dispatch(getAllOrdes());
-    console.log(ordes);
   }, [dispatch]);
 
   return (

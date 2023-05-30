@@ -11,7 +11,7 @@ const SideBar = (props) => {
   const { email } = props;
   const [isOpen, setIsOpen] = useState(false);
   const sideBarRef = useRef(null);
-  let { logout, loginWithPopup, isAuthenticated } = useAuth0();
+  let { logout, loginWithPopup, isAuthenticated, user } = useAuth0();
 
   const handleLogout = () => {
     logout({ returnTo: window.location.origin });
@@ -62,11 +62,15 @@ const SideBar = (props) => {
           <div className="mt-2 mb-3 flex items-center">
             <div className="ml-1 mr-1 w-8 h-8">
               <div className=" w-full h-full rounded-full overflow-hidden">
-                <img
+                
+                {
+                  isAuthenticated? <img
                   className="object-cover w-full h-full overflow-hidden"
-                  src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
-                  alt="user photo"
-                />
+                  src={user.picture}
+                  alt={user.nickname}
+                />: <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+                 alt="" className="object-cover w-full h-full overflow-hidden"/>
+                }
               </div>
             </div>
 
@@ -125,7 +129,7 @@ const SideBar = (props) => {
               </li>
             )}
 
-            <li>
+            {/* <li>
               <Link
                 to="/profile"
                 className="flex items-center p-2  rounded-lg text-white  hover:bg-yellow-700"
@@ -140,7 +144,7 @@ const SideBar = (props) => {
 
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
               </Link>
-            </li>
+            </li> */}
             {userRole === "admin" && (
               <li>
                 <Link
