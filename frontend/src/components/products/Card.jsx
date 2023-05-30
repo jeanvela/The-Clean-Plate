@@ -4,7 +4,16 @@ import { Link } from "react-router-dom";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
 import { toast } from "react-toastify";
-function Card({ id, name, image, price, description, stock, category }) {
+function Card({
+  id,
+  name,
+  image,
+  price,
+  description,
+  stock,
+  category,
+  enable,
+}) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 

@@ -30,25 +30,27 @@ function RelaitedProducts({ ...item }) {
   // for (let i = 0; i < prod.length; i++) {}
   prod = products.filter((el) => el.category[0] === itemValue);
 
-  // console.log(prod);
+  console.log(prod);
   // console.log(itemValue);
-
   return (
     <div className="">
       <Slider {...settings}>
         {prod?.length ? (
-          prod.map((card) => (
-            <Card
-              key={card._id}
-              name={card.name}
-              image={card.image}
-              category={card.category[0]}
-              stock={card.stock}
-              description={card.description}
-              price={card.price}
-              id={card._id}
-            />
-          ))
+          prod
+            .filter((product) => product.enable)
+            .map((card) => (
+              <Card
+                key={card._id}
+                name={card.name}
+                image={card.image}
+                category={card.category[0]}
+                stock={card.stock}
+                enable={card.enable}
+                description={card.description}
+                price={card.price}
+                id={card._id}
+              />
+            ))
         ) : (
           <p>No products found.</p>
         )}

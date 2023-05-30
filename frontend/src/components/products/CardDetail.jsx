@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 function CardDetail() {
   const { id } = useParams();
   const {
-    productId: { name, price, image, category, description, stock },
+    productId: { name, price, image, category, description, stock, enable },
   } = useSelector((state) => state.products);
-  const detail = { name, price, image, id, stock };
+  const detail = { name, price, image, id, stock, enable };
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {
