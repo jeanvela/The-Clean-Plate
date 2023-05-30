@@ -80,7 +80,7 @@ function NavBar() {
           </Link>
         </div>
 
-        <SearchBar email={email} />
+        
         {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">

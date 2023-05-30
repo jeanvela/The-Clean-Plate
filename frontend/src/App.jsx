@@ -21,7 +21,6 @@ import OrderDashboard from "../src/components/Dashboard/Order";
 import About from './components/views/About'
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
-import Profile from "./components/views/Profile";
 
 
 function App () {
@@ -29,8 +28,6 @@ function App () {
   const [enabled, setEnabled] = useState(null);
 
   let {user} = useAuth0();
-
-  console.log(user)
 
   useEffect(() => {
     const checkEnable = async () => {
@@ -53,9 +50,6 @@ function App () {
     }
   }, [user]);
 
-  console.log(userRole);
-  console.log(enabled)
-
   return (
     <>
       <div>
@@ -77,7 +71,7 @@ function App () {
           <Route path="/opinion" element={<BlockPage/>} />
           <Route path="/Dashboard/ordes" element={<BlockPage/>} />
           <Route path="/about" element={<BlockPage/>} />
-          <Route path="/profile" element={<BlockPage/>} /> 
+          
           </>
           )}
 
@@ -92,7 +86,7 @@ function App () {
           <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
 
           <Route path="/opinion" element={<SpacePublications/>} />
-          <Route path="/profile" element={<Profile/>} /> 
+        
 
 
           </>
