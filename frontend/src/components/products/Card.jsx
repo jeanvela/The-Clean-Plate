@@ -41,7 +41,7 @@ function Card({
           position: "bottom-left",
         });
       } else {
-        loginWithPopup();
+        dispatch(setCart(product));
       }
     } else {
       loginWithPopup();
