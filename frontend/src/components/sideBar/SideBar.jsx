@@ -1,10 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { clearCart } from "../../features/cartSlice";
 
 const SideBar = (props) => {
+  const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
   const { email } = props;
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +15,7 @@ const SideBar = (props) => {
 
   const handleLogout = () => {
     logout({ returnTo: window.location.origin });
+    dispatch(clearCart());
   };
 
   const toggleSidebar = () => {
@@ -136,52 +139,55 @@ const SideBar = (props) => {
                 </svg>
 
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
-  
               </Link>
             </li>
-            <li>
-              <Link to= '/Dashboard/ordes'
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
-              </Link>
-            </li>
-            {userRole !== 'admin' && ( 
-            <li>
-              <Link
-                to="about"
-                className="flex items-center p-2  rounded-lg text-white hover:bg-yellow-700"
-              >
-                <svg
-                  className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-400 "
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+            {userRole === "admin" && (
+              <li>
+                <Link
+                  to="/Dashboard/ordes"
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
                 >
-                  <path d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"></path>
-                </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">About</span>
-              </Link>
-            </li>
+                  <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
+                </Link>
+              </li>
             )}
-            {userRole !== 'admin' && ( 
-            <li>
-              <Link
-                to="/contact"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
-              >
-                <svg
-                  className="flex-shrink-0 w-6 h-4 transition duration-75 text-gray-400 "
-                  fill="currentColor"
-                  viewBox="0 0 62 62"
+
+            {userRole !== "admin" && (
+              <li>
+                <Link
+                  to="about"
+                  className="flex items-center p-2  rounded-lg text-white hover:bg-yellow-700"
                 >
-                  <path d="M60,0H4C1.789,0,0,1.789,0,4v40c0,2.211,1.789,4,4,4h8v12 c0,1.617,0.973,3.078,2.469,3.695C14.965,63.902,15.484,64,16,64c1.039,0,2.062-0.406,2.828-1.172L33.656,48H60c2.211,0,4-1.789,4-4 V4C64,1.789,62.211,0,60,0z" />
-                </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Contact</span>
-              </Link>
-            </li>
+                  <svg
+                    className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-400 "
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"></path>
+                  </svg>
+                  <span className="flex-1 ml-3 whitespace-nowrap">About</span>
+                </Link>
+              </li>
+            )}
+            {userRole !== "admin" && (
+              <li>
+                <Link
+                  to="/contact"
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
+                >
+                  <svg
+                    className="flex-shrink-0 w-6 h-4 transition duration-75 text-gray-400 "
+                    fill="currentColor"
+                    viewBox="0 0 62 62"
+                  >
+                    <path d="M60,0H4C1.789,0,0,1.789,0,4v40c0,2.211,1.789,4,4,4h8v12 c0,1.617,0.973,3.078,2.469,3.695C14.965,63.902,15.484,64,16,64c1.039,0,2.062-0.406,2.828-1.172L33.656,48H60c2.211,0,4-1.789,4-4 V4C64,1.789,62.211,0,60,0z" />
+                  </svg>
+                  <span className="flex-1 ml-3 whitespace-nowrap">Contact</span>
+                </Link>
+              </li>
             )}
           </ul>
-          
+
           <ul>
             {isAuthenticated && (
               <li className="mt-8">

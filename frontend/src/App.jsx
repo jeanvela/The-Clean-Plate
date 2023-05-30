@@ -60,7 +60,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
 
-          {enabled === false && (
+            
+          {  enabled === false && (
             <>
               <Route path="/categories/products" element={<BlockPage />} />
               <Route path="/categories/products/:id" element={<BlockPage />} />

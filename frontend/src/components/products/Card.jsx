@@ -4,9 +4,21 @@ import { Link } from "react-router-dom";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
 import { toast } from "react-toastify";
+import { useAuth0 } from "@auth0/auth0-react";
+
 function Card({ id, name, image, price, description, stock, category }) {
+
+
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  let {
+   
+    isAuthenticated,
+    loginWithPopup,
+    
+  } = useAuth0();
+
+
 
   useEffect(() => {
     dispatch(getTotal());
@@ -19,6 +31,11 @@ function Card({ id, name, image, price, description, stock, category }) {
     stockControl = amount[i].cartAmount;
   }
   const HandleAddToCart = (product) => {
+
+    if(isAuthenticated){
+
+
+
     if (product.stock === 0) {
       toast.error("we are trully sorry, there is no more stock left 😔", {
         position: "bottom-left",
@@ -30,6 +47,10 @@ function Card({ id, name, image, price, description, stock, category }) {
     } else {
       dispatch(setCart(product));
     }
+
+  }else{
+    loginWithPopup()
+  }
   };
   return (
     <div className="max-w-md w-pxmx-auto bg-amber-50 rounded-xl shadow-md overflow-hidden  h-48 hover/edit:translate-x-0.5  hover/edit:bg-amber-200">
