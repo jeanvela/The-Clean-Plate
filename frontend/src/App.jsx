@@ -64,6 +64,12 @@ function App () {
         
           <Route  path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
+          <Route path="/categories/products" element={<Cards />} />
+          <Route path="/categories/products/:id" element={<CardDetail />} />
+          <Route path="/categories/:id" element={<ProductByCategory />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/Contact" element={<ContactUs />} />
+
             
           {  enabled === false && (
             <>
