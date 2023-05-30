@@ -44,7 +44,7 @@ function NavBar() {
       const token = localStorage.getItem("access_token");
       axios
         .post(
-          "http://localhost:3001/auth",
+          "/auth",
           { username: email },
           {
             headers: {

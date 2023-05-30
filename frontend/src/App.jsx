@@ -35,7 +35,7 @@ function App () {
   useEffect(() => {
     const checkEnable = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
+        const response = await axios.get(`/auth/enable?email=${user.email}`);
         const data = response.data;
         setEnabled(data);
         if(data === false){

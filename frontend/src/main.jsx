@@ -18,6 +18,8 @@ import user from "./features/userSlice.js";
 import idUser from "./features/userIdSlice.js";
 import publication from "./features/PublicationsSlice.js";
 import ordes from "./features/ordesSlice.js";
+import axios from "axios";
+
 
 export const store = configureStore({
   reducer: {
@@ -34,6 +36,12 @@ export const store = configureStore({
     getDefaultMiddleware().concat(productsApi.middleware),
 });
 store.dispatch(getTotal());
+
+axios.defaults.baseURL = 'http://localhost:3001'
+// axios.defaults.baseURL = 'https://backendpf-production-b9df.up.railway.app'
+
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
