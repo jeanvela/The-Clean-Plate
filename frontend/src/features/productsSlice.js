@@ -106,7 +106,7 @@ export const productsSlice = createSlice({
   initialState: {
     allProducts: [],
     products: [],
-    productId: {},
+    productId: [],
 
     categoryFilter: "All",
     originFilter: "All",
@@ -128,11 +128,11 @@ export const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
-        state.products = action.payload;
-      });
-}});
+    builder.addCase(setByCategoryAndOrigin.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+  },
+});
 
 export const { setProducts, setByName, setEnableProduct, setById } =
   productsSlice.actions;
@@ -141,7 +141,13 @@ export default productsSlice.reducer;
 export const getAllProducts = () => async (dispatch) => {
   try {
     const response = await axios.get("/products");
-    dispatch(setProducts(response.data));
+    const prod = response.data;
+    for (let i = 0; i < prod.length; i++) {
+      if (prod[i].stock === 0) {
+        prod[i].enable = false;
+      }
+    }
+    dispatch(setProducts(prod));
   } catch (error) {
     console.log(error);
   }
@@ -159,7 +165,13 @@ export const fetchProductByName = (name) => async (dispatch) => {
 export const getProductsById = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/products/${id}`);
-    dispatch(setById(res.data));
+    const prod = res.data;
+    for (let i = 0; i < prod.length; i++) {
+      if (prod[i].stock === 0) {
+        prod[i].enable = false;
+      }
+    }
+    dispatch(setById(prod));
   } catch (error) {
     console.log(error);
   }
