@@ -83,8 +83,8 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       customer: customer.id,
       line_items,
       mode: "payment",
-      success_url: "http://127.0.0.1:5173/CheckoutSuccess",
-      cancel_url: "http://127.0.0.1:5173/cart",
+      success_url: "https://frontend-pf-seven.vercel.app/CheckoutSuccess",
+      cancel_url: "http://frontend-pf-seven.vercel.app/cart",
     });
     // console.log("session console", session);
     res.send({ url: session.url });
@@ -100,8 +100,6 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
 // router.get("/success", success);
 
 //successe response
-
-
 
 //stripe webhook
 

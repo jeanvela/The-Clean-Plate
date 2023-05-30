@@ -41,10 +41,8 @@ const Publications = () => {
               key={p.id}
               className="w-full  text-center  border text-white rounded-lg shadow p-6 bg-yellow-900 "
             >
-              <p className="mb-5 text-base text-whitesm:text-lg ">
-                {p.description}
-              </p>
-              <div className="items-center justify-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+              <p className="mb-5 text-xl ">{p.description}</p>
+              <div className="items-center justify-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 text-xl">
                 Review: {p.score}/5
               </div>
             </div>
