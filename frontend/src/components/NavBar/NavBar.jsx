@@ -12,7 +12,6 @@ import SideBar from "../sideBar/SideBar";
 import SearchBar from "./SearchBar";
 function NavBar() {
   let {
-    logout,
     isAuthenticated,
     loginWithPopup,
     user,
@@ -44,7 +43,7 @@ function NavBar() {
       const token = localStorage.getItem("access_token");
       axios
         .post(
-          "http://localhost:3001/auth",
+          "/auth",
           { username: email },
           {
             headers: {

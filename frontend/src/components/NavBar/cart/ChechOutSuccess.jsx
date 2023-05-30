@@ -9,7 +9,7 @@ function ChechOutSuccess() {
   const dispatch = useDispatch();
 
   // const success = () => {
-  //   const res = axios.get("http://localhost:3001/stripe/stripe/success");
+  //   const res = axios.get("/stripe/stripe/success");
   //   let response = res.data;
   //   if (response === "paid") {
   //     console.log(response);

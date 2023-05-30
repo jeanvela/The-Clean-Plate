@@ -7,7 +7,7 @@ function PayButton({ item }) {
   // console.log(userId);
   const handleCheckOut = () => {
     axios
-      .post("http://localhost:3001/stripe/stripe/create-checkout-session", {
+      .post("/stripe/stripe/create-checkout-session", {
         item,
         userId,
       })
