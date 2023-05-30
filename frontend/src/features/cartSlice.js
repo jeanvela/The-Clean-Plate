@@ -61,17 +61,17 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
-    logoutCartClear: (state, action) => {
-      state.cartItem = [];
-      toast.error("test", {
-        position: "bottom-left",
-      });
-    },
+    // logoutCartClear: (state, action) => {
+    //   state.cartItem = [];
+    //   toast.error("test", {
+    //     position: "bottom-left",
+    //   });
+    // },
     clearCart: (state, action) => {
       state.cartItem = [];
-      toast.error("Cart cleared", {
-        position: "bottom-left",
-      });
+      // toast.error("Cart cleared", {
+      //   position: "bottom-left",
+      // });
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
     getTotal: (state, action) => {

@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { logoutCartClear } from "../../features/cartSlice";
+import { clearCart } from "../../features/cartSlice";
 
 const SideBar = (props) => {
+  const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
   const { email } = props;
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const SideBar = (props) => {
 
   const handleLogout = () => {
     logout({ returnTo: window.location.origin });
-    logoutCartClear();
+    dispatch(clearCart());
   };
 
   const toggleSidebar = () => {
