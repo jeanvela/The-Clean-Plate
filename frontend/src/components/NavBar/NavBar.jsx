@@ -12,7 +12,6 @@ import SideBar from "../sideBar/SideBar";
 import SearchBar from "./SearchBar";
 function NavBar() {
   let {
-    logout,
     isAuthenticated,
     loginWithPopup,
     user,

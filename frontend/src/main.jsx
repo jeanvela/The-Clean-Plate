@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { productsApi } from "./features/productsApi";
 import NavBar from "../src/components/NavBar/NavBar";
@@ -51,14 +51,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       redirectUri={window.location.origin}
       scope="openid profile email"
     >
-      <BrowserRouter>
+      <HashRouter>
         <ToastContainer />
         <Provider store={store}>
           <NavBar />
           <App />
           <Footer />
         </Provider>
-      </BrowserRouter>
+      </HashRouter>
     </Auth0Provider>
   </React.StrictMode>
 );
