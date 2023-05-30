@@ -18,7 +18,7 @@ export default categoriesSlice.reducer;
 
 export const getAllCategories = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:3001/category");
+    const response = await axios.get("/category");
     dispatch(setCategories(response.data));
     // console.log(resp.data);
   } catch (error) {

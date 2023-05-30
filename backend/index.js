@@ -1,6 +1,8 @@
 const server = require("./src/server.js");
 require("./src/mongodb");
 
-server.listen(3001, () => {
-  console.log("%s listening at 3001");
-});
+const port = process.env.PORT || 3001;
+
+server.listen(port, () => {
+  console.log(`%s listening at ${port}`)
+})

@@ -98,7 +98,7 @@ const CreateProduct = () => {
       );
 
       axios
-        .post("http://localhost:3001/products", formData)
+        .post("/products", formData)
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);

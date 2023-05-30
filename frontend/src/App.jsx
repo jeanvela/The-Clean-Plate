@@ -13,32 +13,31 @@ import Dashboard from "./components/views/Dashboard";
 import ProductsDashboard from "../src/components/Dashboard/Products";
 import UsersDashboard from "../src/components/Dashboard/Users";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios'
+import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PageNotFound from "./components/views/PageNotFound";
 import OrderDashboard from "../src/components/Dashboard/Order";
-import About from './components/views/About'
+import About from "./components/views/About";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
 
-
-function App () {
+function App() {
   const userRole = useSelector((state) => state.user.role);
   const [enabled, setEnabled] = useState(null);
 
-  let {user} = useAuth0();
+  let { user } = useAuth0();
+
 
   useEffect(() => {
     const checkEnable = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/auth/enable?email=${user.email}`);
+        const response = await axios.get(`/auth/enable?email=${user.email}`);
         const data = response.data;
         setEnabled(data);
-        if(data === false){
-          alert('You are blocked')
+        if (data === false) {
+          alert("You are blocked");
         }
-        
       } catch (error) {
         console.error(error);
       }
@@ -46,21 +45,21 @@ function App () {
 
     if (user && user.email) {
       checkEnable();
-      
     }
   }, [user]);
+
 
   return (
     <>
       <div>
         <Routes>
-         
-        
-          <Route  path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
+
             
           {  enabled === false && (
             <>
+
           <Route path="/categories/products" element={<BlockPage />} />
           <Route path="/categories/products/:id" element={<BlockPage />} />
           <Route path="/categories/:id" element={<BlockPage />} />
@@ -73,34 +72,65 @@ function App () {
           <Route path="/about" element={<BlockPage/>} />
           
           </>
+
+              <Route path="/categories/products" element={<BlockPage />} />
+              <Route path="/categories/products/:id" element={<BlockPage />} />
+              <Route path="/categories/:id" element={<BlockPage />} />
+              <Route path="/categories" element={<BlockPage />} />
+              <Route path="/cart" element={<BlockPage />} />
+              <Route path="/Contact" element={<BlockPage />} />
+              <Route path="/CheckoutSuccess" element={<BlockPage />} />
+              <Route path="/opinion" element={<BlockPage />} />
+              <Route path="/Dashboard/ordes" element={<BlockPage />} />
+              <Route path="/about" element={<BlockPage />} />
+              <Route path="/profile" element={<BlockPage />} />
+            </>
+
           )}
 
-          { enabled === true && (
+          {enabled === true && (
             <>
-          <Route path="/categories/products" element={<Cards />} />
-          <Route path="/categories/products/:id" element={<CardDetail />} />
-          <Route path="/categories/:id" element={<ProductByCategory />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/Contact" element={<ContactUs />} />
-          <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+              <Route path="/categories/products" element={<Cards />} />
+              <Route path="/categories/products/:id" element={<CardDetail />} />
+              <Route path="/categories/:id" element={<ProductByCategory />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/Contact" element={<ContactUs />} />
+              <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
+
 
           <Route path="/opinion" element={<SpacePublications/>} />
         
 
 
           </>
+
+              <Route path="/opinion" element={<SpacePublications />} />
+              <Route path="/profile" element={<Profile />} />
+            </>
+
           )}
-       
 
           <Route path="*" element={<PageNotFound />} />
           {userRole === "admin" && (
             <>
               <Route exact path="/createproduct" element={<FormProdutcs />} />
               <Route exact path="/Dashboard" element={<Dashboard />} />
-              <Route exact path="/Dashboard/products" element={<ProductsDashboard />} />
-              <Route exact path="/Dashboard/users" element={<UsersDashboard />} />
-              <Route exact path="/Dashboard/ordes" element={<OrderDashboard/>} />
+              <Route
+                exact
+                path="/Dashboard/products"
+                element={<ProductsDashboard />}
+              />
+              <Route
+                exact
+                path="/Dashboard/users"
+                element={<UsersDashboard />}
+              />
+              <Route
+                exact
+                path="/Dashboard/ordes"
+                element={<OrderDashboard />}
+              />
             </>
           )}
         </Routes>

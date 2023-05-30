@@ -13,7 +13,7 @@ const UsersDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/auth/");
+        const response = await axios.get("/auth/");
         const users = response.data;
         const filterUsers = users
         dispatch(setFilteredUsers(filterUsers));
@@ -32,8 +32,8 @@ const UsersDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/auth/${id}`, { enable: false });
-      const response = await axios.get("http://localhost:3001/auth/");
+      await axios.patch(`/auth/${id}`, { enable: false });
+      const response = await axios.get("/auth/");
       const users = response.data;
       const filterUsers = users
       await dispatch(setFilteredUsers(filterUsers));
@@ -52,8 +52,8 @@ const UsersDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/auth/${id}`, { enable: true });
-      const response = await axios.get("http://localhost:3001/auth/");
+      await axios.patch(`/auth/${id}`, { enable: true });
+      const response = await axios.get("/auth/");
       const users = response.data;
       const filterUsers = users
 

@@ -8,13 +8,16 @@ import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
 import RelaitedProducts from "./RelaitedProducts";
 import { toast } from "react-toastify";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function CardDetail() {
   const { id } = useParams();
+  let { isAuthenticated, loginWithPopup } = useAuth0();
+
   const {
-    productId: { name, price, image, category, description, stock },
+    productId: { name, price, image, category, description, stock, enable },
   } = useSelector((state) => state.products);
-  const detail = { name, price, image, id, stock };
+  const detail = { name, price, image, id, stock, enable };
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,16 +34,20 @@ function CardDetail() {
     dispatch(getTotal());
   }, [cart, dispatch]);
   const HandleAddToCart = (detail) => {
-    if (detail.stock === 0) {
-      toast.error("we are trully sorry, there is no more stock left 😔", {
-        position: "bottom-left",
-      });
-    } else if (stockControl === detail.stock) {
-      toast.error("we are trully sorry, there is no more stock left 😔", {
-        position: "bottom-left",
-      });
+    if (isAuthenticated) {
+      if (detail.stock === 0) {
+        toast.error("we are trully sorry, there is no more stock left 😔", {
+          position: "bottom-left",
+        });
+      } else if (stockControl === detail.stock) {
+        toast.error("we are trully sorry, there is no more stock left 😔", {
+          position: "bottom-left",
+        });
+      } else {
+        dispatch(setCart(detail));
+      }
     } else {
-      dispatch(setCart(detail));
+      loginWithPopup();
     }
   };
   return (
