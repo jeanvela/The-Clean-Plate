@@ -139,6 +139,7 @@ const SideBar = (props) => {
   
               </Link>
             </li>
+            {userRole === "admin" && (
             <li>
               <Link to= '/Dashboard/ordes'
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-yellow-700"
@@ -146,6 +147,8 @@ const SideBar = (props) => {
                 <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
               </Link>
             </li>
+            )}
+
             {userRole !== 'admin' && ( 
             <li>
               <Link
