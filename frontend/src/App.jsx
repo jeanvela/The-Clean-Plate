@@ -67,7 +67,9 @@ function App() {
               <Route path="/opinion" element={<BlockPage />} />
               <Route path="/Dashboard/ordes" element={<BlockPage />} />
               <Route path="/about" element={<BlockPage />} />
-              
+
+              {/* <Route path="/profile" element={<BlockPage />} /> */}
+
             </>
           )}
 
@@ -81,7 +83,11 @@ function App() {
               <Route path="/Contact" element={<ContactUs />} />
               <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
               <Route path="/opinion" element={<SpacePublications />} />
+
               
+
+              {/* <Route path="/profile" element={<Profile />} /> */}
+
             </>
           )}
 

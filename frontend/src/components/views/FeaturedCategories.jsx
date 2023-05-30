@@ -31,7 +31,7 @@ function FeaturedCategories() {
                 image={category.image}
               />
             ))
-          : console.log(categories)}
+          : ''}
       </Slider>
     </div>
   );

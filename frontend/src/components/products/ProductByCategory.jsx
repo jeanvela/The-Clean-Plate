@@ -13,7 +13,7 @@ function ProductByCategory() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log(fil);
+
   return (
     <div className=" grid grid-cols-3 gap-1 mt-5 mx-2 grid-rows-3">
       {fil?.length
@@ -33,7 +33,7 @@ function ProductByCategory() {
                 />
               </ul>
             ))
-        : console.log("nada")}
+        : ''}
     </div>
   );
 }
