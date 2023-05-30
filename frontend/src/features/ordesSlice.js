@@ -18,7 +18,7 @@ export default ordesSlice.reducer;
 
 export const getAllOrdes = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:3001/ordes");
+    const response = await axios.get("/ordes");
     dispatch(setOrder(response.data));
     // console.log(resp.data);
   } catch (error) {

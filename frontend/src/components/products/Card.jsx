@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { setCart } from "../../features/cartSlice";
 import { getTotal } from "../../features/cartSlice";
 import { toast } from "react-toastify";
+import { useAuth0 } from "@auth0/auth0-react";
+
 function Card({
   id,
   name,
@@ -16,6 +18,7 @@ function Card({
 }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  let { isAuthenticated, loginWithPopup } = useAuth0();
 
   useEffect(() => {
     dispatch(getTotal());
@@ -28,16 +31,20 @@ function Card({
     stockControl = amount[i].cartAmount;
   }
   const HandleAddToCart = (product) => {
-    if (product.stock === 0) {
-      toast.error("we are trully sorry, there is no more stock left 😔", {
-        position: "bottom-left",
-      });
-    } else if (stockControl === product.stock) {
-      toast.error("we are trully sorry, there is no more stock left 😔", {
-        position: "bottom-left",
-      });
+    if (isAuthenticated) {
+      if (product.stock === 0) {
+        toast.error("we are trully sorry, there is no more stock left 😔", {
+          position: "bottom-left",
+        });
+      } else if (stockControl === product.stock) {
+        toast.error("we are trully sorry, there is no more stock left 😔", {
+          position: "bottom-left",
+        });
+      } else {
+        loginWithPopup();
+      }
     } else {
-      dispatch(setCart(product));
+      loginWithPopup();
     }
   };
   return (

@@ -38,7 +38,7 @@ const FormPublications = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/publications",
+        "/publications",
         FormPublications
       );
       console.log(response.data);

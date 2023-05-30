@@ -91,7 +91,7 @@ import axios from "axios";
 export const setByCategoryAndOrigin = createAsyncThunk(
   "products/setByCategoryAndOrigin",
   async ({ category, origin }) => {
-    const response = await axios.get("http://localhost:3001/products", {
+    const response = await axios.get("/products", {
       params: {
         category,
         origin,
@@ -140,14 +140,13 @@ export default productsSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:3001/products");
+    const response = await axios.get("/products");
     const prod = response.data;
     for (let i = 0; i < prod.length; i++) {
       if (prod[i].stock === 0) {
         prod[i].enable = false;
       }
     }
-
     dispatch(setProducts(prod));
   } catch (error) {
     console.log(error);
@@ -156,7 +155,7 @@ export const getAllProducts = () => async (dispatch) => {
 
 export const fetchProductByName = (name) => async (dispatch) => {
   try {
-    const json = await axios.get(`http://localhost:3001/products?name=${name}`);
+    const json = await axios.get(`/products?name=${name}`);
     dispatch(setByName(json.data));
   } catch (error) {
     console.log(error);
@@ -165,14 +164,13 @@ export const fetchProductByName = (name) => async (dispatch) => {
 
 export const getProductsById = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/products/${id}`);
+    const res = await axios.get(`/products/${id}`);
     const prod = res.data;
     for (let i = 0; i < prod.length; i++) {
       if (prod[i].stock === 0) {
         prod[i].enable = false;
       }
     }
-
     dispatch(setById(prod));
   } catch (error) {
     console.log(error);

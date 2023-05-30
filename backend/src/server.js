@@ -17,9 +17,18 @@ const storage = multer.diskStorage({
 //---
 const upload = multer({ storage });
 
+
+//!DEPLOY--->
+// const corsOptions = {
+//   origin: "https://frontend-pf-seven.vercel.app", 
+// };
+
+
+
 server.use(morgan("dev"));
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
+//!DEPLOY server.use(cors(corsOptions));
 server.use(upload.single("image"));
 server.use("/stripe", router);
 server.use(express.json());

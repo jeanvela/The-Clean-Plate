@@ -18,7 +18,7 @@ const ProductsDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/products");
+        const response = await axios.get("/products");
         const users = response.data;
         const filterProducts = users;
 
@@ -43,8 +43,8 @@ const ProductsDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/products/enable/${id}`, { enable: false });
-      const response = await axios.get("http://localhost:3001/products/");
+      await axios.patch(`/products/enable/${id}`, { enable: false });
+      const response = await axios.get("/products/");
       const products = response.data;
       const filterUsers = products;
       dispatch(setEnableProduct(filterUsers));
@@ -64,8 +64,8 @@ const ProductsDashboard = () => {
 
     try {
 
-      await axios.patch(`http://localhost:3001/products/enable/${id}`, { enable: true });
-      const response = await axios.get("http://localhost:3001/products");
+      await axios.patch(`/products/enable/${id}`, { enable: true });
+      const response = await axios.get("/products");
       const products = response.data;
       const filterProducts = products
 
@@ -84,8 +84,8 @@ const ProductsDashboard = () => {
 
   const updateStock = async (idProduct, action) => {
     try {
-      await axios.patch(`http://localhost:3001/products/stock/${idProduct}`, { action });
-      const response = await axios.get("http://localhost:3001/products");
+      await axios.patch(`/stock/${idProduct}`, { action });
+      const response = await axios.get("/products");
       const products = response.data;
       const updatedStock = products;
 
