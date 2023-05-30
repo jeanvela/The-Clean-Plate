@@ -9,7 +9,7 @@ import { setUserRole } from "../../features/userSlice.js";
 import { setId } from "../../features/userIdSlice.js";
 //import "./navBar.css"
 import SideBar from "../sideBar/SideBar";
-import SearchBar from "./SearchBar";
+
 function NavBar() {
   let {
     isAuthenticated,
@@ -73,8 +73,6 @@ function NavBar() {
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
-
-        <SearchBar email={email} />
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">
