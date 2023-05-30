@@ -21,7 +21,6 @@ import OrderDashboard from "../src/components/Dashboard/Order";
 import About from "./components/views/About";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
-import Profile from "./components/views/Profile";
 
 function App() {
   const userRole = useSelector((state) => state.user.role);
@@ -29,7 +28,6 @@ function App() {
 
   let { user } = useAuth0();
 
-  console.log(user);
 
   useEffect(() => {
     const checkEnable = async () => {
@@ -50,8 +48,6 @@ function App() {
     }
   }, [user]);
 
-  console.log(userRole);
-  console.log(enabled);
 
   return (
     <>
@@ -63,6 +59,20 @@ function App() {
             
           {  enabled === false && (
             <>
+
+          <Route path="/categories/products" element={<BlockPage />} />
+          <Route path="/categories/products/:id" element={<BlockPage />} />
+          <Route path="/categories/:id" element={<BlockPage />} />
+          <Route path="/categories" element={<BlockPage />} />
+          <Route path="/cart" element={<BlockPage />} />
+          <Route path="/Contact" element={<BlockPage />} />
+          <Route path="/CheckoutSuccess" element={<BlockPage />} />
+          <Route path="/opinion" element={<BlockPage/>} />
+          <Route path="/Dashboard/ordes" element={<BlockPage/>} />
+          <Route path="/about" element={<BlockPage/>} />
+          
+          </>
+
               <Route path="/categories/products" element={<BlockPage />} />
               <Route path="/categories/products/:id" element={<BlockPage />} />
               <Route path="/categories/:id" element={<BlockPage />} />
@@ -75,6 +85,7 @@ function App() {
               <Route path="/about" element={<BlockPage />} />
               <Route path="/profile" element={<BlockPage />} />
             </>
+
           )}
 
           {enabled === true && (
@@ -87,9 +98,17 @@ function App() {
               <Route path="/Contact" element={<ContactUs />} />
               <Route path="/CheckoutSuccess" element={<ChechOutSuccess />} />
 
+
+          <Route path="/opinion" element={<SpacePublications/>} />
+        
+
+
+          </>
+
               <Route path="/opinion" element={<SpacePublications />} />
               <Route path="/profile" element={<Profile />} />
             </>
+
           )}
 
           <Route path="*" element={<PageNotFound />} />
