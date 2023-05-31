@@ -22,13 +22,15 @@ import About from "./components/views/About";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
 import Swal from "sweetalert2";
+import Loader from "./components/loader/loader";
+
 
 
 function App() {
   const userRole = useSelector((state) => state.user.role);
   const [enabled, setEnabled] = useState(null);
 
-  let { user } = useAuth0();
+  let { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     const checkEnable = async () => {
@@ -58,12 +60,23 @@ function App() {
     <>
       <div>
         <Routes>
+          
           <Route path="/" element={<Home />} />
+          <Route path="/Contact" element={<ContactUs />} />
+          <Route path="/CheckoutSuccess" element={isAuthenticated? <ChechOutSuccess/> : <Loader/>}/>
+
+          { enabled === null && (
+          <>
+          
           <Route path="/About" element={<About />} />
           <Route path="/categories/products" element={<Cards />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/products/:id" element={<CardDetail />} />
           <Route path="/categories/:id" element={<ProductByCategory />} />
+          
+         
+          </>
+          )}
 
           {enabled === false && (
             <>
@@ -75,7 +88,7 @@ function App() {
               <Route path="/Contact" element={<BlockPage />} />
               <Route path="/CheckoutSuccess" element={<BlockPage />} />
               <Route path="/opinion" element={<BlockPage />} />
-              <Route path="/Dashboard/ordes" element={<BlockPage />} />
+              {/* <Route path="/Dashboard/ordes" element={<BlockPage />} /> */}
               <Route path="/about" element={<BlockPage />} />
 
               {/* <Route path="/profile" element={<BlockPage />} /> */}
@@ -117,11 +130,11 @@ function App() {
                 path="/Dashboard/users"
                 element={<UsersDashboard />}
               />
-              <Route
+              {/* <Route
                 exact
                 path="/Dashboard/ordes"
                 element={<OrderDashboard />}
-              />
+              /> */}
             </>
           )}
         </Routes>
