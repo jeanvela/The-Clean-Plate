@@ -10,7 +10,7 @@ const fs = require("fs-extra");
 const Products = require('../models/Products')
 
 const createProductsHandler = async (req, res) => {
-  const { name, price, category, description, stock, origin } = req.body;
+  const { name, price, category, description, stock, origin, enable } = req.body;
 
   try {
     const image = await uploadImage(req.file.path);
@@ -22,7 +22,8 @@ const createProductsHandler = async (req, res) => {
       description,
       stock,
       origin,
-      image
+      image,
+      enable
     );
 
     for (const categoryName of category) {
