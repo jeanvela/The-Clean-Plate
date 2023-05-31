@@ -31,8 +31,6 @@ const FormPublications = () => {
     }));
   };
 
-  console.log(FormPublications);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,7 +39,6 @@ const FormPublications = () => {
         "/publications",
         FormPublications
       );
-      console.log(response.data);
       toast.success("Thank you for youre review 🙂", {
         position: "bottom-left",
       }),

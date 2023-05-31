@@ -9,7 +9,7 @@ import { setUserRole } from "../../features/userSlice.js";
 import { setId } from "../../features/userIdSlice.js";
 //import "./navBar.css"
 import SideBar from "../sideBar/SideBar";
-import SearchBar from "./SearchBar";
+
 function NavBar() {
   let {
     isAuthenticated,
@@ -38,7 +38,6 @@ function NavBar() {
   }, [isAuthenticated, user]);
 
   useEffect(() => {
-    console.log(email);
     if (isAuthenticated) {
       const token = localStorage.getItem("access_token");
       axios
@@ -52,14 +51,10 @@ function NavBar() {
           }
         )
         .then((response) => {
-          console.log(response);
           const role = response.data.roles[0].name;
           const id = response.data._id;
           dispatch(setUserRole(role));
-          console.log(role);
-
           dispatch(setId(id));
-          console.log(id);
         })
         .catch((error) => console.log(error));
     }
@@ -78,9 +73,6 @@ function NavBar() {
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
-
-        <SearchBar email={email} />
-        {console.log(email)}
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">

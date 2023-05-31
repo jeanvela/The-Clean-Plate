@@ -19,7 +19,7 @@
   
   .search-buttom {
     background-color: #3f2319;
-    color: #dda975;
+    color: #6b4014;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
@@ -29,5 +29,6 @@
   
   .search-buttom:hover {
     background-color: #4f372e;
+    color: white;
   }
   

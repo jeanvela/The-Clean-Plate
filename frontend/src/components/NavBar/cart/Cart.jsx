@@ -122,13 +122,6 @@ function Cart() {
               </div>
 
               <p className="  text-sm font-extralight my-2">Free shipping</p>
-              {/* <button
-                className=" max-w-full w-32 h-10 rounded-md font-normal bg-yellow-900 text-white cursor-pointer"
-                id="checkout-btn"
-                // onClick={handelClick}
-              >
-                Check Out
-              </button> */}
               {isAuthenticated ? (
                 <PayButton item={cart.cartItem} />
               ) : (
