@@ -145,7 +145,7 @@ const SideBar = (props) => {
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
               </Link>
             </li> */}
-            {userRole === "admin" && (
+            {/* {userRole === "admin" && (
               <li>
                 <Link
                   to="/Dashboard/ordes"
@@ -154,7 +154,7 @@ const SideBar = (props) => {
                   <span className="flex-1 ml-3 whitespace-nowrap">Ordes</span>
                 </Link>
               </li>
-            )}
+            )} */}
 
             {userRole !== "admin" && (
               <li>
