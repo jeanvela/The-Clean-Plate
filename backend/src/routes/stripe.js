@@ -88,7 +88,7 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
 
       //!DEPLOY
       //! success_url: "https://frontend-pf-seven.vercel.app/#/CheckoutSuccess",
-      //! cancel_url: "http://frontend-pf-seven.vercel.app/#/cart",
+      //! cancel_url: "https://frontend-pf-seven.vercel.app/#/cart",
     });
     // console.log("session console", session);
     res.send({ url: session.url });
