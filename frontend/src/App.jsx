@@ -21,6 +21,7 @@ import OrderDashboard from "../src/components/Dashboard/Order";
 import About from "./components/views/About";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
+import Swal from "sweetalert2";
 
 
 function App() {
@@ -36,7 +37,12 @@ function App() {
         const data = response.data;
         setEnabled(data);
         if (data === false) {
-          alert("You are blocked");
+          Swal.fire({
+            icon: 'error',
+            title: 'Blocked',
+            text: 'Your are blocked, contact with us for unblock you!',
+            
+          })
         }
       } catch (error) {
         console.error(error);
