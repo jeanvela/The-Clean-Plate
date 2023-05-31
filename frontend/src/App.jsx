@@ -79,7 +79,7 @@ function App() {
               <Route path="/Contact" element={<BlockPage />} />
               <Route path="/CheckoutSuccess" element={<BlockPage />} />
               <Route path="/opinion" element={<BlockPage />} />
-              <Route path="/Dashboard/ordes" element={<BlockPage />} />
+              {/* <Route path="/Dashboard/ordes" element={<BlockPage />} /> */}
               <Route path="/about" element={<BlockPage />} />
 
               {/* <Route path="/profile" element={<BlockPage />} /> */}
@@ -121,11 +121,11 @@ function App() {
                 path="/Dashboard/users"
                 element={<UsersDashboard />}
               />
-              <Route
+              {/* <Route
                 exact
                 path="/Dashboard/ordes"
                 element={<OrderDashboard />}
-              />
+              /> */}
             </>
           )}
         </Routes>
