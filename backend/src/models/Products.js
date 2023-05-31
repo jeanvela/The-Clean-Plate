@@ -28,7 +28,8 @@ const productSchema = new Schema({
         type: String
     },
     enable: {
-        type: Boolean
+        type: Boolean,
+        default: true
     }
 })
 
