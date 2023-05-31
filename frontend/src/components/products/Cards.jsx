@@ -7,6 +7,8 @@ import {
 } from "../../features/productsSlice";
 import { getAllCategories } from "../../features/categorySlice";
 import InfiniteScroll from "react-infinite-scroll-component";
+import BackToTop from "./BackToTop";
+import SearchBar from "../NavBar/SearchBar";
 
 function Cards() {
   const dispatch = useDispatch();
@@ -44,8 +46,14 @@ function Cards() {
       if (itemsToShow >= products.length) {
         setHasMore(false);
       }
-    }, 1000);
+    }, 800);
   };
+
+  const handleRefresh =(e)=>{
+    e.preventDefault();
+    dispatch(getAllProducts())
+  }
+
 
   const displayedProducts = products.slice(0, itemsToShow);
 
@@ -66,7 +74,10 @@ function Cards() {
             </option>
           ))}
         </select>
-
+        <div className="flex items-center">
+          <SearchBar />
+          <button  className=" text-[#6b4014] py-2 px-4 rounded-md text-base cursor-pointer hover:bg-[#3f2319] hover:text-white" onClick={e=> {handleRefresh(e)}}>Refresh</button>
+        </div>
         <select
           className="border border-gray-300 rounded px-2 py-1"
           onChange={handlerFilterByOrigin}
@@ -80,32 +91,38 @@ function Cards() {
         </select>
       </div>
 
+
+
       <div id="InfiniteScroll" className="">
         <InfiniteScroll
           dataLength={displayedProducts.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
+          loader={<h4>...</h4>}
         >
           <div className="grid space-x-2 grid-cols-3 gap-2 mt-5 mx-2 grid-rows-3">
             {displayedProducts?.length ? (
-              displayedProducts.map((card) => (
-                <Card
-                  key={card._id}
-                  name={card.name}
-                  image={card.image}
-                  category={card.category[0]}
-                  description={card.description}
-                  price={card.price}
-                  id={card._id}
-                />
-              ))
+              displayedProducts
+                .filter((product) => product.enable) // Filtrar solo los productos con enable en true
+                .map((card) => (
+                  <Card
+                    key={card._id}
+                    name={card.name}
+                    image={card.image}
+                    category={card.category[0]}
+                    stock={card.stock}
+                    description={card.description}
+                    price={card.price}
+                    id={card._id}
+                  />
+                ))
             ) : (
               <p>No products found.</p>
             )}
           </div>
         </InfiniteScroll>
       </div>
+      <BackToTop />
     </div>
   );
 }

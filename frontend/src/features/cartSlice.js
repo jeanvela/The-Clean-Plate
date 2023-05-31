@@ -18,10 +18,19 @@ export const cartSlice = createSlice({
         state.cartItem[itemIndex].cartAmount += 1;
       } else {
         const tempProduct = { ...action.payload, cartAmount: 1 };
-        state.cartItem.push(tempProduct);
-        toast.success(`${action.payload.name} added succesfully`, {
-          position: "bottom-left",
-        });
+        if (state.cartItem.length < 2) {
+          state.cartItem.push(tempProduct);
+          toast.success(`${action.payload.name} added succesfully`, {
+            position: "bottom-left",
+          });
+        } else {
+          toast.info(
+            " Only two diferent items allowed at a time, leave some for the rest of us 🙂",
+            {
+              position: "bottom-left",
+            }
+          );
+        }
       }
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
@@ -52,11 +61,17 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
+    // logoutCartClear: (state, action) => {
+    //   state.cartItem = [];
+    //   toast.error("test", {
+    //     position: "bottom-left",
+    //   });
+    // },
     clearCart: (state, action) => {
       state.cartItem = [];
-      toast.error("Cart cleared", {
-        position: "bottom-left",
-      });
+      // toast.error("Cart cleared", {
+      //   position: "bottom-left",
+      // });
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
     getTotal: (state, action) => {
@@ -80,6 +95,12 @@ export const cartSlice = createSlice({
   },
   extraReducers: {},
 });
-export const { setCart, removeCartItem, decreaseAmount, clearCart, getTotal } =
-  cartSlice.actions;
+export const {
+  setCart,
+  removeCartItem,
+  decreaseAmount,
+  clearCart,
+  getTotal,
+  logoutCartClear,
+} = cartSlice.actions;
 export default cartSlice.reducer;

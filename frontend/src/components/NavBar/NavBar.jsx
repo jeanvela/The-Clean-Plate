@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+
 import { BsCart4 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,7 +12,6 @@ import SideBar from "../sideBar/SideBar";
 
 function NavBar() {
   let {
-    logout,
     isAuthenticated,
     loginWithPopup,
     user,
@@ -22,7 +21,7 @@ function NavBar() {
   const { amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const userRole = useSelector((state) => state.user.role);
-  const userId = useSelector((state) => state.idUser.user)
+  const userId = useSelector((state) => state.idUser.user);
 
   useEffect(() => {
     const getToken = (token) => {
@@ -39,12 +38,11 @@ function NavBar() {
   }, [isAuthenticated, user]);
 
   useEffect(() => {
-    console.log(email);
     if (isAuthenticated) {
       const token = localStorage.getItem("access_token");
       axios
         .post(
-          "http://localhost:3001/auth",
+          "/auth",
           { username: email },
           {
             headers: {
@@ -53,16 +51,10 @@ function NavBar() {
           }
         )
         .then((response) => {
-
-          console.log(response)
-          const role = (response.data.roles[0].name)
-          const id = response.data._id
+          const role = response.data.roles[0].name;
+          const id = response.data._id;
           dispatch(setUserRole(role));
-          console.log(role)
-
-          dispatch(setId(id))
-          console.log(id)
-
+          dispatch(setId(id));
         })
         .catch((error) => console.log(error));
     }
@@ -74,15 +66,13 @@ function NavBar() {
 
   return (
     <>
-      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400 ">
+      <div className="flex flex-row  justify-between items-center  bg-yellow-900 py-6 text-yellow-400  w-full  ">
         <div className="flex items-center">
-          <SideBar />
+          <SideBar email={email} />
           <Link to="/">
             <h2 className="font-normal text-2xl ml-4">The Clean Plate</h2>
           </Link>
         </div>
-
-        <SearchBar />
 
         <div className="container-links flex flex-row mr-4">
           <Link to="/">
@@ -102,18 +92,6 @@ function NavBar() {
               Products
             </div>
           </Link>
-
-          <Link to="/contact">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Contact
-            </div>
-          </Link>
-
-          <Link to="/createproduct">
-            <div className="mr-4 text-decoration-none rounded-lg hover:bg-yellow-700 ">
-              Form
-            </div>
-          </Link>
           <Link to="/cart">
             <div className=" mr-4 block relative">
               <BsCart4 className=" h-7 w-6" />
@@ -124,11 +102,6 @@ function NavBar() {
               </div>
             </div>
           </Link>
-          {isAuthenticated ? (
-            <button onClick={() => logout()}>Logout</button>
-          ) : (
-            <button onClick={() => handleLogin()}>Login</button>
-          )}
         </div>
       </div>
     </>

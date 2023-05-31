@@ -26,6 +26,9 @@ const productSchema = new Schema({
     },
     image: {
         type: String
+    },
+    enable: {
+        type: Boolean
     }
 })
 
