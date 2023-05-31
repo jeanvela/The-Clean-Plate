@@ -58,6 +58,7 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/products/:id" element={<CardDetail />} />
           <Route path="/categories/:id" element={<ProductByCategory />} />
+          <Route path="/Contact" element={<ContactUs />} />
 
           {enabled === false && (
             <>
