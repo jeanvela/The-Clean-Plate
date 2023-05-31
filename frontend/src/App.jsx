@@ -21,13 +21,14 @@ import OrderDashboard from "../src/components/Dashboard/Order";
 import About from "./components/views/About";
 import SpacePublications from "./components/views/SpacePublications";
 import BlockPage from "./components/views/BlockPage";
+import Loader from "./components/loader/loader";
 
 
 function App() {
   const userRole = useSelector((state) => state.user.role);
   const [enabled, setEnabled] = useState(null);
 
-  let { user } = useAuth0();
+  let { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     const checkEnable = async () => {
@@ -55,6 +56,7 @@ function App() {
           
           <Route path="/" element={<Home />} />
           <Route path="/Contact" element={<ContactUs />} />
+          <Route path="/CheckoutSuccess" element={isAuthenticated? <ChechOutSuccess/> : <Loader/>}/>
 
           { enabled === null && (
           <>
