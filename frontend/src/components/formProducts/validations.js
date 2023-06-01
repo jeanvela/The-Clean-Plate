@@ -25,8 +25,13 @@ export const validate = (values) => {
   } else if (values.origin !== "animal" && values.origin !== "plant") {
     errors.origin = "Origin must be 'animal' or 'plant'";
   }
-  // if (!values.image) {
-  //   errors.image = "Image URL is required";
-  // }
+  if (!values.image) {
+    errors.image = "Image URL is required";
+  }
+  if (!values.stock) {
+    errors.stock = "Stock is required";
+  } else if (values.stock < 0) {
+    errors.stock = "Stock must be greater than or equal to 0";
+  }
   return errors;
 };
