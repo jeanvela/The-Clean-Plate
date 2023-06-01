@@ -102,7 +102,11 @@ const CreateProduct = () => {
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);
-          alert("Product created successfully!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Product has been created',
+    
+          })
         })
         .catch((error) => {
           console.log(error);
