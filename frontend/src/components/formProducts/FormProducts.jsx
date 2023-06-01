@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGetCategoryQuery } from "../../features/productsApi";
 import axios from "axios";
 import { validate } from "./validations";
+import Swal from 'sweetalert2';
 
 const CreateProduct = () => {
   const categoriesQuery = useGetCategoryQuery();
@@ -102,7 +103,11 @@ const CreateProduct = () => {
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);
-          alert("Product created successfully!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Product has been created',
+    
+          })
         })
         .catch((error) => {
           console.log(error);

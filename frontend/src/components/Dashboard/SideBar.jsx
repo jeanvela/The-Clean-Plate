@@ -14,7 +14,7 @@ const SideBar = () => {
             <Link to="/Dashboard">
             <div className="flex items-center gap-4 text-gray-500 hover:bg-yellow-200 p-4 hover:text-black rounded-lg transition-colors">
               <RiDashboardLine/>
-              Order
+              Orders
             </div>
           </Link>
             </li>
