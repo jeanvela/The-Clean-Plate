@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useGetCategoryQuery } from "../../features/productsApi";
 import axios from "axios";
 import { validate } from "./validations";
-import Swal from 'sweetalert2';
 
 const CreateProduct = () => {
   const categoriesQuery = useGetCategoryQuery();
@@ -103,11 +102,7 @@ const CreateProduct = () => {
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);
-          Swal.fire({
-            icon: 'success',
-            title: 'Product has been created',
-    
-          })
+          alert("Product created successfully!");
         })
         .catch((error) => {
           console.log(error);
@@ -121,7 +116,38 @@ const CreateProduct = () => {
     <div className="max-w-lg mx-auto">
       <section className="flex items-center justify-center flex-col h-screen">
         <form onSubmit={handleSubmit} className="w-full">
-          {/* ...Código omitido para mayor claridad... */}
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Name:
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              name="name"
+              autoComplete="off"
+              placeholder="Product name..."
+              value={completed.name}
+              onChange={handleChange}
+            />
+            {errors.name && <span className="text-red-500">{errors.name}</span>}
+          </div>
+
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
+              Price:
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="number"
+              name="price"
+              placeholder="Product price..."
+              value={completed.price}
+              onChange={handleChange}
+            />
+            {errors.price && (
+              <span className="text-red-500">{errors.price}</span>
+            )}
+          </div>
 
           <div className="flex flex-wrap -mx-3 mb-6 w-full">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -141,7 +167,84 @@ const CreateProduct = () => {
             )}
           </div>
 
-          {/* ...Código omitido para mayor claridad... */}
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
+              Origin:
+            </label>
+            <select
+              name="origin"
+              onChange={handleChange}
+              value={completed.origin}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            >
+              <option>Choose</option>
+              <option value="animal">Animal</option>
+              <option value="plant">Plant</option>
+            </select>
+            {errors.origin && (
+              <span className="text-red-500">{errors.origin}</span>
+            )}
+          </div>
+
+          <div className="relative flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
+              Categories:
+            </label>
+            <select
+              name="category"
+              onChange={handleCategories}
+              value={completed.category
+                .map((category) => category.name)
+                .join(",")}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            >
+              <option value="choose">Choose</option>
+              {categoriesQuery.data &&
+                categoriesQuery.data.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
+            {errors.category && (
+              <span className="text-red-500">{errors.category}</span>
+            )}
+          </div>
+
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Description:
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              name="description"
+              placeholder="Description..."
+              value={completed.description}
+              onChange={handleChange}
+            />
+            {errors.description && (
+              <span className="text-red-500">{errors.description}</span>
+            )}
+          </div>
+
+          <div className="flex flex-wrap -mx-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Image:
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              placeholder="Url..."
+              type="file"
+              id="image"
+              name="image"
+              value={completed.image}
+              onChange={handleChange}
+            />
+            {errors.image ? (
+              <label className="text-red-500">{errors.image}</label>
+            ) : null}
+          </div>
 
           <div className="flex items-center justify-center">
             <div>
