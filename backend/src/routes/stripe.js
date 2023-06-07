@@ -1,6 +1,6 @@
 const Stripe = require("stripe");
 require("dotenv").config();
-const stripe = Stripe(process.env.STRIPE_KEY);
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const express = require("express");
 const { Router } = require("express");
 const router = Router();
@@ -90,7 +90,7 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
       //! success_url: "https://frontend-pf-seven.vercel.app/#/CheckoutSuccess",
       //! cancel_url: "https://frontend-pf-seven.vercel.app/#/cart",
     });
-    // console.log("session console", session);
+    console.log("session console", session);
     res.send({ url: session.url });
   } catch (error) {
     console.log(error);

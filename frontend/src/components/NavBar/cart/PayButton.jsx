@@ -1,11 +1,26 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+// import getStripe from "./getStripe";
 function PayButton({ item }) {
   const idUser = useSelector((state) => state.idUser);
   const userId = idUser.user;
   // console.log(userId);
-  const handleCheckOut = () => {
+  const handleCheckOut = async () => {
+    // const stripe = await getStripe();
+
+    // const response = await fetch("/stripe/stripe/create-checkout-session", {
+    //   method: "post",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: {
+    //     item,
+    //     userId,
+    //   },
+    // });
+    // const data = await response;
+    // stripe.redirectToCheckout({ sessionId: data.id });
+
     axios
       .post("/stripe/stripe/create-checkout-session", {
         item,

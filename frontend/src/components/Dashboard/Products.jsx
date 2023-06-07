@@ -84,7 +84,7 @@ const ProductsDashboard = () => {
 
   const updateStock = async (idProduct, action) => {
     try {
-      await axios.patch(`/stock/${idProduct}`, { action });
+      await axios.patch(`/products/stock/${idProduct}`, { action });
       const response = await axios.get("/products");
       const products = response.data;
       const updatedStock = products;
