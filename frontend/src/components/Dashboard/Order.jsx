@@ -14,11 +14,11 @@ const OrderDashboard = () => {
 
   return (
     <>
-      <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+      <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">
-              Ordes
+              Orders
             </h1>
             {ordes &&
               ordes.map((e) => (
@@ -83,7 +83,7 @@ const OrderDashboard = () => {
                   <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0"></div>
                   <div className={style.total}>
                     <p className={style.p}>Total:</p>
-                    <p className={style.span_id}>${e.total}</p>
+                    <p className={style.span_id}>${(e.total / 100)}</p>
                   </div>
                 </div>
               ))}

@@ -102,7 +102,11 @@ const CreateProduct = () => {
         .then(() => {
           setCreate(!create);
           setCompleted(initialState);
-          alert("Product created successfully!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Product has been created',
+    
+          })
         })
         .catch((error) => {
           console.log(error);
@@ -159,9 +163,12 @@ const CreateProduct = () => {
               type="number"
               id="stock"
               name="stock"
-              checked={completed.stock}
+              value={completed.stock}
               onChange={handleChange}
             />
+            {errors.stock && (
+              <span className="text-red-500">{errors.stock}</span>
+            )}
           </div>
 
           <div className="relative flex flex-wrap -mx-3 mb-6 w-full">

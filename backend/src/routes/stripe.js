@@ -97,13 +97,18 @@ router.post("/create-checkout-session", express.json(), async (req, res) => {
   }
 });
 
-// const success = (status, res) => {
-//   res.send(status);
-//   console.log("*******", status);
-// };
-// router.get("/success", success);
+//get stripe: status paid
+router.get("/success", async (req, res) => {
+  const { id } = req.query;
+  try{
+    const session = await stripe.checkout.sessions.retrieve(id);
+    //console.log("====", session.payment_status, "====");
+    res.json({status: session.payment_status});
+  }catch(error){
+    res.status(500).json({error: error.message});
+  }
+});
 
-//successe response
 
 //stripe webhook
 
@@ -134,11 +139,6 @@ router.post(
           createOrder(customer, data);
           stockUpdateDb(customer);
         })
-
-        // .then(() => {
-        //   const status = data.payment_status;
-        //   success(status);
-        // })
         .catch((error) => console.log(error.message));
     }
 

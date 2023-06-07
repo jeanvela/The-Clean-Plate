@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import PayButton from "./PayButton";
+import { toast } from "react-toastify";
 
 import {
   decreaseAmount,
@@ -29,7 +30,14 @@ function Cart() {
     dispatch(decreaseAmount(cartItem));
   };
   const handleIncrement = (cartItem) => {
-    dispatch(setCart(cartItem));
+    if(cartItem.stock===cartItem.cartAmount){
+      toast.error("we are trully sorry, there is no more stock left 😔", {
+        position: "bottom-left",
+      });
+    } else {
+      dispatch(setCart(cartItem));
+    }
+
   };
   const handelClearCart = () => {
     dispatch(clearCart());
